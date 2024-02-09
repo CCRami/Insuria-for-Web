@@ -1,0 +1,32 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  06. brand CSS START
+/*----------------------------------------*/
+
+.tp-brand-area{
+    clear: both;
+}
+
+.tp-brand-item {
+    text-align: center;
+    & img{
+        display: inline-block;
+    }
+}
+.tp-brand-title {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--tp-common-black);
+}
+.tp-brand-left-item{
+   & .tp-brand-item {
+        text-align: left;
+        @media #{$xs}{
+            text-align: center;
+        }
+        & img{
+            display: inline-block;
+        }
+    }
+}

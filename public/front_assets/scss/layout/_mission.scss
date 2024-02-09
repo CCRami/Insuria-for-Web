@@ -1,0 +1,179 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  15. mission CSS START
+/*----------------------------------------*/
+
+.tp-mission-tab {
+    margin-bottom: 80px;
+    @media #{$md}{
+        margin-bottom: 40px;
+    }
+    @media #{$xs}{
+        margin-bottom: 10px;
+    }
+    & button {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--tp-common-black);
+        padding: 30px 50px;
+        border: 1px solid var(--tp-border-1);
+        position: relative;
+        transition: .4s;
+        line-height: 1;
+        border-top: 0;
+        @media #{$md}{
+            font-size: 15px;
+            padding: 20px 10px;
+        }
+        @media #{$xs}{
+            font-size: 15px;
+            padding: 15px 15px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        &::after {
+            position: absolute;
+            height: auto;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+            content: "";
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-out 0s;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid var(--tp-theme-1)
+        }
+
+        &:hover {
+            background-color: var(--tp-theme-1);
+            color: var(--tp-common-white);
+
+            &::after {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+.tp-mission-wrapper{
+    padding: 80px 90px;
+    padding-top: 0;
+    background-color: var(--tp-common-white);
+    @media #{$xl}{
+        padding: 80px 55px;
+        padding-top: 0;
+    }
+    @media #{$lg}{
+        padding: 50px 50px;
+        padding-top: 0;
+    }
+    @media #{$md}{
+        padding: 50px 50px;
+        padding-top: 0;
+    }
+    @media #{$xs}{
+        padding: 10px 10px;
+        padding-top: 0;
+    }
+}
+.tpmission {
+    &__info {
+        & p {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 26px;
+            color: #747474;
+            padding-bottom: 25px;
+            padding-right: 30px;
+            @media #{$lg}{
+                padding-bottom: 5px;
+            }
+            @media #{$md}{
+                padding-bottom: 0px;
+            }
+        }
+    }
+    &__thumb{
+        & img{
+            border-radius: 10px;
+        }
+    }
+
+    &__list {
+        & ul{
+            & li{
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 29px;
+                color: #1C1C1C;
+                padding-left: 40px;
+                position: relative;
+                padding-bottom: 15px;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+                & i{
+                    position: absolute;
+                    top: 2px;
+                    left: 0;
+                    height: 24px;
+                    width: 24px;
+                    background-color: var(--tp-theme-1);
+                    border-radius: 50%;
+                    line-height: 24px;
+                    color: var(--tp-common-white);
+                    text-align: center;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+
+.tp-mission-title {
+    padding-bottom: 25px;
+    color: var(--tp-common-black);
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    @media #{$lg}{
+        padding-bottom: 10px;
+        font-size: 35px;
+    }
+    @media #{$md}{
+        padding-bottom: 0px;
+        font-size: 40px;
+    }
+    @media #{$xs}{
+        padding-bottom: 10px;
+        font-size: 27px;
+        & br{
+            display: none;
+        }
+    }
+}
+.tp-mission-tab{
+    & button{
+        &.active{
+            background-color: var(--tp-theme-1);
+            color: var(--tp-common-white);
+            &::after{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+.misssion-black-bg{
+    background-color: var(--tp-common-black);
+    height: 280px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

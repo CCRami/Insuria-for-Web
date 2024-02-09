@@ -1,0 +1,85 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?7b9c2a59c87e25775b6f597c51cd417b") format("truetype"),
+url("./flaticon.woff?7b9c2a59c87e25775b6f597c51cd417b") format("woff"),
+url("./flaticon.woff2?7b9c2a59c87e25775b6f597c51cd417b") format("woff2"),
+url("./flaticon.eot?7b9c2a59c87e25775b6f597c51cd417b#iefix") format("embedded-opentype"),
+url("./flaticon.svg?7b9c2a59c87e25775b6f597c51cd417b#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "protection": "\f101",
+    "healthy-life": "\f102",
+    "health-insurance": "\f103",
+    "property": "\f104",
+    "insurance": "\f105",
+    "study": "\f106",
+    "family": "\f107",
+    "risk-management": "\f108",
+    "phone-receiver-silhouette": "\f109",
+    "envelope": "\f10a",
+    "maps-and-flags": "\f10b",
+    "right-arrow": "\f10c",
+    "left-arrow": "\f10d",
+    "right-arrow-1": "\f10e",
+    "right-arrows": "\f10f",
+);
+
+.flaticon-protection:before {
+    content: map-get($flaticon-map, "protection");
+}
+.flaticon-healthy-life:before {
+    content: map-get($flaticon-map, "healthy-life");
+}
+.flaticon-health-insurance:before {
+    content: map-get($flaticon-map, "health-insurance");
+}
+.flaticon-property:before {
+    content: map-get($flaticon-map, "property");
+}
+.flaticon-insurance:before {
+    content: map-get($flaticon-map, "insurance");
+}
+.flaticon-study:before {
+    content: map-get($flaticon-map, "study");
+}
+.flaticon-family:before {
+    content: map-get($flaticon-map, "family");
+}
+.flaticon-risk-management:before {
+    content: map-get($flaticon-map, "risk-management");
+}
+.flaticon-phone-receiver-silhouette:before {
+    content: map-get($flaticon-map, "phone-receiver-silhouette");
+}
+.flaticon-envelope:before {
+    content: map-get($flaticon-map, "envelope");
+}
+.flaticon-maps-and-flags:before {
+    content: map-get($flaticon-map, "maps-and-flags");
+}
+.flaticon-right-arrow:before {
+    content: map-get($flaticon-map, "right-arrow");
+}
+.flaticon-left-arrow:before {
+    content: map-get($flaticon-map, "left-arrow");
+}
+.flaticon-right-arrow-1:before {
+    content: map-get($flaticon-map, "right-arrow-1");
+}
+.flaticon-right-arrows:before {
+    content: map-get($flaticon-map, "right-arrows");
+}

@@ -1,0 +1,406 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  18. team CSS START
+/*----------------------------------------*/
+
+.tp-team-item{
+    background-color: var(--tp-common-white);
+    &__thumb{
+        padding: 20px;
+        margin-bottom: 10px;
+        & img{
+            width: 100%;
+            border-radius: 15px;
+        }
+    }
+    &__content{
+        padding: 20px;
+        & a{
+            &:hover{
+                color: var(--tp-theme-1);
+                transition: .3s;
+            }
+        }
+        & span{
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;          
+            color: #747474;
+        }
+    }
+    &__icon{
+        border-top: 1px solid var(--tp-border-1);
+        & a{
+            font-weight: 900;
+            font-size: 18px;
+            color: #9C96A4;
+            text-align: center;
+            transition: .3s;
+            margin: 0px -2px;
+            &:hover{
+                &.team-bg-color-1{
+                    background-color: var(--tp-theme-1);
+                    color: var(--tp-common-white);
+                    border-color: var(--tp-theme-1);
+                }
+                &.team-bg-color-2{
+                    background-color: var(--tp-theme-2);
+                    color: var(--tp-common-white);
+                    border-color: var(--tp-theme-2);
+                }
+            }
+        }
+    }
+}
+.tp-team-title{
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--tp-common-black);
+    text-transform: capitalize;
+}
+.team-border-right{
+    border-right: 1px solid var(--tp-border-1);
+    display: inline-block;
+}
+.team-bg-color-1{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 65px;
+    width: 50%;
+}
+.team-bg-color-2{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 65px;
+    width: 50%;
+}
+.tp-team-slider-active{
+    & .slick-slide{
+        padding: 0px 15px;
+        @media #{$xs}{
+            padding: 0px 0px;
+        }
+    }
+    & button{
+        height: 65px;
+        width: 65px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 65px;
+        background-color: var(--tp-common-white);
+        border: 1px solid var(--tp-border-1);
+        transition: .3s;
+        &:hover{
+            background-color: var(--tp-theme-1);
+            border-color: var(--tp-theme-1);
+            & i{
+                color: var(--tp-common-white);
+            }
+        }
+        & i{
+            font-weight: 400;
+            font-size: 17px;
+            color: var(--tp-common-black);
+            transition: .3s;
+        }
+    }
+    & .slick-prev{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: -80px;
+        z-index: 9;
+        @media #{$xxl}{
+            left: 0;
+        }
+    }
+    & .slick-next{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: -80px;
+        z-index: 9;
+        @media #{$xxl}{
+            right: 0;
+        }
+    }
+}
+.team-contact{
+    & a{
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 29px;      
+        color: #747474;
+        @media #{$xs}{
+            font-size: 16px;
+        }
+        & b{
+            color: var(--tp-theme-1);
+            & i{
+                padding-left: 10px;
+            }
+        }       
+    }
+}
+
+.feature-bottom-space {
+	padding-bottom: 220px;
+	@media #{$xs,$md} {
+		padding-bottom: 90px;
+	}
+}
+
+.amfeature {
+	padding-top: 50px;
+	@media #{$xs} {
+		padding-left: 0px;
+	}
+	&__item {
+		& p {
+			font-size: 15px;
+			line-height: 26px;
+		}
+	}
+
+	&__title {
+		& p {
+			font-size: 16px;
+		}
+	}
+
+	&__list {
+		& ul {
+			& li {
+				color: var(--tp-common-black);
+				font-size: 15px;
+				font-weight: 500;
+				position: relative;
+				padding-left: 30px;
+				padding-bottom: 5px;
+
+				& i {
+					color: #726FFC;
+					font-weight: 500;
+					position: absolute;
+					left: 0;
+					top: 6px;
+				}
+			}
+		}
+	}
+}
+
+.amskill {
+	&__title {
+		& p {
+			font-size: 16px;
+			line-height: 26px;
+		}
+	}
+}
+.ac-ab-img{
+    margin-right: 50px;
+    @media #{$lg} {
+        margin-right: 30px;
+    }
+    @media #{$md,$xs} {
+        margin-right: 0px;
+        margin-bottom: 30px;
+    }
+    & img{
+        border-radius: 15px;
+        @media #{$md,$xs} {
+            width: 100%;
+        }    
+    }
+}
+.am-skill-title {
+	font-size: 30px;
+	color: var(--tp-common-black);
+	font-weight: 500;
+	padding-bottom: 25px;
+}
+
+.am-skill-sm-title {
+	font-size: 24px;
+	font-weight: 500;
+	color: var(--tp-common-black);
+	padding-bottom: 20px;
+}
+
+.am-contact-title {
+	font-size: 24px;
+	color: var(--tp-common-black);
+	font-weight: 500;
+	position: relative;
+	overflow: hidden;
+	background-color: var(--tp-common-white);
+	padding-right: 90px;
+	display: inline-block;
+	margin-bottom: 0;
+	@media #{$xs} {
+		font-size: 23px;
+	}
+}
+
+.am-border-shape {
+	position: absolute;
+	height: 1px;
+	background-color: #F4F6FB;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	display: inline-block;
+	z-index: -1;
+}
+
+.contact-form {
+	background-color:  #F9F9F9;
+	border-radius: 20px;
+	padding: 80px;
+	@media #{$md} {
+		padding: 30px;
+	}
+	@media #{$xs} {
+		padding: 10px;
+	}
+	& .input {
+		& input {
+			width: 100%;
+			height: 65px;
+			border-radius: 5px;
+			border: none;
+			padding: 0px 20px;
+			border-radius: 5px;
+			margin-bottom: 30px;
+            color: var(--tp-common-black);
+			&::placeholder {
+				color: #8A90A2;
+				font-size: 15px;
+				font-weight: 400;
+			}
+		}
+	}
+	& .textarea {
+		& textarea{
+			width: 100%;
+			height: 180px;
+			padding: 30px 20px;
+			border: 0;
+			outline: 0;
+			resize: none;
+			border-radius: 5px;
+			margin-bottom: 30px;
+            color: var(--tp-common-black);
+			&::placeholder {
+				color: #8A90A2;
+				font-size: 15px;
+				font-weight: 400;
+			}
+		}
+	}
+}
+.am-contact-info {
+	margin-bottom: 35px;
+}
+.amaboutinfo{
+    &__client-info{
+        & span{
+            color: var(--tp-theme-1);
+            margin-bottom: 40px;
+            display: inline-block;
+            @media #{$lg} {
+                margin-bottom: 20px;
+            }
+        }
+        & p{
+            padding-bottom: 25px;
+            padding-right: 305px;
+            @media #{$lg} {
+                padding-right: 30px;
+                padding-bottom: 5px;
+            }
+            @media #{$xs} {
+                padding-right: 0px;
+                padding-bottom: 5px;
+            }
+        }
+    }
+    &__experience{
+        padding-bottom: 60px;
+        @media #{$lg} {
+            padding-bottom: 30px;
+        }
+        & p{
+            & b{
+                color: var(--tp-common-black);
+                font-weight: 400;
+            }
+        }
+    }
+    &__social{
+        & a{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--tp-border-1);
+            text-align: center;
+            line-height: 50px;
+            display: inline-block;
+            color: rgba(0, 0, 0, .25);
+            font-size: 16px;
+            font-weight: 600;
+            transition: .3s;
+            margin-right: 15px;
+            @media #{$lg} {
+                margin-right: 6px;
+            }
+            @media #{$xs} {
+                margin-right: 8px;
+            }
+            &:hover{
+                background-color: var(--tp-theme-1);
+                color: var(--tp-common-white);
+                border-color: var(--tp-theme-1);
+            }
+        }
+    }
+}
+.ac-client-name {
+	font-size: 24px;
+	color: var(--tp-common-black);
+	font-weight: 700;
+}
+.am-p-space-1{
+	padding-bottom: 25px;
+	padding-right: 80px;
+	@media #{$xl} {
+		padding-right: 20px;
+	}
+	@media #{$lg,$xs} {
+		padding-right: 0px;
+	}
+}
+.am-p-space-2{
+	padding-bottom: 25px;
+	padding-right: 90px;
+	@media #{$xl} {
+		padding-right: 20px;
+	}
+	@media #{$lg,$xs} {
+		padding-right: 0px;
+	}
+}
+.am-p-space-3{
+	padding-bottom: 25px;
+	padding-right: 90px;
+	@media #{$xl} {
+		padding-right: 10px;
+	}
+	@media #{$lg,$xs} {
+		padding-right: 0px;
+	}
+}

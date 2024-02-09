@@ -1,0 +1,115 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  14. cta CSS START
+/*----------------------------------------*/
+.tp-cta-wrapper{
+    @media #{$md,$xs}{
+        flex-wrap: wrap;
+    }
+}
+.tp-cta-bg {
+    padding: 55px 70px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media #{$md}{
+        padding: 40px 40px; 
+    }
+    @media #{$xs}{
+        padding: 20px 20px; 
+    }
+    &::after {
+        width: 100%;
+        height: 100%;
+        content: '';
+        background-color: rgba(19, 32, 56, .7);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.tp-cta-title {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 105.5%;
+    letter-spacing: -0.01em;
+    color: var(--tp-common-white);
+    @media #{$xl}{
+        font-size: 33px;
+    }
+    @media #{$md}{
+        margin-bottom: 20px;
+    }
+    @media #{$xs}{
+        font-size: 27px;
+        margin-bottom: 15px;
+    }
+}
+.tp-cta-content {
+    @media #{$md}{
+        margin-bottom: 15px;
+    }
+}
+.tp-cta-button a {
+    @media #{$xs}{
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+    @media #{$sm}{
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+}
+.tp-cta-bg-2{
+    padding: 60px;
+    @media #{$xs}{
+        padding: 15px;
+    }
+}
+.cta-space-area{
+    margin-left: 80px;
+    margin-right: 80px;
+    @media #{$md,$xs}{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+.tp-cta-wrapper2{
+    background-color: var(--tp-common-white);
+    padding: 85px 160px;
+    border-radius: 20px;
+    @media #{$xxl}{
+        padding: 85px 75px;
+    }
+    @media #{$xl}{
+        padding: 58px 50px;
+    }
+    @media #{$lg}{
+        padding: 50px 60px;
+    }
+    @media #{$md}{
+        flex-wrap: wrap;
+        padding: 26px 40px;
+    }
+    @media #{$xs}{
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+}
+.cta-button-space{
+    & a{
+        margin-top: 20px;
+    }
+}
+.tp-cta-content{
+    @media #{$md}{
+        & .tp-cta-title{
+            margin-bottom: 0;
+        }
+    }
+}

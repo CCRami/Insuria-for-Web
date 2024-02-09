@@ -1,0 +1,14 @@
+
+// font url
+
+$font-url: 'https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap';
+
+// font family
+$font-family: (
+    ff: (
+        body: "'Archivo', sans-serif;",
+        heading: "'Archivo', sans-serif;",
+        p: "'Archivo', sans-serif;",
+        fontawesome:"Font Awesome 5 Pro",
+    )
+);

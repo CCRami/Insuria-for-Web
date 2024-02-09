@@ -1,0 +1,226 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  19. footer CSS START
+/*----------------------------------------*/
+
+.tpfooter {
+    padding-bottom: 35px;
+    border-bottom: 1px solid #253450;
+    @media #{$xs}{
+        flex-wrap: wrap;
+    }
+    &__social {
+        & a {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: #132038;
+            line-height: 50px;
+            color: var(--tp-common-white);
+            display: inline-block;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            transition: .4s;
+            margin-left: 8px;
+            @media #{$xs}{
+                margin-left: 0;
+                margin-right: 8px;
+                margin-top: 20px;
+            }
+            &:hover {
+                background-color: var(--tp-theme-1);
+                color: var(--tp-common-white);
+            }
+        }
+    }
+}
+
+.tp-footer-title {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: var(--tp-common-white);
+    padding-bottom: 20px;
+}
+.tp-footer-widget{
+    &__list{
+        & ul{
+            & li{
+               & a{
+                   color: #A3A6AE;
+                   font-weight: 500;
+                   font-size: 15px;
+                   line-height: 32px;
+                   transition: .3s;
+                   &:hover{
+                    color: var(--tp-theme-2);
+                   }
+                }
+            }
+        }
+    }
+    &__input{
+        & input{
+            width: 100%;
+            height: 55px;
+            border-radius: 67px;
+            border: 0;
+            background-color: #132038;
+            color: var(--tp-common-white);
+            padding-left: 20px;
+            padding-right: 180px;
+            margin-bottom: 20px;
+            position: relative;
+            @media #{$xs}{
+                margin-bottom: 20px;
+                padding-right: 20px;
+            }
+            &::placeholder{
+                color: #475063;
+            }
+        }
+        & button{
+            position: absolute;
+            top: 0;
+            right: 0;
+            @media #{$xs}{
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+        & label{
+            display: flex;
+            color: var(--tp-common-white);
+            & span{
+                color: var(--tp-common-white);
+                @media #{$xl}{
+                    font-size: 13px;
+                }
+                @media #{$lg}{
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+    &__check-box{
+       & .form-check-input {
+            margin-top: 6px;
+        }
+    }
+
+}
+.footer-widget-space{
+    padding-top: 60px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #253450 ;
+}
+.footer-space-2{
+    padding-left: 55px;
+    @media #{$xl}{
+        padding-left: 30px;
+    }
+    @media #{$lg,$md,$xs}{
+        padding-left: 0px;
+    }
+}
+.footer-space-3{
+    padding-left: 85px;
+    @media #{$xl}{
+        padding-left: 50px;
+    }
+    @media #{$lg,$md,$xs}{
+        padding-left: 0px;
+    }
+}
+.footer-space-4{
+    padding-left: 65px;
+    @media #{$xl}{
+        padding-left: 30px;
+    }
+    @media #{$lg,$md,$xs}{
+        padding-left: 0px;
+    }
+}
+.tp-copyright-left{
+    & span{
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 35px;
+        color: var(--tp-common-white);
+        @media #{$xs}{
+            font-size: 14px;
+        }
+    }
+}
+.tp-copyright-right{
+    & button{
+        color: var(--tp-common-white);
+        & i{
+            margin-left: 10px;
+            font-weight: 400;
+            font-size: 16px;
+            color: var(--tp-theme-1);
+        }
+    }
+}
+.tp-footer-shape-1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.tp-copyright-wrapper{
+    @media #{$xs}{
+        flex-wrap: wrap;
+    }
+}
+.footer-widget-black-border{
+    border-color: var(--tp-border-1);
+}
+.tp-footer-widget-2{
+    & .tp-footer-widget__list{
+        & ul{
+            & li{
+                & a{
+                    color: #747474;
+                    font-weight: 400;
+                    font-size: 15px;
+                    &:hover{
+                        color: var(--tp-theme-1);
+                    }
+                }
+            }
+        }
+    }
+}
+.news-letter-boxsadow{
+    box-shadow: 0px 10px 21px rgba(0, 0, 0, 0.05);
+    background-color: var(--tp-common-white);
+    padding: 35px;
+    @media #{$xs}{
+        padding: 15px;
+    }
+    & input{
+        margin-bottom: 0;
+        margin-bottom: 30px;
+        background: #F9F9F9;
+        border: 1px solid #F5F5F5;
+        &::placeholder{
+            color: #747474;
+        }
+    }
+}
+.footer-space-5{
+    padding-left: 50px;
+    @media #{$xl,$lg,$md,$xs}{
+        padding-left: 0;
+    }
+}
+.tp-footer-area{
+    @media #{$xs}{
+        padding-top: 100px;
+    }   
+}

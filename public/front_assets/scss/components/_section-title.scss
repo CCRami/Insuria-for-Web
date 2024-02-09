@@ -1,0 +1,66 @@
+@use '../utils' as *;
+
+.tp-slider-title {
+    color: var(--tp-common-white);
+    font-weight: 700;
+    font-size: 80px;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: 35px;
+    @media #{$lg}{
+		font-size: 60px;
+    }
+    @media #{$md}{
+		font-size: 55px;
+        margin-bottom: 15px;
+    }
+    @media #{$xs}{
+        font-size: 35px;
+        margin-bottom: 20px;
+        & br{
+            display: none;
+        }
+    }
+}
+.tp-section-subtitle{
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--tp-theme-2);
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: inline-block;
+    letter-spacing: -0.02em;
+    &::before{
+        content: '';
+        height: 12px;
+        width: 12px;
+        background-color: var(--tp-theme-2);
+        display: inline-block;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+}
+.tp-section-title{
+    font-weight: 600;
+    font-size: 55px;
+    line-height: 105.5%;  
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    @media #{$lg}{
+		font-size: 45px;
+    }
+    @media #{$md}{
+		font-size: 40px;
+    }
+    @media #{$xs}{
+		font-size: 30px;
+        & br{
+            display: none;
+        }
+    }
+    & span{
+        color: var(--tp-theme-1);
+    }
+}
+

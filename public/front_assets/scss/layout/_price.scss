@@ -1,0 +1,112 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  17. price CSS START
+/*----------------------------------------*/
+
+.tpprice{
+        border: 1px solid var(--tp-border-1);
+        padding: 40px 60px;
+        @media #{$xl}{
+            padding: 40px 35px;
+        }
+        @media #{$lg}{
+            padding: 30px 28px;
+        }
+        @media #{$md}{
+            padding: 40px 50px;
+        }
+        @media #{$xs}{
+            padding: 30px 30px;
+        }
+        &__badge{
+            background-color: var(--tp-common-black);
+            height: 30px;
+            line-height: 30px;
+            color: var(--tp-common-white);
+            text-transform: uppercase;
+            & span{
+                font-size: 12px;
+                font-weight: 700;
+            }
+        }
+        &__info{
+            & p{
+                padding-bottom: 15px;
+            }
+        }
+        &__meta{
+            & span{
+                font-size: 45px;
+                font-weight: 500;
+                color: var(--tp-common-black);
+                margin-bottom: 35px;
+                display: inline-block;
+            }
+        }
+        &__list{
+             & ul{
+                margin-bottom: 40px;
+                & li{
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: var(--tp-theme-3);
+                    position: relative;
+                    padding-left: 30px;
+                    margin-bottom: 7px;
+                    @media #{$lg}{
+                        font-size: 15px;
+                        padding-left: 25px;
+                    }
+                    @media #{$md,$xs}{
+                        font-size: 14px;
+                        padding-left: 25px;
+                    }
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                    & i{
+                        color: var(--tp-common-green);
+                        position: absolute;
+                        top: 5px;
+                        left: 0;
+                    }
+                }
+             }
+        }
+     &__product{
+        & img{
+            border-radius: 6px;
+        }
+     }   
+}
+.tp-price-title{
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.tp-price-wrapper.active{
+    margin-left: -1px;
+    margin-right: -1px;
+    box-shadow:0px 41px 49px rgba(117, 122, 143, 0.12);
+    & .tpprice{
+        border-color: var(--tp-theme-1);
+        position: relative;
+    }
+    & .tp-btn-black{
+        background-color: var(--tp-theme-1);
+    }
+    & .tpprice__badge{
+        background-color: var(--tp-theme-1);
+    }
+    & .tpprice__list{
+        & ul{
+           & li{
+               & i{
+                 color: var(--tp-theme-1);
+               }
+           }
+        }
+   }
+}
+

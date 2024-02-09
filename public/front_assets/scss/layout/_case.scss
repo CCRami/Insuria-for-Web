@@ -1,0 +1,207 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  10. contact CSS START
+/*----------------------------------------*/
+
+.tpcaseitem{
+    position: relative;
+    @media #{$md,$xs}{
+        margin-top: 0;
+    }
+    &__thumb{
+        border-radius: 20px;
+        & img{
+            border-radius: 20px;
+            transform: scale(1);
+            transition: 1.4s;
+            width: 100%;
+        }
+    }
+    &__content{
+        background-color: var(--tp-theme-1);
+        border-radius: 10px;
+        position: absolute;
+        bottom: 0px;
+        left: 50px;
+        right: 50px;
+        transition: .5s;
+        opacity: 0;
+        visibility: hidden;
+        transition-delay: 0.5s;
+        -moz-transform: scaleY(0);
+        -o-transform: scaleY(0);
+        -ms-transform: scaleY(0);
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+        -moz-transition: all 400ms ease-out 0s;
+        -webkit-transition: all 400ms ease-out 0s;
+        -ms-transition: all 400ms ease-out 0s;
+        -o-transition: all 400ms ease-out 0s;
+        transition: all 400ms ease-out 0s;
+        @media #{$xs}{
+            left: 25px;
+            right: 25px;
+        }
+    }
+    &:hover{
+        & .tpcaseitem__thumb{
+            & img{
+                transform: scale(1.1) rotate(3deg);
+            }
+        }
+        & .tpcaseitem__content{
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+            -moz-transform: scaleY(1);
+            -o-transform: scaleY(1);
+            -ms-transform: scaleY(1);
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            bottom: 30px;
+        } 
+    }
+}
+.mix-blend-mode{
+    & .tpcaseitem__thumb{
+        background-color: var(--tp-common-black);
+        & img{
+            mix-blend-mode: luminosity;
+        }
+       }   
+}
+.tpcase-info{
+    padding: 30px 70px 30px 30px;
+    & a{
+        transition: .4s;
+        &:hover{
+            color: var(--tp-common-white);
+            opacity: .7;
+        }
+    }
+}
+.tp-case-icon{
+    position: absolute;
+    right: 30px;
+    top: 40%;
+    & i{
+        font-weight: 400;
+        font-size: 24px;
+        color: var(--tp-common-white);
+        transition: .4s;
+        &:hover{
+            color: var(--tp-common-white);
+            opacity: .7;
+        }
+    }
+}
+.tp-case-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--tp-common-white);
+    line-height: 1.3;
+    @media #{$lg}{
+        & br{
+            display: none;
+        }
+    }
+    @media #{$md}{
+        font-size: 17px;
+        & br{
+            display: none;
+        }
+    }
+    @media #{$xs}{
+        font-size: 17px;
+        & br{
+            display: none;
+        }
+    }
+}
+.tp-case-slider-box{
+    & .slick-slide{
+        padding: 0px 15px;
+    }
+}
+
+.tp-portfolio{
+    &__wrapper{
+        background-color: var(--tp-grey-2);
+        padding: 50px;
+        border-radius: 15px;
+        @media #{$xs}{
+            padding: 35px;
+        }
+    }
+    &__thumb{
+        & img{
+            border-radius: 20px;
+            margin-bottom: 50px;
+        }
+    }
+    &__client-info{
+        & span{
+            display: block;
+            margin-bottom: 30px;
+            color: rgba(34, 34, 34, 0.808);
+            & b{
+                font-size: 16px;
+                color: var(--tp-common-black);
+            }
+        }
+    }
+    &__content{
+        & p{
+            font-size: 16px;
+            line-height: 32px;
+            padding-bottom: 34px;
+        }
+    }
+    &__social{
+        & a{
+            height: 40px;
+            width: 40px;
+            border: 1px solid  rgba(34, 34, 34, 0.059);;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: .3s;
+            &:hover{
+                background-color: var(--tp-theme-1);
+                border-color: var(--tp-theme-1);
+                color: var(--tp-common-white);
+            }
+        }
+    }
+}
+.tp-portfolio-title{
+    font-size: 35px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+.tp-case-tab-button{
+    & button{
+        font-size: 15px;
+        text-transform: uppercase;
+        color: var(--tp-common-black);
+        font-weight: 700;
+        margin: 0px 10px;
+        border-bottom: 2px solid transparent;
+        transition: .3s;
+        &.active{
+            color: var(--tp-theme-1);
+            border-bottom: 2px solid var(--tp-theme-1);
+        }
+    }
+}
+.portfolio-isotope-wrapper{
+    & .tpcaseitem__content{
+        @media #{$xl}{
+            left: 25px;
+            right: 25px;
+        }
+    }
+}

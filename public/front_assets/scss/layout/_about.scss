@@ -1,0 +1,208 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  07. about CSS START
+/*----------------------------------------*/
+
+.tp-about-section-box {
+    & p {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 26px;
+        color: #747474;
+        @media #{$lg}{
+            font-size: 14px;
+        }
+    }
+}
+.tp-about-thumb{
+    & img{
+        @media #{$md}{
+            width: 100%;
+            margin-bottom: 70px;
+        }  
+        @media #{$xs}{
+            width: 100%;
+            margin-bottom: 40px;
+        }  
+    }
+}
+
+.paragraph-one {
+    padding-bottom: 15px;
+}
+
+.tp-ab-button-one {
+    margin-right: 20px;
+}
+
+.tp-ab-play-button {
+    height: 65px;
+    width: 65px;
+    background-color: var(--tp-theme-2);
+    border-radius: 50%;
+    line-height: 65px;
+    display: inline-block;
+    text-align: center;
+    color: var(--tp-common-white);
+    transition: .3s;
+    @media #{$lg}{
+        height: 55px;
+        width: 55px;
+        line-height: 55px;
+    }
+
+    &:hover {
+        color: var(--tp-common-white);
+        background-color: var(--tp-common-sky);
+    }
+}
+
+.tpabout {
+    &__section-title-box {
+        padding-left: 50px;
+        padding-right: 57px;
+        @media #{$xl}{
+            padding-right: 0px;
+        }
+        @media #{$lg}{
+            padding-left: 40px;
+            padding-right: 0px;
+        }
+        @media #{$xs,$md}{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        & p {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 26px;
+            color: #D6D6D6;
+        }
+    }
+    &__thumb2{
+        padding-left: 90px;
+        @media #{$lg}{
+            padding-left: 0;
+        }
+        @media #{$md,$xs}{
+            padding-left: 0;
+            & img{
+                width: 100%;
+                margin-bottom: 50px;
+            }
+        }
+    }
+}
+
+.tp-insurance-img{
+    & img{
+        border-radius: 10px;
+    }
+}
+.tp-insurance-two{
+    position: absolute;
+    top: -15%;
+    left: 35px;
+}
+.insurance-one {
+    @media #{$md,$xs}{
+        margin-bottom: 50px;
+    }
+}
+.tp-about-me-section-box{
+    & p{
+        padding-right: 105px;
+        @media #{$xl}{
+            padding-right: 15px;
+        }
+        @media #{$lg}{
+            padding-right: 70px;
+        }
+        @media #{$xs}{
+            padding-right: 0px;
+        }
+    }
+}
+.tp-about-list{
+    @media #{$md}{
+        margin-bottom: 50px;
+    }
+    @media #{$xs}{
+        margin-bottom: 30px;
+    }
+    & ul{
+        & li{
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--tp-common-black);
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 15px;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            & i{
+                position: absolute;
+                left: 0;
+                top: 2px;
+                height: 24px;
+                width: 24px;
+                border-radius: 50%;
+                background-color: var(--tp-theme-1);
+                line-height: 24px;
+                color: var(--tp-common-white);
+                font-size: 10px;
+                text-align: center;
+            }
+        }
+    }
+}
+.paragraph-space-1{
+    padding-bottom: 20px;
+    @media #{$lg}{
+        padding-bottom: 0;
+    }
+}
+.about-me-img{
+    margin-left: 110px;
+    @media #{$xl}{
+        margin-left: 70px;
+    }
+    @media #{$lg}{
+        margin-left: 50px;
+    }
+    @media #{$md,$xs}{
+        margin-left: 0px;
+    }
+}
+.ab-lg-img{
+    & img{
+        border-radius: 15px;
+        @media #{$md}{
+        width: 100%;
+    }
+ }
+}
+.about-sm-img{
+    position: absolute;
+    top: 50%;
+    left: -100px;
+    transform: translateY(-50%);
+    @media #{$md,$xs}{
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+.tp-about-me-section-box{
+    & .tp-section-title{
+        @media #{$xl}{
+            font-size: 50px;
+        }
+        @media #{$lg}{
+            font-size: 40px;
+            padding-bottom: 10px;
+        }
+    }
+}

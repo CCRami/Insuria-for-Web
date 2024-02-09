@@ -1,0 +1,62 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  16. counter CSS START
+/*----------------------------------------*/
+
+.tp-counter-bg{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.counter-item{
+    & a{
+        height: 65px;
+        width: 65px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 65px;
+        background-color: var(--tp-common-white);
+        display: inline-block;
+        box-shadow: 0px 7px 23px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 400;
+    }
+    & h3{
+        font-weight: 600;
+        font-size: 55px;
+        margin-bottom: 0;
+        margin-bottom: 14px;
+        & span{
+            font-weight: 600;
+            font-size: 55px;  
+        }
+    }
+    & span{
+        font-weight: 400;
+        font-size: 18px;
+        color: var(--tp-common-black);
+    }
+}
+.counter-color-one{
+   & a{
+      color: var(--tp-theme-1);
+   }
+}
+.counter-color-two{
+   & a{
+        color: var(--tp-theme-2);
+   }
+}
+.counter-color-three{
+   & a{
+        color: var(--tp-common-red);
+   }
+}
+.counter-color-four{
+   & a{
+        color: var(--tp-common-green);
+   }
+}

@@ -1,0 +1,513 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  08. service CSS START
+/*----------------------------------------*/
+
+.tpservice {
+    text-align: center;
+    background-color: #132038;
+    padding: 40px 15px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: .4s;
+    &:hover{
+      & .tpservice__icon{
+        animation: icon-bounce 0.8s 1;
+      }  
+    }
+
+    &__icon {
+        background-image: url(../img/service/sv-shape-1.png);
+        height: 70px;
+        width: 70px;
+        line-height: 70px;
+        background-repeat: no-repeat;
+        text-align: center;
+        display: inline-block;
+        margin-bottom: 20px;
+
+        & i {
+            color: var(--tp-common-white);
+            font-size: 30px;
+        }
+
+        &-2 {
+            background-image: url(../img/service/sv-shape-2.png);
+        }
+
+        &-3 {
+            background-image: url(../img/service/sv-shape-3.png);
+        }
+
+        &-4 {
+            background-image: url(../img/service/sv-shape-4.png);
+        }
+
+        &-5 {
+            background-image: url(../img/service/sv-shape-5.png);
+        }
+
+        &-6 {
+            background-image: url(../img/service/sv-shape-6.png);
+        }
+    }
+
+    &__circle {
+        & span {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background-color: #1A4772;
+            display: inline-block;
+            margin: 0px 4px;
+            transition: .4s;
+        }
+    }
+}
+
+.tp-sv-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--tp-common-white);
+    padding-bottom: 20px;
+}
+
+.tp-sv-color-1 {
+    &:hover {
+        border-color: var(--tp-common-sky);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-common-sky);
+            }
+        }
+    }
+
+    & a {
+        &:hover {
+            color: var(--tp-common-sky);
+        }
+    }
+}
+
+.tp-sv-color-2 {
+    &:hover {
+        border-color: var(--tp-theme-2);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-theme-2);
+            }
+        }
+
+        & a {
+            &:hover {
+                color: var(--tp-theme-2);
+            }
+        }
+    }
+}
+
+.tp-sv-color-3 {
+    &:hover {
+        border-color: var(--tp-theme-1);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-theme-1);
+            }
+        }
+
+        & a {
+            &:hover {
+                color: var(--tp-theme-1);
+            }
+        }
+    }
+}
+
+.tp-sv-color-4 {
+    &:hover {
+        border-color: var(--tp-common-sky);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-common-sky);
+            }
+        }
+
+        & a {
+            &:hover {
+                color: var(--tp-common-sky);
+            }
+        }
+    }
+}
+
+.tp-sv-color-5 {
+    &:hover {
+        border-color: var(--tp-common-red);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-common-red);
+            }
+        }
+
+        & a {
+            &:hover {
+                color: var(--tp-common-red);
+            }
+        }
+    }
+}
+
+.tp-sv-color-6 {
+    &:hover {
+        border-color: var(--tp-common-green);
+
+        & .tpservice__circle {
+            & span {
+                background-color: var(--tp-common-green);
+            }
+        }
+
+        & a {
+            &:hover {
+                color: var(--tp-common-green);
+            }
+        }
+    }
+}
+
+.ff-service-title {
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 105.5%;
+    letter-spacing: -0.01em;
+    color: var(--tp-common-black);
+    transition: .4s;
+    padding-bottom: 5px;
+    @media #{$lg}{
+        font-size: 20px;
+    }
+    @media #{$xs}{
+        font-size: 18px;
+    }
+}
+
+.financial-service {
+    position: relative;
+    background-color: var(--tp-common-white);
+    border: 1px solid #F2F2F2;
+    border-bottom: 0;
+    padding: 45px 35px;
+    transition: .4s;
+    @media #{$xl}{
+        padding: 45px 30px;
+    }
+    & p {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 26px;
+        color: #747474;
+        transition: .4s;
+    }
+
+    & svg {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: var(--tp-common-black);
+        transition: .4s;
+        transform: rotate(-42deg);
+    }
+
+    &:hover {
+        background-color: var(--tp-theme-1);
+
+        & p {
+            color: var(--tp-common-white);
+        }
+
+        & svg {
+            color: var(--tp-common-white);
+            transform: rotate(0deg);
+        }
+
+        & a {
+            color: var(--tp-common-white);
+        }
+
+        &.financial-common-red {
+            border-bottom: 5px solid transparent;
+            background-color: var(--tp-common-red);
+        }
+
+        &.financial-theme-color {
+            border-bottom: 5px solid transparent;
+            background-color: var(--tp-theme-1);
+        }
+
+        &.financial-theme-yellow {
+            border-bottom: 5px solid transparent;
+            background-color: var(--tp-theme-2);
+        }
+    }
+
+    &.financial-common-red {
+        border-bottom: 5px solid var(--tp-common-red);
+        transition: .4s;
+    }
+
+    &.financial-theme-color {
+        border-bottom: 5px solid var(--tp-theme-1);
+        transition: .4s;
+    }
+
+    &.financial-theme-yellow {
+        border-bottom: 5px solid var(--tp-theme-2);
+        transition: .4s;
+    }
+}
+
+.sercviceinsurance {
+    &__wrapper{
+        @media #{$md,$xs}{       
+            flex-wrap: wrap;
+        }
+    }
+    &__title{
+        & .tp-section-title{
+            margin-bottom: 0px;
+        }
+    }
+    &__title2{
+        & .tp-section-title{
+            @media #{$xs}{
+                margin-bottom: 20px;
+            } 
+        }
+    }
+    &__item {
+        background-color: var(--tp-common-white);
+        padding: 25px;
+        padding-bottom: 0;
+        position: relative;
+        z-index: 1;
+        &:hover{
+            & .sercviceinsurance__thumb {
+                & img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    &__content {
+        & p {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 28px;
+            color: #747474;
+            padding-bottom: 15px;
+            padding-right: 70px;
+            @media #{$xl}{
+                padding-right: 15px;
+            }
+            @media #{$md}{
+                padding-right: 0px;
+                & br{
+                    display: none;
+                }
+            }
+            @media #{$xs}{
+                padding-right: 0px;
+                & br{
+                    display: none;
+                }
+            }
+        }
+        & a{
+            transition: .3s;
+            &:hover{
+                color: var(--tp-theme-1);
+            }
+        }
+        &-circle{
+            height: 83px;
+            width: 83px;
+            border-radius: 50%;
+            background-color: #F9F9F9;
+            line-height: 83px;
+            text-align: center;
+            position: relative;
+            left: 20px;
+            margin-top: -50px;
+            margin-bottom: 30px;
+            & i{
+                font-size: 40px;
+                color: var(--tp-theme-1);
+            }
+            &::after{
+                content: '';
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                height: 95px;
+                width: 95px;
+                border-radius: 50%;
+                background-color:var(--tp-common-white);
+                position: absolute;
+                z-index: -1;
+            }
+        }
+    }
+
+    &__thumb {
+        & img {
+            width: 100%;
+            transform: scale(1);
+            transition: 1.4s;
+        }
+    }
+
+    &__svbtn {
+        border: 1px solid var(--tp-border-1);
+        padding:0 20px;
+        transition: .3s;
+        & span {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 15px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--tp-common-black);
+            transition: .3s;
+        }
+
+        & i {
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 50px;
+            color: var(--tp-common-black);
+            transition: .3s;
+        }
+        &:hover{
+            background-color: var(--tp-theme-1);
+            & span {
+                color: var(--tp-common-white);
+            }
+   
+            & i {
+                color: var(--tp-common-white);
+            }
+        }
+    }
+}
+
+.tp-sv-insurance-title {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 30px;
+    color: var(--tp-common-black);
+    padding-bottom: 10px;
+}
+.tp-service-shape-1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    @media #{$xs}{
+		top: -4px;
+    }  
+}
+.tp-service-shape-2{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    @media #{$xs}{
+		bottom: -4px;
+    } 
+    & img{
+        max-width: 100%;
+    }
+}
+.tp-service-right-text{
+    padding-left: 100px;
+    @media #{$xl}{
+        padding-left: 50px;
+    }
+    @media #{$lg}{
+        padding-left: 10px;
+    }
+    @media #{$md}{
+        padding-left: 0px;
+        padding-right: 30px;
+        padding-top: 30px;
+    }
+    @media #{$xs}{
+        padding-left: 0px;
+        padding-top: 30px;
+    }
+    & P{
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 26px;
+        color: #747474;
+        @media #{$lg}{
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+    }
+}
+.service-bottom-space{
+    margin-bottom: 60px;
+}
+.service-border-right{ 
+    position: relative;
+    @media #{$md,$xs}{
+        &::after{
+            opacity: 0;
+        }
+    }
+    &::after{
+        height: 90px;
+        width: 4px;
+        background-color: var(--tp-theme-1);
+        content: '';
+        top: 30%;
+        right: 0;
+        position: absolute;
+    }
+}
+.service-details-border{ 
+    position: relative;
+    @media #{$md,$xs}{
+        &::after{
+            opacity: 0;
+        }
+    }
+    &::after{
+        height: 90px;
+        width: 4px;
+        background-color: var(--tp-theme-1);
+        content: '';
+        top: 12%;
+        right: 0;
+        position: absolute;
+    }
+}
+.sv-details-thumb{
+    & img{
+        border-radius: 15px;
+    }
+}
+.sv-pr-40{
+    padding-right: 20px;
+}
+.sv-details-thumb{
+    margin-bottom: 70px;
+}

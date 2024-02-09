@@ -1,0 +1,263 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  12. testimoanial CSS START
+/*----------------------------------------*/
+
+.tptestimonial{
+    background-color: #132038;
+    border-radius: 20px;
+    padding: 60px 45px;
+    @media #{$xl}{
+        padding: 50px 40px;
+    }
+    @media #{$lg}{
+        padding: 60px 55px;
+    }
+    @media #{$md}{
+        padding: 25px 28px;
+    }
+    @media #{$xs}{
+        padding: 30px 20px;
+    }
+    &__rating{
+        & span{
+            color: var(--tp-theme-2);
+            margin-right: 3px;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+        & p{
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--tp-common-white);
+            line-height: 30px;
+            padding-bottom: 25px;
+        }
+    }
+    &__title{
+        & span{
+            font-size: 12px;
+            font-weight: 500;
+            color: #A3A6AE;
+        }
+    }
+    &.tptestimonial-2{
+        background-color: var(--tp-common-white);
+        box-shadow: 0px 10px 21px rgba(0, 0, 0, 0.05);
+        border-radius: 0;
+        & .tptestimonial__rating{
+            & p{
+                color: var(--tp-common-black);
+            }
+        }
+    }
+}
+.tp-testi-heading{
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tp-common-white);
+    margin-bottom: 0;
+}
+.testimonial-slider-active{
+    & .slick-list {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+    padding: 0 -15px;
+    & .slick-slide{
+        padding: 0px 15px;
+        @media #{$xs}{
+            padding: 0;
+        }
+    }
+    & ul.slick-dots{
+        text-align: center;
+        margin-top: 70px;
+       & li{
+        display: inline-block;
+            & button {
+                color: #fff;
+                height: 15px;
+                width: 15px;
+                background-color: var(--tp-theme-1);
+                border-radius: 50%;
+                text-indent: -10000px;
+                margin: 0px 5px;
+                opacity: .3;
+            }
+            &.slick-active{
+                & button{
+                    opacity: 1;
+                }
+            }
+       }
+    }
+}
+.testimonial-space{
+    margin-left: 80px;
+    margin-right: 80px;
+    @media #{$xl}{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    @media #{$lg}{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    @media #{$md,$xs}{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+.yellow-dots{
+    margin: 0 -15px;
+    & .slick-slide{
+        padding: 0px 15px;
+    }
+    & ul.slick-dots{
+        text-align: center;
+        margin-top: 20px;
+       & li{
+        display: inline-block;
+            & button {
+                color: #fff;
+                height: 15px;
+                width: 15px;
+                background-color: var(--tp-theme-2);
+                border-radius: 50%;
+                text-indent: -10000px;
+                margin: 0px 5px;
+                opacity: .3;
+            }
+            &.slick-active{
+                & button{
+                    opacity: 1;
+                }
+            }
+       }
+    }
+}
+.testimonial-black-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 500px;
+    background-color: var(--tp-common-black);
+}
+.testimonial-bg{
+    padding-top: 130px;
+    padding-bottom: 290px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.testimonial-3{
+    &__wrapper{
+        background-color: var(--tp-common-white);
+        box-shadow: 0px 10px 21px rgba(0, 0, 0, 0.05);
+        padding: 45px;
+        border-radius: 20px;
+        margin-top: -300px;
+        @media #{$xs}{
+            padding: 0px;  
+        } 
+    }
+    &__item{
+        background-color: var(--tp-common-white);
+        box-shadow: 0px 0px 21px rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 50px 70px;
+        position: relative;
+        z-index: 1;
+        @media #{$xs}{
+            padding: 50px 15px;  
+        } 
+    }
+    &__icon{
+        line-height: 0;
+        margin-bottom: 40px;
+        &::after{
+            content: '';
+            height: 1px;
+            background-color: var(--tp-border-2);
+            display: inline-block;
+            width: 100%;
+            transform: translateY(-40px);
+            z-index: -1;
+            position: relative;
+        }
+        & img{
+            background-color: var(--tp-common-white);
+            padding-right: 50px;
+            padding-left: 50px;
+            display: inline-block;
+        }
+    }
+    &__content{
+        & span{
+            color: var(--tp-theme-2);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        & h5{
+            font-weight: 600;
+            font-size: 20px;
+            text-transform: capitalize;          
+            color: #000E29;
+            padding-bottom: 25px;
+            
+        }
+        & p{            
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 40px;
+            align-items: center;
+            text-align: center;    
+            color: #000E29;
+            padding-right: 100px;
+            padding-left: 100px;
+            margin-bottom: 0;
+            @media #{$xl}{
+                padding-left: 80px;
+                padding-right: 80px;
+            }
+            @media #{$lg}{
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+            @media #{$md,$xs}{
+                padding-left: 0px;
+                padding-right: 0px;
+                font-size: 19px;
+            }
+        }
+    }
+}
+.testimonial-slider-three .slick-dots{
+    margin-top: 50px;
+   & li{
+    display: inline-block;
+    transition: .3s;
+    &.slick-active{
+        & button{
+
+            background-color: var(--tp-theme-1);
+        }
+    }
+    & button{
+        text-indent: -10000px;
+        height: 15px;
+        width: 15px;
+        border: 1px solid var(--tp-theme-1);
+        border-radius: 50%;
+        margin: 0 5px;
+        transition: .3s;
+    }
+   }
+} 
