@@ -1,0 +1,54 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+    <main>
+        <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
+                 data-background="assets/img/breadcurmb/breadcurmb.jpg">
+            <div class="tp-breadcrmb-circle-one"></div>
+            <div class="tp-breadcrmb-circle-two"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
+                            <div class="breadcrumb__content">
+                                <h3 class="breadcrumb__title">Portfolio</h3>
+                            </div>
+                            <div class="breadcrumb__button">
+                                <a class="tp-btn-white" href="contact.html">Contact us today<i
+                                            class="far fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="tp-case-area pt-130 pb-90">
+            <div class="container">
+                {% if assurances is not empty %}
+                    <div class="row">
+                        {% for assurance in assurances %}
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="tpcaseitem mb-30">
+                                    <div class="tpcaseitem__thumb fix">
+                                        <img src="assets/img/case/case-2.jpg" alt="">
+                                    </div>
+                                    <div class="tpcaseitem__content">
+                                        <div class="tpcase-info p-relative">
+                                            <h4 class="tp-case-title"><a href="portfolio-details.html">{{ assurance.nameins }}</a></h4>
+                                            <div class="tp-case-icon">
+                                                <a href="#"><i class="fal fa-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No assurances found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

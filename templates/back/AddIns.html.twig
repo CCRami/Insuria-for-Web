@@ -1,0 +1,109 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <!-- Start Dashboard Content -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card mt-3">
+                        <div class="card-content">
+                            <!-- Symfony Form Start -->
+                            <div class="card-body">
+                                <div class="card-title">Add An Insurance</div>
+                                <hr>
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form'}}) }}
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.name_ins, 'Insurance Name', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.name_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Insurance Name'}}) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.montant, 'Base Price', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter The Base Price'}}) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
+                                </div>
+                                
+                                <div id="fieldsContainer">
+                                    <div class="form-group" id="initialField">
+                                        {{ form_label(form.doa, 'DOA Field', {'label_attr': {'class': 'control-label'}}) }}
+                                        {{ form_widget(form.doa, {'attr': {'class': 'form-control form-control-rounded doa-field', 'placeholder': 'Add DOA Field', 'id': 'doaField', 'name': 'doa[]'}}) }}
+                                    </div>
+                                </div>
+
+                                <!-- Button to add a new field -->
+                                <div class="form-group text-center">
+                                    <button type="button" id="addFieldButton" class="btn btn-light btn-round px-5" onclick="addField()">Add Field</button>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" onclick="combineFields()" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                                </div>
+
+                                {{ form_end(form) }}
+                            </div>
+                            <!-- Symfony Form End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Dashboard Content -->
+          
+            <!-- Start overlay -->
+            <div class="overlay toggle-menu"></div>
+            <!-- End overlay -->
+        </div>
+        <!-- End container-fluid -->
+    </div><!-- End content-wrapper -->
+<script>
+    var fieldCounter = 1; // Counter for field names
+
+    function addField() {
+        // Clone the initial field
+        var clonedField = document.getElementById("initialField").cloneNode(true);
+
+        // Update the field name and label
+        fieldCounter++;
+        clonedField.querySelector('input').setAttribute('name', 'doa[]');
+        clonedField.querySelector('label').innerText = 'Field ' + fieldCounter;
+
+        // Assign a unique ID to the input field
+        var uniqueId = 'doaField' + fieldCounter;
+        clonedField.querySelector('input').setAttribute('id', uniqueId);
+
+        // Append the cloned field to the container
+        document.getElementById("fieldsContainer").appendChild(clonedField);
+    }
+
+    function combineFields() {
+        var combinedValue = ""; // Variable to store combined values
+        
+        // Loop through all dynamically added fields
+        for (var i = 1; i <= fieldCounter; i++) {
+            var fieldValue = document.getElementById('doaField' + i)?.value.trim(); // Get value of each dynamically added field
+            
+            if (fieldValue) {
+                combinedValue += fieldValue + "; "; // Concatenate values with a separator
+            }
+        }
+        
+        // Remove the trailing separator
+        combinedValue = combinedValue.slice(0, -2);
+        
+        // Print the combined value to the console
+        console.log("Combined value:", combinedValue);
+
+
+        
+        // Set the combined value to the doa field widget
+        document.getElementById("doaField").value = combinedValue;
+    }
+</script>
+
+{% endblock %}

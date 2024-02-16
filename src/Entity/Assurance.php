@@ -23,6 +23,9 @@ class Assurance
     #[ORM\Column(length: 255)]
     private ?string $doa = null;
 
+    #[ORM\ManyToOne(inversedBy: 'assurance')]
+    private ?CategorieAssurance $catA = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Assurance
     public function setDoa(string $doa): static
     {
         $this->doa = $doa;
+
+        return $this;
+    }
+
+    public function getCatA(): ?CategorieAssurance
+    {
+        return $this->catA;
+    }
+
+    public function setCatA(?CategorieAssurance $catA): static
+    {
+        $this->catA = $catA;
 
         return $this;
     }

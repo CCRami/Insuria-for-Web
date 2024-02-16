@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategorieAssuranceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieAssuranceRepository::class)]
@@ -18,6 +20,14 @@ class CategorieAssurance
 
     #[ORM\Column(length: 255)]
     private ?string $desc_cat_ins = null;
+
+    #[ORM\OneToMany(targetEntity: Assurance::class, mappedBy: 'catA')]
+    private Collection $assurances;
+
+    public function __construct()
+    {
+        $this->assurances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,36 @@ class CategorieAssurance
     public function setDescCatIns(string $desc_cat_ins): static
     {
         $this->desc_cat_ins = $desc_cat_ins;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Assurance>
+     */
+    public function getAssurances(): Collection
+    {
+        return $this->assurances;
+    }
+
+    public function addAssurance(Assurance $assurance): static
+    {
+        if (!$this->assurances->contains($assurance)) {
+            $this->assurances->add($assurance);
+            $assurance->setCatA($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssurance(Assurance $assurance): static
+    {
+        if ($this->assurances->removeElement($assurance)) {
+            // set the owning side to null (unless already changed)
+            if ($assurance->getCatA() === $this) {
+                $assurance->setCatA(null);
+            }
+        }
 
         return $this;
     }
