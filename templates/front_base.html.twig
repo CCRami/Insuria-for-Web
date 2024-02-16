@@ -4,26 +4,26 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title>Insuarea – Insurance Company HTML5 Template</title>
+   <title>Insuria – Insurance Company</title>
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- Place favicon.ico in the root directory -->
-   <link rel="shortcut icon" type="image/x-icon" href="front_assets/img/favicon.png">
+   <link rel="shortcut icon" type="image/x-icon" href="../front_assets/img/favicon.png">
 
 {% block css %}
-<link rel="stylesheet" href="{{ asset('front_assets/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/custom-animation.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/swiper-bundle.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/slick.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/nice-select.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/flaticon.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/meanmenu.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/font-awesome-pro.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/magnific-popup.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/spacing.css') }}">
-<link rel="stylesheet" href="{{ asset('front_assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/custom-animation.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/swiper-bundle.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/slick.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/nice-select.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/flaticon.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/meanmenu.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/font-awesome-pro.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/spacing.css') }}">
+<link rel="stylesheet" href="{{ asset('../front_assets/css/style.css') }}">
 {% endblock %}
 
 </head>
@@ -39,7 +39,7 @@
             <div class="row g-0 align-items-center">
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                     <div class="tp-logo">
-                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                        <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="hello"></a>
                     </div>
                 </div>
                 
@@ -80,19 +80,19 @@
                 <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
                     <div class="tp-header-right d-flex align-items-center justify-content-end">
                         <div class="tp-header-info d-none d-xxl-block">
-                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a class="header-icon" href="#"><img src="../front_assets/img/svg/header-icon.svg" alt=""></a>
                             <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
                             <div class="tpoffcanvas__social" style="text-align: right;">
                                 <div class="social-icon">
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
                                     <a href="#"><i class="fab fa-dribbble"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="tp-header-button d-none d-md-block">
-                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                            <a class="tp-btn" href="{{ path('app_home_signup') }}">Sign Up</a>
                         </div>
                         <div class="tp-toggle-bar d-lg-none">
                             <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
@@ -107,6 +107,7 @@
    <!-- tp-header-area-end -->
    </header>
 {% endblock %}
+{% block main %}
    <main>
    {% block slider %}
       <!-- tp-slider-area-start -->
@@ -114,7 +115,7 @@
          <div class="tp-slider-active slider-arrow-style">
             <div class="tp-slider-item slider-height">
                <div class="slider-bg d-flex justify-content-center align-items-center"
-                  data-background="front_assets/img/slider/slider-bg.jpg">
+                  data-background="../front_assets/img/slider/slider-bg.jpg">
                   <div class="tp-slider-content-box text-center z-index-3">
                      <h2 class="tp-slider-title">
                         Insurance that protect <br> your family</h2>
@@ -127,7 +128,7 @@
             </div>
             <div class="tp-slider-item slider-height">
                <div class="slider-bg d-flex justify-content-center align-items-center"
-                  data-background="front_assets/img/slider/slider-bg-2.jpg">
+                  data-background="../front_assets/img/slider/slider-bg-2.jpg">
                   <div class="tp-slider-content-box text-center z-index-3">
                      <h2 class="tp-slider-title">
                         Insurance that protect <br> your family</h2>
@@ -140,7 +141,7 @@
             </div>
             <div class="tp-slider-item slider-height">
                <div class="slider-bg d-flex justify-content-center align-items-center"
-                  data-background="front_assets/img/slider/slider-bg-3.jpg">
+                  data-background="../front_assets/img/slider/slider-bg-3.jpg">
                   <div class="tp-slider-content-box text-center z-index-3">
                      <h2 class="tp-slider-title">
                         Insurance that protect <br> your family</h2>
@@ -153,7 +154,7 @@
             </div>
          </div>
          <div class="tp-slider-bottom-shape">
-            <img src="front_assets/img/slider/slider-shape-1.png" alt="">
+            <img src="../front_assets/img/slider/slider-shape-1.png" alt="">
          </div>
       </div>
       <!-- tp-slider-area-end -->
@@ -171,25 +172,25 @@
             </div>
             <div class="tp-brand-slider-active d-flex align-items-center">
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-1.png" alt="">
+                  <img src="../front_assets/img/brand/brand-1.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-2.png" alt="">
+                  <img src="../front_assets/img/brand/brand-2.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-1.png" alt="">
+                  <img src="../front_assets/img/brand/brand-1.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-4.png" alt="">
+                  <img src="../front_assets/img/brand/brand-4.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-5.png" alt="">
+                  <img src="../front_assets/img/brand/brand-5.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-6.png" alt="">
+                  <img src="../front_assets/img/brand/brand-6.png" alt="">
                </div>
                <div class="tp-brand-item">
-                  <img src="front_assets/img/brand/brand-5.png" alt="">
+                  <img src="../front_assets/img/brand/brand-5.png" alt="">
                </div>
             </div>
          </div>
@@ -203,7 +204,7 @@
             <div class="row align-items-center">
                <div class="col-xl-6 col-lg-6">
                   <div class="tp-about-thumb">
-                     <img src="front_assets/img/about/about-big-1.png" alt="">
+                     <img src="../front_assets/img/about/about-big-1.png" alt="">
                   </div>
                </div>
                <div class="col-xl-6 col-lg-6">
@@ -232,10 +233,10 @@
       {% block service %}
       <div class="tp-service-area black-bg pt-200 pb-200 z-index p-relative">
          <div class="tp-service-shape-1">
-            <img src="front_assets/img/slider/02_Shape.png" alt="">
+            <img src="../front_assets/img/slider/02_Shape.png" alt="">
          </div>
          <div class="tp-service-shape-2">
-            <img src="front_assets/img/slider/03_Shape.png" alt="">
+            <img src="../front_assets/img/slider/03_Shape.png" alt="">
          </div>
          <div class="container">
             <div class="row">
@@ -374,9 +375,9 @@
          <!-- tp-contact-area-start -->
          <div class="tp-contact-area pt-110">
             <div class="container">
-               <div class="tp-contact-wrapper-box p-relative fix" data-background="front_assets/img/contact/contact-shape-2.png">
+               <div class="tp-contact-wrapper-box p-relative fix" data-background="../front_assets/img/contact/contact-shape-2.png">
                   <div class="tp-contact-shape-1">
-                     <img src="front_assets/img/contact/contact-shape-1.png" alt="">
+                     <img src="../front_assets/img/contact/contact-shape-1.png" alt="">
                   </div>
                   <div class="row align-items-center">
                      <div class="col-xl-5 col-lg-12">
@@ -385,11 +386,11 @@
                      <div class="col-xl-7 col-lg-12">
                         <div class="tp-contact-wrapper z-index-3  d-flex justify-content-xl-end">
                            <div class="tp-contact-info">
-                              <a class="contact-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                              <a class="contact-icon" href="#"><img src="../front_assets/img/svg/header-icon.svg" alt=""></a>
                               <a class="contact-color-2" href="tel:0091590088"><span>Call us :</span> +00 91 590 088</a>
                            </div>
                            <div class="tp-contact-info">
-                              <a class="contact-icon" href="#"><img src="front_assets/img/svg/header-icon-2.svg" alt=""></a>
+                              <a class="contact-icon" href="#"><img src="../front_assets/img/svg/header-icon-2.svg" alt=""></a>
                               <a class="contact-color-1" href="mailto:Info@webmail.com"><span>Mail Us :</span>
                                  Info@webmail.com</a>
                            </div>
@@ -422,7 +423,7 @@
             <div class="tp-case-slider-active">
                <div class="tpcaseitem mix-blend-mode fix">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-1.jpg" alt="">
+                     <img src="../front_assets/img/case/case-1.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -435,7 +436,7 @@
                </div>
                <div class="tpcaseitem mix-blend-mode mt-30">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-2.jpg" alt="">
+                     <img src="../front_assets/img/case/case-2.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -448,7 +449,7 @@
                </div>
                <div class="tpcaseitem mix-blend-mode">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-3.jpg" alt="">
+                     <img src="../front_assets/img/case/case-3.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -461,7 +462,7 @@
                </div>
                <div class="tpcaseitem mix-blend-mode mt-30">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-4.jpg" alt="">
+                     <img src="../front_assets/img/case/case-4.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -474,7 +475,7 @@
                </div>
                <div class="tpcaseitem mix-blend-mode">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-5.jpg" alt="">
+                     <img src="../front_assets/img/case/case-5.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -487,7 +488,7 @@
                </div>
                <div class="tpcaseitem mix-blend-mode mt-30">
                   <div class="tpcaseitem__thumb fix">
-                     <img src="front_assets/img/case/case-4.jpg" alt="">
+                     <img src="../front_assets/img/case/case-4.jpg" alt="">
                   </div>
                   <div class="tpcaseitem__content">
                      <div class="tpcase-info p-relative">
@@ -727,10 +728,10 @@
       <!-- tp-testimonial-area-start -->
       <div class="tp-testimonial-area black-bg pt-200 pb-200 p-relative">
          <div class="tp-service-shape-1">
-            <img src="front_assets/img/slider/02_Shape.png" alt="">
+            <img src="../front_assets/img/slider/02_Shape.png" alt="">
          </div>
          <div class="tp-service-shape-2">
-            <img src="front_assets/img/slider/03_Shape.png" alt="">
+            <img src="../front_assets/img/slider/03_Shape.png" alt="">
          </div>
          <div class="container">
             <div class="row">
@@ -754,7 +755,7 @@
                   </div>
                   <div class="tptestimonial__info d-flex justify-content-between align-items-center">
                      <div class="tptestimonial__icon d-flex align-items-center">
-                        <img class="mr-25" src="front_assets/img/testimonial/testi-1.png" alt="">
+                        <img class="mr-25" src="../front_assets/img/testimonial/testi-1.png" alt="">
                         <div class="tptestimonial__title">
                            <h4 class="tp-testi-heading">Esther Howard</h4>
                            <span>P. Desiger of (Amazon)</span>
@@ -774,7 +775,7 @@
                   </div>
                   <div class="tptestimonial__info d-flex justify-content-between align-items-center">
                      <div class="tptestimonial__icon d-flex align-items-center">
-                        <img class="mr-25" src="front_assets/img/testimonial/testi-2.png" alt="">
+                        <img class="mr-25" src="../front_assets/img/testimonial/testi-2.png" alt="">
                         <div class="tptestimonial__title">
                            <h4 class="tp-testi-heading">Esther Howard</h4>
                            <span>P. Desiger of (Amazon)</span>
@@ -794,7 +795,7 @@
                   </div>
                   <div class="tptestimonial__info d-flex justify-content-between align-items-center">
                      <div class="tptestimonial__icon d-flex align-items-center">
-                        <img class="mr-25" src="front_assets/img/testimonial/testi-3.png" alt="">
+                        <img class="mr-25" src="../front_assets/img/testimonial/testi-3.png" alt="">
                         <div class="tptestimonial__title">
                            <h4 class="tp-testi-heading">Esther Howard</h4>
                            <span>P. Desiger of (Amazon)</span>
@@ -814,7 +815,7 @@
                   </div>
                   <div class="tptestimonial__info d-flex justify-content-between align-items-center">
                      <div class="tptestimonial__icon d-flex align-items-center">
-                        <img class="mr-25" src="front_assets/img/testimonial/testi-3.png" alt="">
+                        <img class="mr-25" src="../front_assets/img/testimonial/testi-3.png" alt="">
                         <div class="tptestimonial__title">
                            <h4 class="tp-testi-heading">Esther Howard</h4>
                            <span>P. Desiger of (Amazon)</span>
@@ -848,7 +849,7 @@
                <div class="col-xl-6 col-lg-6">
                   <div class="tpblogitem mix-blend-mode mb-30">
                      <div class="tpblogitem__thumb fix">
-                        <a href="blog-details.html"><img src="front_assets/img/blog/blog-1.jpg" alt=""></a>
+                        <a href="blog-details.html"><img src="../front_assets/img/blog/blog-1.jpg" alt=""></a>
                      </div>
                      <div class="tpblogitem__tag">
                         <a class="tp-btn-grey" href="blog-details.html">Business</a>
@@ -862,7 +863,7 @@
                <div class="col-xl-6 col-lg-6">
                   <div class="tpblogitem mix-blend-mode mb-30">
                      <div class="tpblogitem__thumb fix">
-                        <a href="blog-details.html"><img src="front_assets/img/blog/blog-2.jpg" alt=""></a>
+                        <a href="blog-details.html"><img src="../front_assets/img/blog/blog-2.jpg" alt=""></a>
                      </div>
                      <div class="tpblogitem__tag">
                         <a class="tp-btn-grey" href="blog-details.html">Insurance</a>
@@ -882,7 +883,7 @@
       <!-- tp-cta-area-start -->
       <div class="tp-cta-area pb-130">
          <div class="container">
-            <div class="tp-cta-bg" data-background="front_assets/img/cta/Cta-bg.jpg">
+            <div class="tp-cta-bg" data-background="../front_assets/img/cta/Cta-bg.jpg">
               <div class="tp-cta-wrapper z-index-4 d-flex justify-content-between align-items-center">
                   <div class="tp-cta-content">
                      <h4 class="tp-cta-title">Start or Track a Claim</h4>
@@ -899,19 +900,20 @@
 {% endblock %}
 
    </main>
+{% endblock %}
 {% block footer %}
    <footer>
       <!-- tp-footer-area-start -->
       <div class="tp-footer-area pt-200 black-bg p-relative">
          <div class="tp-footer-shape-1">
-            <img src="front_assets/img/slider/06_Shape.png" alt="">
+            <img src="../front_assets/img/slider/06_Shape.png" alt="">
          </div>
          <div class="container">
             <div class="row">
                <div class="col-xl-12">
                   <div class="tpfooter d-flex justify-content-between align-items-center">
                      <div class="tpfooter__logo">
-                        <a href="index.html"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                        <a href="index.html"><img src="../front_assets/img/logo/logo.png" alt=""></a>
                      </div>
                      <div class="tpfooter__social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1023,20 +1025,20 @@
 {% endblock %}
    <!-- JS here -->
    {% block js %}
-    <script src="{{ asset('front_assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('front_assets/js/waypoints.js') }}"></script>
-    <script src="{{ asset('front_assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('front_assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ asset('front_assets/js/slick.js') }}"></script>
-    <script src="{{ asset('front_assets/js/magnific-popup.js') }}"></script>
-    <script src="{{ asset('front_assets/js/counterup.js') }}"></script>
-    <script src="{{ asset('front_assets/js/wow.js') }}"></script>
-    <script src="{{ asset('front_assets/js/nice-select.js') }}"></script>
-    <script src="{{ asset('front_assets/js/meanmenu.js') }}"></script>
-    <script src="{{ asset('front_assets/js/isotope-pkgd.js') }}"></script>
-    <script src="{{ asset('front_assets/js/imagesloaded-pkgd.js') }}"></script>
-    <script src="{{ asset('front_assets/js/ajax-form.js') }}"></script>
-    <script src="{{ asset('front_assets/js/main.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/waypoints.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/swiper-bundle.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/slick.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/magnific-popup.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/counterup.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/wow.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/nice-select.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/meanmenu.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/isotope-pkgd.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/imagesloaded-pkgd.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('../front_assets/js/main.js') }}"></script>
 {% endblock %}
 
 

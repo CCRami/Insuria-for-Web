@@ -1,0 +1,82 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+<div class="header" style="background-color: #051B46;">
+    <div class="container-fluid">
+        <div class="row g-0 align-items-center">
+            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                <div class="tp-logo">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="hello"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block main %}
+{% block insurance %}
+
+<div class="contactform" style="text-align: center; color: #051B46; width: 450px; margin: auto;">
+    {{ form_start(form) }}
+    <strong>
+    <div class="row">
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.first_name, {'attr': {'placeholder': 'Enter First Name'}}) }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.last_name, {'attr': {'placeholder': 'Enter Last Name'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.email, {'attr': {'placeholder': 'Enter Email'}}) }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.password, {'attr': {'placeholder': 'Enter Password'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.phone_number, {'attr': {'placeholder': 'Enter Phone'}}) }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="contactform__input">
+                {{ form_row(form.birth_date, {'attr': {'placeholder': 'Enter Birth Date'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="display: none;">
+        <div class="col">
+            <div class="contactform__select">
+                <div class="tp-sp-icon">
+                    {{ form_row(form.role, {'value': 'client', 'attr': {'style': 'display: none;'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="contactform__button">
+                <button type="submit" class="tp-btn-yellow-similar w-100">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</strong>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
+{% endblock %}

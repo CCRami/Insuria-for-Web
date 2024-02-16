@@ -1,0 +1,116 @@
+{% extends 'back_base.html.twig' %}
+{% block title %}{{ 'back.admin.title'|trans }}{% endblock %}
+{% block content %}
+<div class="row">
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Add User</div>
+            {{ form_start(form) }}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-1">Name</label>
+                        {{ form_widget(form.first_name, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Name'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-5">Last Name</label>
+                        {{ form_widget(form.last_name, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-2">Email</label>
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-3">Mobile</label>
+                        {{ form_widget(form.phone_number, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Mobile Number'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-4">Password</label>
+                        {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Enter Password'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-4">Birth Date</label>
+                        {{ form_widget(form.birth_date, {'attr': {'class': 'form-control', 'placeholder': 'Enter Birth Date', 'type': 'date'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="input-5">Role</label>
+                        {{ form_widget(form.role, {'attr': {'class': 'form-control', 'placeholder': 'Enter Role'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-light" style=" color: yellow; padding: 15px; width: 150px;" ><i class="icon-lock"></i> Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">User Table</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Pass</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">BDate</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <th scope="row">{{ user.id }}</th>
+                                <td>{{ user.getFirstName() }}</td>
+                                <td>{{ user.getLastName() }}</td>
+                                <td>{{ user.getEmail() }}</td>
+                                <td>{{ user.getPassword() }}</td>
+                                <td>{{ user.getPhoneNumber() }}</td>
+                                <td>{{ user.getBirthDate()|date('Y-m-d') }}</td>
+                                <td>{{ user.getRole() }}</td>
+                                <td>
+                                   <div class="btn-group">
+                                        <form action="{{ path('app_admin_user_delete', {'id': user.id}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                        <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-warning">Update</a>
+                                    </div>
+                                </td>   
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
