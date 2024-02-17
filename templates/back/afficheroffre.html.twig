@@ -1,0 +1,52 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+
+<div class="clearfix"></div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-12 col-lg-8">
+                <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offre</a>
+                <div class="card">
+                    <div class="card-header">Listes catégories d'offres</div>
+                    <div class="table-responsive text-center">
+                   <table class="table table-bordered table-hover">
+                       <thead>
+                                <tr>
+                                    <th>Advantage</th>
+                                    <th>Conditions</th>
+                                    <th>Duration</th>
+                                    <th>Discount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for offre in offres %}
+                                <tr>
+                                    <td>{{ offre.advantage }}</td>
+                                    <td>{{ offre.conditions }}</td>
+                                    <td>{{ offre.duration }}</td>
+                                    <td>{{ offre.discount }}</td>
+                                    <td>
+                                        <a href="{{ path('edit_offre', {'id': offre.id}) }}"class="btn btn-primary">Edit</a>
+                                        <a href="{{ path('delete_offre', {'id': offre.id}) }}"class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5">No Records Found</td>
+                                </tr>
+                                {% endfor %}
+
+                       </tbody>
+                   </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

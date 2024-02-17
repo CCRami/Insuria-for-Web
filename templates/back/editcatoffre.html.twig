@@ -1,0 +1,56 @@
+{% extends 'back_base.html.twig' %}
+{% block content %}
+<div class="clearfix"></div>
+  
+<div class="content-wrapper">
+  <div class="container-fluid">
+
+    <!-- Start Dashboard Content -->
+
+    <div class="card mt-3">
+      <div class="card-content">
+        <!-- Symfony Form Start -->
+        <div class="row justify-content-center"> {# Centering the content horizontally #}
+          <div class="col-lg-6"> {# Adjust grid column width based on your layout needs #}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Modifier une catégorie offre</div>
+                <hr>
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form'}}) }}
+                <div class="form-group">
+                  {{ form_label(form.categorie_name, 'categorie_name', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.categorie_name, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter categorie_name'}}) }}
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.description_cat, 'description_cat', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.description_cat, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter description_cat'}}) }}
+                </div>
+                {{ form_rest(form) }}
+                <div class="form-group py-2">
+                  <div class="icheck-material-white">
+                    <input type="checkbox" id="user-checkbox2" checked=""/>
+                    <label for="user-checkbox2">I Agree Terms & Conditions</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Modifier</button>
+                </div>
+                {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Symfony Form End -->
+      </div>
+    </div>  
+      
+    <!-- End Dashboard Content -->
+  
+    <!-- Start overlay -->
+    <div class="overlay toggle-menu"></div>
+    <!-- End overlay -->
+  
+  </div><!-- End container-fluid -->
+    
+</div><!-- End content-wrapper -->
+{% endblock %}
