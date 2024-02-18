@@ -21,7 +21,7 @@ class CategorieOffreController extends AbstractController
         ]);
     }
 
-    #[Route('/catdisplay', name: 'displayCategorieOffre')]
+    #[Route('/displaycat', name: 'displayCategorieOffre')]
     public function displayCategorieOffre(CategorieOffreRepository $CategorieOffreRepository): Response
     {
         $catoffres = $CategorieOffreRepository->findAll();

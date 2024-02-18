@@ -25,6 +25,9 @@ class Offre
     #[ORM\Column]
     private ?float $discount = null;
 
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    private ?CategorieOffre $categorie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Offre
     public function setDiscount(float $discount): static
     {
         $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?CategorieOffre
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?CategorieOffre $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
