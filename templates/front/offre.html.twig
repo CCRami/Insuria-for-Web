@@ -1,0 +1,42 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+
+<div class="postbox__area pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-8 col-xl-8 col-lg-8">
+                <div class="postbox__wrapper pr-20">
+                    {% for offre in offres %}
+                    <article class="postbox__item format-image mb-50 transition-3">
+                        <div class="postbox__thumb w-img">
+                            <a href="{{ path('display_offref', {'id': offre.id}) }}">
+                                <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="">
+                            </a>
+                        </div>
+                        <div class="postbox__content">
+                            <div class="postbox__meta">
+                                
+                               
+                                <!-- Add other meta information here -->
+                            </div>
+                            <h3 class="postbox__title">
+                                <a href="{{ path('display_offref', {'id': offre.id}) }}">{{ offre.advantage }}</a>
+                            </h3>
+                            <div class="postbox__text">
+                                <p>{{ offre.conditions }}</p>
+                            </div>
+                            <div class="post__button">
+                                <a class="tp-btn" href="{{ path('display_offref', {'id': offre.id}) }}"> READ MORE</a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Sidebar content goes here -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

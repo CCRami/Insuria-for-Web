@@ -28,6 +28,9 @@ class Offre
     #[ORM\ManyToOne(inversedBy: 'offres')]
     private ?CategorieOffre $categorie = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $offreimg = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Offre
     public function setCategorie(?CategorieOffre $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getOffreimg(): ?string
+    {
+        return $this->offreimg;
+    }
+
+    public function setOffreimg(string $offreimg): static
+    {
+        $this->offreimg = $offreimg;
 
         return $this;
     }

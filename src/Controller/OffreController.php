@@ -39,34 +39,82 @@ class OffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle image upload
+            $imageFile = $form->get('offreimg')->getData();
+            
+            // Check if an image has been uploaded
+            if ($imageFile) {
+                // Generate a unique name for the file
+                $fileName = uniqid().'.'.$imageFile->guessExtension();
+                
+                // Move the file to the directory where images are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // Handle file upload error
+                }
+                
+                // Set the image file name to the offre entity
+                $offre->setOffreimg($fileName);
+            }
+            
+            // Persist the offre entity
             $em->persist($offre);
             $em->flush();
             
             return $this->redirectToRoute('display_offre');
         }
-
+    
         return $this->render('back/addoffre.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    
 
     #[Route('/editof/{id}', name: 'edit_offre')]
-    public function editOffre(Request $request, EntityManagerInterface $em, OffreRepository $rep, int $id): Response
-    {
-        $offre = $rep->find($id);
-        $form = $this->createForm(OffreformType::class, $offre);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            
-            return $this->redirectToRoute('display_offre');
-        }
+public function editOffre(Request $request, EntityManagerInterface $em, OffreRepository $rep, int $id): Response
+{
+    $offre = $rep->find($id);
+    $form = $this->createForm(OffreformType::class, $offre);
+    $form->handleRequest($request);
     
-        return $this->render('back/editoffre.html.twig', [
-            'form' => $form->createView(),
-        ]);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Handle image upload
+        $imageFile = $form->get('offreimg')->getData();
+        
+        // Check if an image has been uploaded
+        if ($imageFile) {
+            // Generate a unique name for the file
+            $fileName = uniqid().'.'.$imageFile->guessExtension();
+            
+            // Move the file to the directory where images are stored
+            try {
+                $imageFile->move(
+                    $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // Handle file upload error
+            }
+            
+            // Set the image file name to the offre entity
+            $offre->setOffreimg($fileName);
+        }
+        
+        // Persist the changes to the offre entity
+        $em->flush();
+        
+        return $this->redirectToRoute('display_offre');
     }
+
+    return $this->render('back/editoffre.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
 
     #[Route('/deleteof/{id}', name: 'delete_offre')]
     public function deleteOffre(OffreRepository $rep, $id, EntityManagerInterface $em): Response
@@ -76,4 +124,29 @@ class OffreController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('display_offre');
     }
+
+
+    #[Route('/displayoff', name: 'display_offref')]
+    public function displayOffref(OffreRepository $offreRepository): Response
+    {
+        $offres = $offreRepository->findAll();
+
+        return $this->render('front/offre.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

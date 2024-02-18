@@ -24,6 +24,9 @@ class CategorieOffre
     #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'Categorie')]
     private Collection $offres;
 
+    #[ORM\Column(length: 255)]
+    private ?string $catimg = null;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
@@ -84,6 +87,18 @@ class CategorieOffre
                 $offre->setCategorie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCatimg(): ?string
+    {
+        return $this->catimg;
+    }
+
+    public function setCatimg(string $catimg): static
+    {
+        $this->catimg = $catimg;
 
         return $this;
     }

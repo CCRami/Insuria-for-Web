@@ -13,9 +13,10 @@
                 <div class="card">
                     <div class="card-header">Listes catégories d'offres</div>
                     <div class="table-responsive text-center">
-                   <table class="table table-bordered table-hover">
-                       <thead>
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Advantage</th>
                                     <th>Conditions</th>
                                     <th>Duration</th>
@@ -26,24 +27,30 @@
                             <tbody>
                                 {% for offre in offres %}
                                 <tr>
+                                    <td>
+                                        {% if offre.offreimg %}
+                                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 100px; max-height: 100px;">
+                                        {% else %}
+                                            No Image
+                                        {% endif %}
+                                    </td>
                                     <td>{{ offre.advantage }}</td>
                                     <td>{{ offre.conditions }}</td>
                                     <td>{{ offre.duration }}</td>
                                     <td>{{ offre.discount }}</td>
                                     <td>
-                                        <a href="{{ path('edit_offre', {'id': offre.id}) }}"class="btn btn-primary">Edit</a>
-                                        <a href="{{ path('delete_offre', {'id': offre.id}) }}"class="btn btn-danger">Delete</a>
+                                        <a href="{{ path('edit_offre', {'id': offre.id}) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ path('delete_offre', {'id': offre.id}) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 {% else %}
                                 <tr>
-                                    <td colspan="5">No Records Found</td>
+                                    <td colspan="6">No Records Found</td>
                                 </tr>
                                 {% endfor %}
-
-                       </tbody>
-                   </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
