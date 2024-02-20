@@ -3,7 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\SinistreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 #[ORM\Entity(repositoryClass: SinistreRepository::class)]
 class Sinistre
@@ -14,10 +19,30 @@ class Sinistre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom de sinistre est obligatoire.")]
+    #[Assert\Length(
+        max: 20,
+        maxMessage: "Le nom de sinistre ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: '/^[A-Z][a-zA-Z\s]*$/',
+        message: "Le nom de sinistre doit commencer par une majuscule et ne contenir que des lettres."
+    )]
+
     private ?string $sin_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La description de sinistre est obligatoire.")]
     private ?string $description_sin = null;
+
+    #[ORM\OneToMany(targetEntity: Police::class, mappedBy: 'sinistre')]
+    private Collection $police;
+
+    public function __construct()
+    {
+        $this->police = new ArrayCollection();
+    }
+     
 
     public function getId(): ?int
     {
@@ -44,6 +69,36 @@ class Sinistre
     public function setDescriptionSin(string $description_sin): static
     {
         $this->description_sin = $description_sin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Police>
+     */
+    public function getPolice(): Collection
+    {
+        return $this->police;
+    }
+
+    public function addPolice(Police $police): static
+    {
+        if (!$this->police->contains($police)) {
+            $this->police->add($police);
+            $police->setSinistre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePolice(Police $police): static
+    {
+        if ($this->police->removeElement($police)) {
+            // set the owning side to null (unless already changed)
+            if ($police->getSinistre() === $this) {
+                $police->setSinistre(null);
+            }
+        }
 
         return $this;
     }

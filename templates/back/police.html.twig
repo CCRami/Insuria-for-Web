@@ -1,0 +1,89 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+    .custom-margin-top {
+        margin-top: 10rem; 
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center custom-margin-top">
+        <div class="form-group row">
+            <div class="nav-item">
+                <form class="search-bar">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search Claim with Id.... ">
+                    <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card mt-">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-14 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">Police Table</div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Police Name</th>
+                                            <th>Description</th>
+                                            <th>Edit/Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for rec in list %}
+                                            <tr class="table-row">
+                                                <td>{{ rec.id }}</td>
+                                                <td>{{ rec.getPoliceName }}</td>
+                                                <td>{{ rec.getDescriptionPolice }}</td>
+                                                <td>
+                                                    <a href="{{ path('police_edit',{'id':rec.id}) }}">
+                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Edit</button>
+                                                    </a>
+                                                    <a href="{{ path('police_delete', {'id': rec.id}) }}">
+                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-minus"></i></i>Delete</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-right">
+        <a href="{{ path('police_new') }}" class="btn btn-primary btn-round">
+            <i class="icon-plus"></i> Add a Police
+        </a>
+    </div>
+</div>
+
+<style>
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+    .table-row:hover td {
+        color: #007bff;
+    }
+    .table-row:hover .btn {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+{% endblock %}

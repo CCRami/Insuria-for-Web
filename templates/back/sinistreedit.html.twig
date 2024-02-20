@@ -1,0 +1,52 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+    .form-container {
+        margin-top: 10rem;
+    }
+    .btn-submit {
+        background-color: #007bff; /* Bleu */
+        color: #ffffff; /* Texte blanc */
+        border-radius: 20px; /* Bordures arrondies */
+        padding: 10px 20px; /* Padding */
+        border: none; /* Pas de bordure */
+        cursor: pointer; /* Curseur pointeur */
+    }
+</style>
+
+<div class="container form-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Modifier le sinistre</h2>
+                </div>
+                <div class="card-body">
+                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+                    
+ <div class="form-group">
+                        {{ form_label(form.sin_name, 'Nom de sinistre') }}
+                        {{ form_widget(form.sin_name, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.sin_name) }}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(form.description_sin, 'Description de sinistre') }}
+                        {{ form_widget(form.description_sin, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.description_sin) }}
+                    </div>
+                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            Sauvegarder les modifications
+                        </button>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

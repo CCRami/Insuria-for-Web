@@ -1,0 +1,42 @@
+{% extends 'front_base.html.twig' %}
+
+
+{% block main %}
+<style>
+    .espacement-superieur {
+        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+    }
+    .contenu-centre {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centrage vertical */
+        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+    }
+    .couleur-carte {
+        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+    }
+</style>
+
+<div class="contenu-centre">
+    <div class="container espacement-superieur">
+        <div class="row justify-content-center">
+            {% for police in polices %}
+                <div class="col-xl-4 col-lg-6 mb-4"> <!-- Ajustement pour un affichage plus serré -->
+                    <div class="card couleur-carte">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ police.policeName }}</h5>
+                            <p class="card-text">{{ police.descriptionPolice }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center">Aucune police n'a été trouvée.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
