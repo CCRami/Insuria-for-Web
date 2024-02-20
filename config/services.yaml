@@ -19,6 +19,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+                fromAddress: 'rami.toubib2014@gmail.com'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
