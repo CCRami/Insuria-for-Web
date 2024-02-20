@@ -12,12 +12,12 @@
         color: #007bff;
     }
     .table-row:hover .btn, .form-submit-btn {
-        background-color: #007bff; /* Pour que le bouton ait le fond bleu */
-        color: #ffffff; /* Texte en blanc pour contraste */
-        border-radius: 20px; /* Bordures arrondies pour le style "btn-round" */
-        border: none; /* Supprime la bordure par défaut des boutons */
-        padding: 10px 20px; /* Ajustement du padding pour correspondre à vos besoins */
-        cursor: pointer; /* Change le curseur au survol */
+        background-color: #007bff; /* To make the button have a blue background */
+        color: #ffffff; /* White text for contrast */
+        border-radius: 20px; /* Rounded borders for "btn-round" style */
+        border: none; /* Removes the default button border */
+        padding: 10px 20px; /* Padding adjustment to match your needs */
+        cursor: pointer; /* Changes cursor on hover */
     }
 </style>
 
@@ -27,30 +27,29 @@
             <div class="col-md-6 form-container">
                 <div class="card mt-3">
                     <div class="card-header text-center">
-                        <h2>Ajouter une nouvelle sinistre</h2>
+                        <h2>Add a New Claim</h2>
                     </div>
                     <div class="card-body">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
-                        
-                         <div class="form-group">
-                        {{ form_label(form.sin_name, 'Nom de sinistre') }}
-                        {{ form_widget(form.sin_name, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.sin_name) }}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form_label(form.description_sin, 'Description de sinistre') }}
-                        {{ form_widget(form.description_sin, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.description_sin) }}
-                    </div>
-                    
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            <i class="icon-plus"></i> Sauvegarder
-                        </button>
-                    </div>
-                        
+                        <div class="form-group">
+                            {{ form_label(form.sin_name, 'Claim Name') }}
+                            {{ form_widget(form.sin_name, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.sin_name) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(form.description_sin, 'Claim Description') }}
+                            {{ form_widget(form.description_sin, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.description_sin) }}
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-round">
+                                <i class="fas fa-plus"></i> Save
+                            </button>
+                        </div>
+
                         {{ form_end(form) }}
                     </div>
                 </div>

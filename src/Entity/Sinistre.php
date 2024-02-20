@@ -19,20 +19,29 @@ class Sinistre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le nom de sinistre est obligatoire.")]
+    #[Assert\NotBlank(message: "The claim name is mandatory.")]
     #[Assert\Length(
         max: 20,
-        maxMessage: "Le nom de sinistre ne peut pas dépasser {{ limit }} caractères."
+        maxMessage: "The claim name cannot exceed {{ limit }} characters."
     )]
     #[Assert\Regex(
         pattern: '/^[A-Z][a-zA-Z\s]*$/',
-        message: "Le nom de sinistre doit commencer par une majuscule et ne contenir que des lettres."
+        message: "The claim name must start with an uppercase letter and contain only letters."
     )]
 
     private ?string $sin_name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "La description de sinistre est obligatoire.")]
+    #[Assert\NotBlank(message: "The claim description is mandatory.")]
+    #[Assert\Regex(
+        pattern: '/^[A-Z].*$/',
+        message: "The description must start with an uppercase letter."
+    )]
+    #[Assert\Regex(
+        pattern: '/\.$/',
+        message: "The description must end with a period."
+    )]
+
     private ?string $description_sin = null;
 
     #[ORM\OneToMany(targetEntity: Police::class, mappedBy: 'sinistre')]
@@ -68,7 +77,7 @@ class Sinistre
 
     public function setDescriptionSin(string $description_sin): static
     {
-        $this->description_sin = $description_sin;
+        $this->description_sin = $description_sin = preg_replace('/\s+/', ' ', trim($description_sin));
 
         return $this;
     }

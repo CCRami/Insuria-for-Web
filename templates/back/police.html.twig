@@ -35,6 +35,7 @@
                                             <th>Id</th>
                                             <th>Police Name</th>
                                             <th>Description</th>
+                                            <th>Associated Claim</th>
                                             <th>Edit/Delete</th>
                                         </tr>
                                     </thead>
@@ -44,12 +45,13 @@
                                                 <td>{{ rec.id }}</td>
                                                 <td>{{ rec.getPoliceName }}</td>
                                                 <td>{{ rec.getDescriptionPolice }}</td>
+                                                <td>{{ rec.sinistre ? rec.sinistre.getSinName : 'None' }}</td>
                                                 <td>
                                                     <a href="{{ path('police_edit',{'id':rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Edit</button>
+                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i>Edit</button>
                                                     </a>
                                                     <a href="{{ path('police_delete', {'id': rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-minus"></i></i>Delete</button>
+                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-trash"></i></i>Delete</button>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -68,7 +70,7 @@
 <div class="row">
     <div class="col-12 text-right">
         <a href="{{ path('police_new') }}" class="btn btn-primary btn-round">
-            <i class="icon-plus"></i> Add a Police
+            <i class="fas fa-plus"></i> Add a Police
         </a>
     </div>
 </div>

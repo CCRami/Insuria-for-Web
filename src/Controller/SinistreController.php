@@ -24,6 +24,15 @@ class SinistreController extends AbstractController
         ['list' => $list, ]
         );
     }
+    #[Route('/sinistrefront', name: 'front_sinistres')]
+    public function listSinistres(SinistreRepository $sinistreRepository): Response
+    {
+        $sinistre = $sinistreRepository->findAll();
+
+        return $this->render('front/sinistre.html.twig', [
+            'sinistre' => $sinistre,
+        ]);
+    }
     #[Route('/sinistre/edit/{id}', name: 'sinistre_edit')]
     public function editsini(Request $request,EntityManagerInterface $em,SinistreRepository $rep,int $id):Response
   {

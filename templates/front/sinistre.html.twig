@@ -1,32 +1,140 @@
-
-
 {% extends 'front_base.html.twig' %}
+{% block header %}
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="service-details.html">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="sinistre.html.twig">Type of claim</a></li>
+                                        <li><a href="police.html.twig">POLICY DETAILS</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="blog-details.html">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
 {% block main %}
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
+<main>
 
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
-<h5> liste des sinistre </h5>
+<style>
+    .espacement-superieur {
+        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+    }
+    .contenu-centre {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centrage vertical */
+        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+    }
+    .couleur-carte {
+        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+    }
+</style>
 
-
+<div class="contenu-centre">
+    <div class="container">
+        {% block service %}
+            <div class="tp-service-area  pt-200 pb-200 z-index p-relative">
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12"><a href="{{ path('app_reclamation_user') }}" class="btn btn-primary btn-round px-5"> My Claim</a>
+                            <div class="tp-service-section text-center mb-60">
+                                <h4 class="tp-section-subtitle">Our Services</h4>
+                                <h3 class="tp-section-title text-black">Types of instive <span>insurance</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-20">
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="tpservice mb-20 tp-sv-color-1">
+                                <div class="tpservice__icon">
+                                    <a href="{{ path('reclamationUser_new', {'label': 'Car'}) }}"><i class="flaticon-protection"></i></a>
+                                </div>
+                                <div class="tpservice__title">
+                               
+                                    <h4 class="tp-sv-title"><a href="{{ path('reclamationUser_new', {'label': 'Car'}) }}">Car Insurance</a></h4>
+                               
+                               
+                                </div>
+                                <div class="tpservice__circle">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Ajoutez d'autres services ici -->
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</div>
+   <script>
+        function scrollToForm() {
+            var element = document.getElementById("section-ajout");
+            element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        }
+    </script>
 {% endblock %}

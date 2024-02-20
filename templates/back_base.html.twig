@@ -8,6 +8,10 @@
     <meta name="author" content=""/>
     <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
     <!-- loader-->
+        {% block stylesheets %}
+        <!-- Lien CDN pour Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    {% endblock %}
 
 <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet"/>
 <script src="{{ asset('assets/js/pace.min.js') }}"></script>
@@ -41,7 +45,7 @@
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
      <div class="brand-logo">
       <a href="{{ path('app_admin') }}">
-       <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+       <img src="front_assets/img/logo/logo.png" class="logo-icon" alt="logo icon">
        <h5 class="logo-text">Dashtreme Admin</h5>
      </a>
    </div>
@@ -53,15 +57,15 @@
         </a>
       </li>
 
-      <li>
-        <a href="icons.html">
-          <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
-        </a>
-      </li>
+<li>
+    <a href="{{ path('app_police') }}">
+        <i class="zmdi zmdi-file-text"></i> <span>Policies</span>
+    </a>
+</li>
 
       <li>
-        <a href="forms.html">
-          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Forms</span>
+        <a href="{{ path('app_sinistre') }}">
+          <i class="zmdi zmdi-alert-polygon"></i> <span>Claims</span>
         </a>
       </li>
 

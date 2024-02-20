@@ -1,6 +1,79 @@
 {% extends 'front_base.html.twig' %}
 
+{% block header %}
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                                               <li class="hasdropdown"><a href="#">Policies</a>
+    <ul class="submenu">
+        <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
+        <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
+    </ul>
+</li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="blog-details.html">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
 {% block main %}
 <style>
     .espacement-superieur {
@@ -26,6 +99,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ police.policeName }}</h5>
                             <p class="card-text">{{ police.descriptionPolice }}</p>
+                            
                         </div>
                     </div>
                 </div>
