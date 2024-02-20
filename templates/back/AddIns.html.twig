@@ -30,12 +30,21 @@
                                     {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
                                 </div>
-                                
-                                <div id="fieldsContainer">
-                                    <div class="form-group" id="initialField">
-                                        {{ form_label(form.doa, 'DOA Field', {'label_attr': {'class': 'control-label'}}) }}
-                                        {{ form_widget(form.doa, {'attr': {'class': 'form-control form-control-rounded doa-field', 'placeholder': 'Add DOA Field', 'id': 'doaField', 'name': 'doa[]'}}) }}
+                                <div class="form-group">
+                                    <label for="insimage" class="control-label">Insurance Image</label>
+                                    <div class="custom-file">
+                                        {{ form_widget(form.insimage, {'attr': {'class': 'custom-file-input form-control form-control-rounded', 'id': 'insimage'}}) }}
+                                        <label class="custom-file-label" for="insimage">Choose file</label>
                                     </div>
+                                </div>
+
+                                <div id="fieldsContainer">
+                                    {% for field in form.doa %}
+                                        <div class="form-group">
+                                            <label for="{{ field.vars.id }}" class="control-label">{{ field.vars.label }}</label>
+                                            {{ form_widget(field, {'attr': {'class': 'form-control form-control-rounded doa-field'}}) }}
+                                        </div>
+                                    {% endfor %}
                                 </div>
 
                                 <!-- Button to add a new field -->
@@ -61,26 +70,22 @@
         </div>
         <!-- End container-fluid -->
     </div><!-- End content-wrapper -->
-<script>
-    var fieldCounter = 1; // Counter for field names
+
+    <script>
+    var fieldCounter = 0; // Counter for field names
 
     function addField() {
-        // Clone the initial field
-        var clonedField = document.getElementById("initialField").cloneNode(true);
-
-        // Update the field name and label
         fieldCounter++;
-        clonedField.querySelector('input').setAttribute('name', 'doa[]');
-        clonedField.querySelector('label').innerText = 'Field ' + fieldCounter;
-
-        // Assign a unique ID to the input field
-        var uniqueId = 'doaField' + fieldCounter;
-        clonedField.querySelector('input').setAttribute('id', uniqueId);
-
-        // Append the cloned field to the container
-        document.getElementById("fieldsContainer").appendChild(clonedField);
+        var newFieldHtml = `
+            <div class="form-group">
+                <label for="doaField${fieldCounter}" class="control-label">Dynamic Field ${fieldCounter}</label>
+                <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
+            </div>
+        `;
+        document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
     }
 
+    // Function to concatenate the values of all dynamic fields into a single string
     function combineFields() {
         var combinedValue = ""; // Variable to store combined values
         
@@ -94,16 +99,31 @@
         }
         
         // Remove the trailing separator
-        combinedValue = combinedValue.slice(0, -2);
+        if (combinedValue.length > 0) {
+            combinedValue = combinedValue.slice(0, -2);
+        }
         
         // Print the combined value to the console
         console.log("Combined value:", combinedValue);
 
+        // Set the combined value to a hidden input field if necessary
+        // document.getElementById("combinedDoa").value = combinedValue;
 
-        
-        // Set the combined value to the doa field widget
-        document.getElementById("doaField").value = combinedValue;
+        // Submit the form if needed
+        // document.getElementById("commande_form").submit();
+    }
+
+    // Add event listener for dynamically added fields
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('addFieldButton').addEventListener('click', addFieldOnce);
+    });
+
+    // Function to add field once, preventing multiple clicks
+    function addFieldOnce() {
+        addField();
+        this.removeEventListener('click', addFieldOnce); // Remove the event listener after adding the field once
     }
 </script>
+
 
 {% endblock %}

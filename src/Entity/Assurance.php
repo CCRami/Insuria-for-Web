@@ -21,10 +21,13 @@ class Assurance
     private ?float $montant = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $doa = null;
+    private ?array $doa = null;
 
     #[ORM\ManyToOne(inversedBy: 'assurance')]
     private ?CategorieAssurance $catA = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $insImage = null;
 
     public function getId(): ?int
     {
@@ -55,12 +58,12 @@ class Assurance
         return $this;
     }
 
-    public function getDoa(): ?string
+    public function getDoa(): ?array
     {
         return $this->doa;
     }
 
-    public function setDoa(string $doa): static
+    public function setDoa(array $doa): static
     {
         $this->doa = $doa;
 
@@ -75,6 +78,18 @@ class Assurance
     public function setCatA(?CategorieAssurance $catA): static
     {
         $this->catA = $catA;
+
+        return $this;
+    }
+
+    public function getInsImage(): ?string
+    {
+        return $this->insImage;
+    }
+
+    public function setInsImage(string $insImage): static
+    {
+        $this->insImage = $insImage;
 
         return $this;
     }

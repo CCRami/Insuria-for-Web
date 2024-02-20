@@ -1,0 +1,61 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+    <main>
+        <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
+                 data-background="assets/img/breadcurmb/breadcurmb.jpg">
+            <div class="tp-breadcrmb-circle-one"></div>
+            <div class="tp-breadcrmb-circle-two"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
+                            <div class="breadcrumb__content">
+                                <h3 class="breadcrumb__title">Portfolio</h3>
+                            </div>
+                            <div class="breadcrumb__button">
+                                <a class="tp-btn-white" href="contact.html">Contact us today<i
+                                            class="far fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="clearfix"></div>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="Home" role="tabpanel" aria-labelledby="nav-Home-tab" tabindex="0">
+                                <div class="tp-contact-form-wrapper">
+                                    <div class="contact-section-title-box">
+                                        <h4 class="tp-contact-sm-title">Fill the form </h4>
+                                    </div>
+                                    <div class="contact-form contact-form-box grey-bg pt-4 pb-4 mb-4">
+                                        <form action="{{ path('add_com', {'id': id}) }}" method="POST">
+                                            {% for field in form %}
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-sm-4 col-form-label">{{ field.vars.label }}</label>
+                                                    <div class="tp-contact-input">
+                                                        {{ form_widget(field, {'attr': {'class': 'form-control', 'placeholder': field.vars.label|default('Enter your ' ~ field.vars.name)|capitalize}}) }}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="form-group row">
+                                                <div class="col-sm-8 offset-sm-4">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 {% block main %}
     <main>
+    {% block section %}
         <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
                  data-background="assets/img/breadcurmb/breadcurmb.jpg">
             <div class="tp-breadcrmb-circle-one"></div>
@@ -22,28 +23,49 @@
                 </div>
             </div>
         </section>
-
+{% endblock %}
         <div class="tp-case-area pt-130 pb-90">
             <div class="container">
                 {% if assurances is not empty %}
                     <div class="row">
-                        {% for assurance in assurances %}
-                            <div class="col-xl-4 col-lg-6">
-                                <div class="tpcaseitem mb-30">
-                                    <div class="tpcaseitem__thumb fix">
-                                        <img src="assets/img/case/case-2.jpg" alt="">
-                                    </div>
-                                    <div class="tpcaseitem__content">
-                                        <div class="tpcase-info p-relative">
-                                            <h4 class="tp-case-title"><a href="portfolio-details.html">{{ assurance.nameins }}</a></h4>
-                                            <div class="tp-case-icon">
-                                                <a href="#"><i class="fal fa-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-xl-12 text-center mb-50">
+                            <div class="tp-case-tab-button masonary-menu">
+                                <button class="active" data-filter="*"><span>All</span></button>
+                                {% for category in categories %}
+                                    <button data-filter=".cat{{ category.id }}"><span>{{ category.namecatins }}</span></button>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                        </div>
+                        {% for assurance in assurances %}
+    <div class="col-xl-4 col-lg-6 assurance-item cat{{ assurance.catA.id }}">
+        <div class="tpcaseitem mb-30">
+            <div class="tpcaseitem__thumb fix">
+                {% if assurance.insImage %}
+                    <!-- Assuming assurance ID is used as the query parameter -->
+                    <a href="{{ path('add_com', {'id': assurance.id}) }}">
+                        <img src="{{ asset('uploads/images/' ~ assurance.insImage) }}" alt="">
+                    </a>
+                {% else %}
+                    <!-- Provide a placeholder image or default image if no image is available -->
+                    <a href="{{ path('add_com', {'id': assurance.id}) }}">
+                        <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="No Image">
+                    </a>
+                {% endif %}
+            </div>
+            <div class="tpcaseitem__content">
+                <div class="tpcase-info p-relative">
+                    <h4 class="tp-case-title">
+                        <!-- Link to the second page with assurance ID as query parameter -->
+                        <a href="{{ path('add_com', {'id': assurance.id}) }}">{{ assurance.nameins }}</a>
+                    </h4>
+                    <div class="tp-case-icon">
+                        <a href="#"><i class="fal fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
                     </div>
                 {% else %}
                     <p>No assurances found.</p>
@@ -51,4 +73,28 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.tp-case-tab-button button');
+            const assuranceItems = document.querySelectorAll('.assurance-item');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.dataset.filter;
+                    filterAssurances(category);
+                });
+            });
+
+            function filterAssurances(category) {
+                assuranceItems.forEach(item => {
+                    if (category === '*' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}

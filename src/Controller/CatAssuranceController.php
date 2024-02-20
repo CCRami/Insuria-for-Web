@@ -74,7 +74,7 @@ public function addIns(Request $request, EntityManagerInterface $em): Response
     }
     
 
-    // Function to delete an author
+    
     #[Route('/delete/{id}', name: 'delete_catA')]
     public function deleteIns(CategorieAssuranceRepository $rep, $id, EntityManagerInterface $em): Response
     {
