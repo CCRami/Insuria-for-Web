@@ -1,0 +1,69 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+    .form-container {
+        margin-top: 5rem;
+    }
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+    .table-row:hover td {
+        color: #007bff;
+    }
+    .table-row:hover .btn, .form-submit-btn {
+        background-color: #007bff; /* Pour que le bouton ait le fond bleu */
+        color: #ffffff; /* Texte en blanc pour contraste */
+        border-radius: 20px; /* Bordures arrondies pour le style "btn-round" */
+        border: none; /* Supprime la bordure par défaut des boutons */
+        padding: 10px 20px; /* Ajustement du padding pour correspondre à vos besoins */
+        cursor: pointer; /* Change le curseur au survol */
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-container">
+                <div class="card mt-3">
+                    <div class="card-header text-center">
+                   <h1>Add Agence</h1>
+
+   {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }} 
+        <div class="form-group">
+            {{ form_label(form.nomage,"Name :") }}
+            {{ form_widget(form.nomage) }}
+            {{ form_errors(form.nomage) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.email,"Email :") }}
+            {{ form_widget(form.email) }}
+             {{ form_errors(form.email) }}
+        </div>
+ <div class="form-group">
+            {{ form_label(form.addresse,"Address  :   ") }}
+            {{ form_widget(form.addresse) }}
+             {{ form_errors(form.addresse) }}
+        </div>
+
+         <div class="form-group">
+            {{ form_label(form.tel,"Number  :") }}
+            {{ form_widget(form.tel) }}
+             {{ form_errors(form.tel) }}
+        </div>
+       {{ form_widget(form.save, {'attr': {'style': 'background-color: #0056b3;'}}) }}
+    {{ form_end(form) }}
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}

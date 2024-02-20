@@ -1,0 +1,82 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+   <!-- tp-testimonial-area-start -->
+   <div class="tp-testimonial-area black-bg pt-200 pb-200 p-relative">
+      <div class="tp-service-section text-center mb-10">
+         <div class="tp-testimonial-area black-bg ">
+          
+           
+         
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-12">
+                     <div class="tp-testimonial-section-box text-center mb-44">
+                        <h4 class="tp-section-subtitle">my reviews</h4>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  {% for oneauth in listX %}
+                     <div class="col-md-6" style='width: 400px; margin-right: 10px;margin-top:40px;'>
+                     
+                        {% if oneauth.note == 1 %}
+                        <h3 class="tp-section-subtitle">{{ oneauth.agenceav.nomage }}</h3>
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ oneauth.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <p>{{ oneauth.commentaire }}</p>
+                                  <p style="color: white;">{{oneauth.date_avis|date('d/m/Y')}}</p>
+                                  
+                              </div>
+                           </div>
+                        {% elseif oneauth.note == 2 %}                        
+
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ oneauth.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <p>{{ oneauth.commentaire }}</p>  <p style="color: white;">{{oneauth.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% elseif oneauth.note == 3 %}                       
+
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ oneauth.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <p>{{ oneauth.commentaire }}</p>  <p style="color: white;">{{oneauth.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% elseif oneauth.note == 4 %}                     
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;" >{{ oneauth.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <p>{{ oneauth.commentaire }}</p>  <p style="color: white;">{{oneauth.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% elseif oneauth.note == 5 %}                       
+
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ oneauth.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <p>{{ oneauth.commentaire }}</p>  <p style="color: white;">{{oneauth.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% endif %}
+                     </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{% endblock %}

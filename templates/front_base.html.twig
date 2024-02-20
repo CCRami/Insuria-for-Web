@@ -9,7 +9,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- Place favicon.ico in the root directory -->
-   <link rel="shortcut icon" type="image/x-icon" href="front_assets/img/favicon.png">
+   <link rel="shortcut icon" type="image/x-icon" href="../front_assets/img/favicon.png">
 
 {% block css %}
 <link rel="stylesheet" href="{{ asset('front_assets/css/bootstrap.min.css') }}">
@@ -39,7 +39,7 @@
             <div class="row g-0 align-items-center">
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                     <div class="tp-logo">
-                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                        <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt=""></a>
                     </div>
                 </div>
                 
@@ -107,6 +107,7 @@
    <!-- tp-header-area-end -->
    </header>
 {% endblock %}
+  {% block main %}
    <main>
    {% block slider %}
       <!-- tp-slider-area-start -->
@@ -116,6 +117,7 @@
                <div class="slider-bg d-flex justify-content-center align-items-center"
                   data-background="front_assets/img/slider/slider-bg.jpg">
                   <div class="tp-slider-content-box text-center z-index-3">
+                  
                      <h2 class="tp-slider-title">
                         Insurance that protect <br> your family</h2>
                      <p>Only our company gives you aninvestment with your life insurance <br> policy at no extracost.
@@ -899,6 +901,7 @@
 {% endblock %}
 
    </main>
+   {% endblock %}
 {% block footer %}
    <footer>
       <!-- tp-footer-area-start -->

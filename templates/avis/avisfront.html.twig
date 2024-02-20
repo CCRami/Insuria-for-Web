@@ -1,0 +1,71 @@
+{% extends 'front_base.html.twig' %}
+{% block content %}
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+	
+	  
+	<div class="row">
+     <div class="col-16 col-lg-12 col-xl-12">
+	   
+
+     
+	<div class="row">
+	 <div class="col-12 col-lg-12">
+	   <div class="card">
+	     <div class="card-header">Notes
+		  
+	       <div class="table-responsive">
+                 <table class="table align-items-center table-flush table-borderless">
+                  <thead>
+                   <tr>
+                     <th>Name of agence</th>
+                     <th>Note</th>
+                     <th>Comment</th>
+                    <th>Client</th>
+                     <th>Note Date</th>
+                      <th>Action</th>
+                    
+                   </tr>
+                   </thead>
+                   {% for oneauth in listX %}
+                   <tbody><tr>
+                      <td>{{oneauth.agenceav.nomage}}</td>
+                    <td>{{oneauth.note}}</td>
+                    <td>{{oneauth.commentaire}}</td>
+                  
+                    <td>{{oneauth.avis.first_name}} {{oneauth.avis.last_name}}</td>
+<td>{{ oneauth.date_avis|date('d/m/Y') }}</td>
+
+                   
+                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_addavis',{'id':oneauth.id})}}">Ajouter avis</a></button>
+                    <button>Contact</button></td>
+					<td><div class="" style="height: 3px;">
+                          <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div></td>
+                   </tr>
+                {%endfor%}
+                  
+
+                 </tbody></table>
+               </div>
+	   </div>
+	 </div>
+	</div><!--End Row-->
+
+      <!--End Dashboard Content-->
+	  
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+
+ {% endblock %}

@@ -45,4 +45,37 @@ class AvisRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+function findavisbyclient($Avis){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.Avis z WHERE  
+    z.id=:id')
+    ->setParameter('id',$Avis)
+    ->getResult();
+}
+
+function findavisbyagence($id){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.agenceav z WHERE  
+    z.id=:id')
+    ->setParameter('id',$id)
+    ->getResult();
+}
+
+function findavisbyid($id){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.Avis z WHERE  
+    z.id=:id')
+    ->setParameter('id',$id)
+    ->getResult();
+}
+
 }

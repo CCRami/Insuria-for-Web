@@ -1,0 +1,85 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+	
+	  
+	<div class="row">
+     <div class="col-16 col-lg-12 col-xl-12">
+	   
+
+     
+	<div class="row">
+	 <div class="col-12 col-lg-12">
+	   <div class="card">
+	     <div class="card-header">Our Agences
+		  <div class="card-action">
+             <div class="dropdown">
+             <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+              <i class="icon-options"></i>
+             </a>
+              <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="{{path('name_add')}}">Add new agence </a>
+            
+              </div>
+             </div>
+		 </div>
+	       <div class="table-responsive">
+                 <table class="table align-items-center table-flush table-borderless">
+                  <thead>
+                   <tr>
+                     <th>Name of agence</th>
+                     <th>Email</th>
+                     <th>Number</th>
+                    <th>Address</th>
+                     <th>CreationDate</th>
+                      <th>Action</th>
+                    
+                   </tr>
+                   </thead>
+                   {% for oneauth in listX %}
+                   <tbody><tr>
+                    
+                    <td>{{oneauth.nomage}}</td>
+                    <td>{{oneauth.email}}</td>
+                    <td>{{oneauth.tel}}</td>
+                    <td>{{oneauth.addresse}}</td>
+<td>{{ oneauth.create_at|date('d/m/Y') }}</td>
+
+                   
+                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_delete',{'id':oneauth.id})}}">Delete</a></button>
+
+                    <button style="background-color: #0056b3;"><a href="{{path('name_edit',{'id':oneauth.id})}}">Edit</a></button>
+                    <button>Show Notes</button>
+                    <button>Contact</button></td>
+					<td><div class="" style="height: 3px;">
+                          <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div></td>
+                   </tr>
+                {%endfor%}
+                  
+
+                 </tbody></table>
+               </div>
+	   </div>
+	 </div>
+	</div><!--End Row-->
+
+      <!--End Dashboard Content-->
+	  
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+
+ {% endblock %}

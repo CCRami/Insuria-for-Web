@@ -45,4 +45,28 @@ class AgenceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+function findavisbyagence($idag){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b WHERE 
+    b.agenceav=:id')
+    ->setParameter('id',$idag)
+    ->getResult();
+}
+
+
+function findavisbyclient($idag){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b WHERE 
+    b.avis=:id')
+    ->setParameter('id',$idag)
+    ->getResult();
+}
+
+
 }
