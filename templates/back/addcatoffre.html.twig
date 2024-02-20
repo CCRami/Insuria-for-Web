@@ -11,7 +11,7 @@
       <div class="card-content">
         <!-- Symfony Form Start -->
         <div class="row justify-content-center"> {# Centering the content horizontally #}
-          <div class="col-lg-6"> {# Adjust grid column width based on your layout needs #}
+          <div class="col-lg-8 col-md-10 col-sm-12"> {# Adjust grid column width based on your layout needs #}
             <div class="card">
               <div class="card-body">
                 <div class="card-title">Ajouter une catégorie offre</div>
@@ -24,6 +24,10 @@
                 <div class="form-group">
                   {{ form_label(form.description_cat, 'description_cat', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.description_cat, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter description_cat'}}) }}
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.catimg, 'Image', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.catimg, {'attr': {'class': 'form-control form-control-rounded', 'accept': 'image/*'}}) }}
                 </div>
                 {{ form_rest(form) }}
                 <div class="form-group py-2">

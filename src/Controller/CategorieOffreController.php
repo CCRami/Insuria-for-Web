@@ -31,6 +31,16 @@ class CategorieOffreController extends AbstractController
         ]);
     }
 
+    #[Route('/displaycatt', name: 'displayCategorieOffref')]
+    public function displayCategorieOffref(CategorieOffreRepository $CategorieOffreRepository): Response
+    {
+        $catoffres = $CategorieOffreRepository->findAll();
+
+        return $this->render('front/categorieoffre.html.twig', [
+            'catoffres' => $catoffres,
+        ]);
+    }
+
     #[Route('/addcat', name: 'add_catoffre')]
     public function addcatOffre(Request $request, EntityManagerInterface $em): Response
     {
@@ -39,6 +49,26 @@ class CategorieOffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('catimg')->getData();
+            
+            // Check if an image has been uploaded
+            if ($imageFile) {
+                // Generate a unique name for the file
+                $fileName = uniqid().'.'.$imageFile->guessExtension();
+                
+                // Move the file to the directory where images are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // Handle file upload error
+                }
+                
+                // Set the image file name to the offre entity
+                $catoffre->setCatimg($fileName);
+            }
             $em->persist($catoffre);
             $em->flush();
             
@@ -76,4 +106,6 @@ class CategorieOffreController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('displayCategorieOffre');
     }
+
+   
 }

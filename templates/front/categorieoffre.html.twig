@@ -1,0 +1,59 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+<main>
+{% block slider %}
+
+<!-- tp-service-area-start -->
+<div class="tp-sercvice-insurance pt-130 pb-90 grey-bg z-index">
+    <div class="container">
+        <div class="row align-items-end service-bottom-space">
+            <div class="col-xl-6 col-lg-6 col-12">
+                <div class="sercviceinsurance__title service-border-right">
+                    <h4 class="tp-section-subtitle">Our Services</h4>
+                    <h3 class="tp-section-title">Change the way but <br> life Insurance</h3>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-12">
+                <div class="tp-service-right-text">
+                    <p>Exerci tation ullamcorper suscipit lobortis nisl aliquip ex ea commodo claritatem insitamconse
+                        quat.Exerci tation ullamcorper suscipit loborti excommodo habent claritatem insitamconse
+                        quat.Exerci tationlobortis nisl aliquip ex ea commodo
+                        n ullamcorper suscipit loborti excommodo</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for catoffre in catoffres %}
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="sercviceinsurance mb-30">
+                        <div class="sercviceinsurance__item">
+                            <div class="sercviceinsurance__thumb">
+                                <div class="fix">
+                                    <img src="{{ catoffre.catimg }}" alt="">
+                                </div>
+                            </div>
+                            <div class="sercviceinsurance__content z-index-4">
+                                <div class="sercviceinsurance__content-circle">
+                                    <i class="flaticon-family"></i>
+                                </div>
+                                <h4 class="tp-sv-insurance-title"><a href="service-details.html">{{ catoffre.categoriename }}</a></h4>
+                                <p>{{ catoffre.descriptioncat }}</p>
+                            </div>
+                            <a href="service-details.html">
+                                <div class="sercviceinsurance__svbtn d-flex justify-content-between align-items-center">
+                                    <span>Read Details</span>
+                                    <i class="fal fa-angle-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- tp-service-area-end -->
+{% endblock %}
+
+{% endblock %}
