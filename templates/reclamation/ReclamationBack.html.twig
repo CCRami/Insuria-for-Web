@@ -1,0 +1,60 @@
+{% extends 'back_base.html.twig' %}
+{% block content %}
+ 
+
+<style>
+    
+    .centered-table {
+        margin: 50px auto; 
+        width: 60%;
+         margin-top: 150px; }
+   .centered-table tr:first-child th {
+        background-color: ;
+    }
+    .centered-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .centered-table th, .centered-table td {
+        border: 1px solid white;
+        padding: 8px;
+        text-align: left;
+
+    }
+
+   
+</style>  
+
+<table class="centered-table">
+    <tr>
+        <th>Numero</th>
+        <th>Libelle</th>
+        <th>Date declaration</th>
+        <th>Date sinistre</th>
+        <th>Contenu</th>
+        <th>Reponse</th>
+        <th>Edit/Delete</th>
+    </tr>
+   
+    {% for rec in list %}
+    <tr>
+        <td>{{ rec.id }}</td>
+        <td>{{ rec.libelle }}</td>
+       <td>{{ rec.date_decl ? rec.date_decl.format('Y-m-d H:i:s') : '' }}</td>
+
+    <td>{{ rec.getDateSin() ? rec.getDateSin().format('Y-m-d H:i:s') : '' }}</td>
+       <td>{{ rec.getContenuRec() }}</td>
+        
+        <td>{{ rec.reponse }}</td>
+        <td><a href="{{path('app_admin',{'id':rec.id})}}"> editer /
+    </a>
+           <a href="{{ path('app_admin', {'id': rec.id}) }}">
+             <img src="{{ asset('images/tabImages/corbeille.png') }}">
+            </a>
+</td>
+     
+    </tr>
+    {% endfor %}
+</table>
+{%endblock%}

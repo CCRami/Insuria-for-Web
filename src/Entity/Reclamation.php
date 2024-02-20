@@ -45,17 +45,16 @@ class Reclamation
 
         return $this;
     }
+    public function getDate_decl(): ?\DateTimeInterface
+     {
+    return $this->date_decl;
+     }
 
-    public function getDateDecl(): ?\DateTimeInterface
+     public function setDate_decl(\DateTimeInterface $date_decl): static
     {
-        return $this->date_decl;
-    }
+    $this->date_decl = $date_decl;
 
-    public function setDateDecl(\DateTimeInterface $date_decl): static
-    {
-        $this->date_decl = $date_decl;
-
-        return $this;
+    return $this;
     }
 
     public function getDateSin(): ?\DateTimeInterface
@@ -81,7 +80,7 @@ class Reclamation
 
         return $this;
     }
-
+    
     public function isReponse(): ?bool
     {
         return $this->reponse;
