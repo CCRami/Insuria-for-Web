@@ -16,6 +16,7 @@
                    <table class="table table-bordered table-hover">
                        <thead>
                            <tr>
+                               <th>Category Image</th>
                                <th>Category Name</th>
                                <th>Description</th>
                                <th>Actions</th>
@@ -23,13 +24,14 @@
                        </thead>
                        <tbody>
                         {% for catoffre in catoffres %}
-                                    <td>
-                                        {% if catoffre.catimg %}
-                                            <img src="{{ asset('uploads/offres/' ~ catoffre.catimg) }}" alt="CatOffre Image" style="max-width: 100px; max-height: 100px;">
-                                        {% else %}
-                                            No Image
-                                        {% endif %}
-                                    </td>
+                           <tr>
+                               <td>
+                                   {% if catoffre.catimg %}
+                                       <img src="{{ asset('uploads/offres/' ~ catoffre.catimg) }}" alt="CatOffre Image" style="max-width: 100px; max-height: 100px;">
+                                   {% else %}
+                                       No Image
+                                   {% endif %}
+                               </td>
                                <td>{{ catoffre.categoriename }}</td>
                                <td>{{ catoffre.descriptioncat }}</td>
                                <td>
@@ -37,11 +39,11 @@
                                    <a href="{{ path('delete_catoffre', {'id': catoffre.id}) }}" class="btn btn-danger">Delete</a>
                                </td>
                            </tr>
-                           {% else %}
+                        {% else %}
                            <tr>
-                               <td colspan="3">No Records Found</td>
+                               <td colspan="4">No Records Found</td>
                            </tr>
-                           {% endfor %}
+                        {% endfor %}
                        </tbody>
                    </table>
                 </div>
