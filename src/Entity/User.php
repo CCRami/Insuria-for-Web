@@ -5,10 +5,13 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,13 +41,19 @@ class User
     private ?string $password = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"Phone number cannot be blank")]
     private ?int $phone_number = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message:"Please enter your birth date.")]
+    #[Assert\LessThanOrEqual("today", message:"Birth date must not be in the future.")]
     private ?\DateTimeInterface $birth_date = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column(type: 'json')]
+    private ?array $roles = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
 
     public function getId(): ?int
@@ -124,14 +133,30 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
 
-    public function setRole(string $role): static
+    public function setRoles(array $roles): static
+{
+    $this->roles = $roles;
+    return $this;
+}
+
+    public function getSalt(){return null;}
+
+    public function eraseCredentials(){}
+    public function getUsername(): string{return $this->first_name." ".$this->last_name;}
+
+    public function isVerified(): bool
     {
-        $this->role = $role;
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

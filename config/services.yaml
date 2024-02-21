@@ -19,6 +19,15 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Service\MyGmailMailerService:
+        arguments:
+            $mailerConfig:
+                host: 'smtp.gmail.com'
+                port: 587
+                username: 'rami.toubib2014@gmail.com'
+                password: 'kngp embc okyp iodi'
+                encryption: 'tls' # adjust based on your SMTP configuration
                 fromAddress: 'rami.toubib2014@gmail.com'
+                fromName: 'Insuria'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

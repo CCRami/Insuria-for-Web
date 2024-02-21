@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\LoginType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
@@ -26,16 +32,18 @@ class UserController extends AbstractController
         $this->repo=$repo;
     }
     #[Route('/admin/user', name: 'app_admin_user', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $userRepository = $this->getDoctrine()->getRepository(User::class);
         $users = $userRepository->findAll();
 
         $user = new User();
+        $user->setBirthDate(new \DateTime());
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -54,7 +62,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/user/edit/{id}', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $userId = $request->attributes->get('id');
         $user = $entityManager->getRepository(User::class)->find($userId);
@@ -62,6 +70,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
             $entityManager->flush();
     
             $this->addFlash('success', 'User updated successfully');
@@ -93,27 +102,6 @@ class UserController extends AbstractController
     /**
  * client controller
  */
-    #[Route('/home/signup', name: 'app_home_signup')]
-    public function index_client(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'User created successfully');
-
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('/front/signup.html.twig', [
-            'controller_name' => 'UserController',
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
+    
+ 
 }

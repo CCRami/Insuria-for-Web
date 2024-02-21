@@ -2,31 +2,38 @@
 {% block header %}
 <div class="header" style="background-color: #051B46;">
     <div class="container-fluid">
-        <div class="row g-0 align-items-center">
-            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
-                <div class="tp-logo">
-                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="hello"></a>
+                <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-bottom: -20px;">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}
 {% block main %}
 {% block insurance %}
-
 <div class="contactform" style="text-align: center; color: #051B46; width: 450px; margin: auto;">
-    {{ form_start(form) }}
+    
+    <div id="signup-form" class="toggle-form">
+    <hr>
+         <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Sign up</h4>
+         {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
     <strong>
     <div class="row">
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.first_name, {'attr': {'placeholder': 'Enter First Name'}}) }}
+                {{ form_label(registrationForm.first_name) }}
+                {{ form_widget(registrationForm.first_name, {'attr': {'placeholder': 'Enter First Name'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.first_name) }}</div>
+            
             </div>
         </div>
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.last_name, {'attr': {'placeholder': 'Enter Last Name'}}) }}
+                {{ form_label(registrationForm.last_name) }} 
+                {{ form_widget(registrationForm.last_name, {'attr': {'placeholder': 'Enter Last Name'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.last_name) }}</div>
             </div>
         </div>
     </div>
@@ -34,12 +41,16 @@
     <div class="row">
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.email, {'attr': {'placeholder': 'Enter Email'}}) }}
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Enter Email'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.email) }}</div>
             </div>
         </div>
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.password, {'attr': {'placeholder': 'Enter Password'}}) }}
+                {{ form_label(registrationForm.password) }}
+                {{ form_widget(registrationForm.password, {'attr': {'placeholder': 'Enter Password'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.password) }}</div>
             </div>
         </div>
     </div>
@@ -47,22 +58,16 @@
     <div class="row">
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.phone_number, {'attr': {'placeholder': 'Enter Phone'}}) }}
+                {{ form_label(registrationForm.phone_number) }}
+                {{ form_widget(registrationForm.phone_number, {'attr': {'placeholder': 'Enter Phone'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.phone_number) }}</div>
             </div>
         </div>
         <div class="col">
             <div class="contactform__input">
-                {{ form_row(form.birth_date, {'attr': {'placeholder': 'Enter Birth Date'}}) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="display: none;">
-        <div class="col">
-            <div class="contactform__select">
-                <div class="tp-sp-icon">
-                    {{ form_row(form.role, {'value': 'client', 'attr': {'style': 'display: none;'}}) }}
-                </div>
+                {{ form_label(registrationForm.birth_date) }}
+                {{ form_widget(registrationForm.birth_date, {'attr': {'placeholder': 'Enter Birth Date'}}) }}
+                <div style="color: red;">{{ form_errors(registrationForm.birth_date) }}</div>            
             </div>
         </div>
     </div>
@@ -70,13 +75,19 @@
     <div class="row">
         <div class="col">
             <div class="contactform__button">
-                <button type="submit" class="tp-btn-yellow-similar w-100">Sign Up</button>
+                <button type="submit" class="tp-btn-yellow-similar w-100" name="signup">Sign Up</button>
             </div>
         </div>
     </div>
+    
+    {{ form_end(registrationForm) }}
+    </div>
+
 </strong>
-    {{ form_end(form) }}
+<hr>
+        <button onclick="window.location.href='{{ path('app_login') }}'" id="toggle-form-button" class="tp-section-subtitle">Already have an account?</button>
 </div>
+
 
 {% endblock %}
 {% endblock %}

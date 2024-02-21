@@ -6,52 +6,46 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">Add User</div>
-            {{ form_start(form) }}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="row mb-3">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-1">Name</label>
-                        {{ form_widget(form.first_name, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Name'}}) }}
+                        {{ form_row(form.first_name, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Name'}}) }}
+
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-5">Last Name</label>
-                        {{ form_widget(form.last_name, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+                        {{ form_row(form.last_name, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-2">Email</label>
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
+                        {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-3">Mobile</label>
-                        {{ form_widget(form.phone_number, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Mobile Number'}}) }}
+                        {{ form_row(form.phone_number, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Mobile Number'}}) }}
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-4">Password</label>
-                        {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Enter Password'}}) }}
+                        {{ form_row(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Enter Password'}}) }}
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="input-4">Birth Date</label>
-                        {{ form_widget(form.birth_date, {'attr': {'class': 'form-control', 'placeholder': 'Enter Birth Date', 'type': 'date'}}) }}
+                    {{ form_row(form.birth_date, {'attr': {'class': 'form-control', 'placeholder': 'Enter Birth Date', 'type': 'date'}}) }}
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="input-5">Role</label>
-                        {{ form_widget(form.role, {'attr': {'class': 'form-control', 'placeholder': 'Enter Role'}}) }}
-                    </div>
+                <div class="form-group">
+                    {{ form_row(form.roles, {'attr': {'class': 'form-control role-selector', 'placeholder': 'Enter Roles'}, 'multiple': 'multiple'}) }}
                 </div>
+            </div>
                 <div class="col-md-3">
                     <div class="form-group mt-4">
                         <button type="submit" class="btn btn-light" style=" color: yellow; padding: 15px; width: 150px;" ><i class="icon-lock"></i> Submit</button>
@@ -95,7 +89,12 @@
                                 <td>{{ user.getPassword() }}</td>
                                 <td>{{ user.getPhoneNumber() }}</td>
                                 <td>{{ user.getBirthDate()|date('Y-m-d') }}</td>
-                                <td>{{ user.getRole() }}</td>
+                                <td>
+                                    {% for role in user.getRoles() %}
+                                        {{ role }}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td>
                                    <div class="btn-group">
                                         <form action="{{ path('app_admin_user_delete', {'id': user.id}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')">

@@ -1,0 +1,69 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+<div class="header" style="background-color: #051B46;">
+    <div class="container-fluid">
+                <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-bottom: -20px;">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
+                </div>
+    </div>
+</div>
+{% endblock %}
+{% block main %}
+{% block insurance %}
+<strong>
+<div class="contactform" style="text-align: center; color: #051B46; width: 450px; margin: auto;">
+    <div id="login-form">
+    <form method="post">
+        {% if error %}
+        <hr>
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <hr>
+        {% if app.session.flashbag.has('info') %}
+            <div class="alert alert-info">
+                {{ app.session.flashbag.get('info')|first }}
+            </div>
+        {% elseif app.session.flashbag.has('success') %}
+            <div class="alert alert-success">
+                {{ app.session.flashbag.get('success')|first }}
+            </div>
+        {% endif %}
+
+        <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Login</h4>
+
+        <div class="row">
+            <div class="col">
+                <div class="contactform__input">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Enter Email">
+                </div>
+            </div>
+            <div class="col">
+                <div class="contactform__input">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Enter Password">
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="col">
+            <div class="contactform__button">
+                <button type="submit" class="tp-btn-yellow-similar w-100" name="login">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</strong>
+<hr>
+        <button onclick="window.location.href='{{ path('app_register') }}'" id="toggle-form-button" class="tp-section-subtitle">Don't have an account?</button>
+</div>
+{% endblock %}
+{% endblock %}
