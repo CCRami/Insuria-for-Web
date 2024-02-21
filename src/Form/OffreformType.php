@@ -63,7 +63,7 @@ class OffreformType extends AbstractType
                 'required' => false, // This field is not required
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '5024k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

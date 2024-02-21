@@ -88,6 +88,27 @@ class CategorieOffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('catimg')->getData();
+            
+            // Check if a new image has been uploaded
+            if ($imageFile) {
+                // Generate a unique name for the file
+                $fileName = uniqid().'.'.$imageFile->guessExtension();
+                
+                // Move the file to the directory where images are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // Handle file upload error
+                }
+                
+                // Set the new image file name to the offre entity
+                $catoffre->setCatimg($fileName);
+            }
+            
             $em->flush();
             
             return $this->redirectToRoute('displayCategorieOffre');
@@ -97,6 +118,7 @@ class CategorieOffreController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 
     #[Route('/deletecat/{id}', name: 'delete_catoffre')]
     public function deletecatOffre(CategorieOffreRepository $rep, $id, EntityManagerInterface $em): Response
