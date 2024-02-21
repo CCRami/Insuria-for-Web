@@ -14,30 +14,27 @@
           <div class="col-lg-8 col-md-10 col-sm-12"> {# Adjust grid column width based on your layout needs #}
             <div class="card">
               <div class="card-body">
-                <div class="card-title">Ajouter une catégorie offre</div>
+                <div class="card-title">Add category offer</div>
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form'}}) }}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form', 'novalidate':'novalidate'}}) }}
                 <div class="form-group">
                   {{ form_label(form.categorie_name, 'categorie_name', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.categorie_name, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter categorie_name'}}) }}
+                  <div style="color: white;">{{ form_errors(form.categorie_name) }}</div>
                 </div>
                 <div class="form-group">
                   {{ form_label(form.description_cat, 'description_cat', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.description_cat, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter description_cat'}}) }}
+                  <div style="color: white;">{{ form_errors(form.description_cat) }}</div>
                 </div>
                 <div class="form-group">
                   {{ form_label(form.catimg, 'Image', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.catimg, {'attr': {'class': 'form-control form-control-rounded', 'accept': 'image/*'}}) }}
+                  <div style="color: white;">{{ form_errors(form.catimg) }}</div>
                 </div>
                 {{ form_rest(form) }}
-                <div class="form-group py-2">
-                  <div class="icheck-material-white">
-                    <input type="checkbox" id="user-checkbox2" checked=""/>
-                    <label for="user-checkbox2">I Agree Terms & Conditions</label>
-                  </div>
-                </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                  <button type="submit" class="btn btn-light btn-round px-5"></i> Add</button>
                 </div>
                 {{ form_end(form) }}
               </div>

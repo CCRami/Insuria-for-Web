@@ -14,26 +14,22 @@
           <div class="col-lg-6"> {# Adjust grid column width based on your layout needs #}
             <div class="card">
               <div class="card-body">
-                <div class="card-title">Modifier une catégorie offre</div>
+                <div class="card-title">Edit category offer</div>
                 <hr>
-                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form'}}) }}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
                 <div class="form-group">
-                  {{ form_label(form.categorie_name, 'categorie_name', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_label(form.categorie_name, 'category_name', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.categorie_name, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter categorie_name'}}) }}
+                  <div style="color: white;">{{ form_errors(form.categorie_name) }}</div>
                 </div>
                 <div class="form-group">
                   {{ form_label(form.description_cat, 'description_cat', {'label_attr': {'class': 'control-label'}}) }}
                   {{ form_widget(form.description_cat, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter description_cat'}}) }}
+                  <div style="color: white;">{{ form_errors(form.description_cat) }}</div>
                 </div>
                 {{ form_rest(form) }}
-                <div class="form-group py-2">
-                  <div class="icheck-material-white">
-                    <input type="checkbox" id="user-checkbox2" checked=""/>
-                    <label for="user-checkbox2">I Agree Terms & Conditions</label>
-                  </div>
-                </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Modifier</button>
+                  <button type="submit" class="btn btn-light btn-round px-5"></i> Edit</button>
                 </div>
                 {{ form_end(form) }}
               </div>

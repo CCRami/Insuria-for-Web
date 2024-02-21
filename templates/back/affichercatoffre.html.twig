@@ -9,9 +9,9 @@
 
         <div class="row justify-content-center mb-4">
             <div class="col-12 col-lg-8">
-                <a href="{{ path('add_catoffre') }}" class="btn btn-primary mb-3">Add CategorieOffre</a>
+                <a href="{{ path('add_catoffre') }}" class="btn btn-primary mb-3">Add Category Offer</a>
                 <div class="card">
-                    <div class="card-header">Listes catégories d'offres</div>
+                    <div class="card-header">List offer categories </div>
                     <div class="table-responsive text-center">
                    <table class="table table-bordered table-hover">
                        <thead>
@@ -35,8 +35,8 @@
                                <td>{{ catoffre.categoriename }}</td>
                                <td>{{ catoffre.descriptioncat }}</td>
                                <td>
-                                   <a href="{{ path('edit_catoffre', {'id': catoffre.id}) }}" class="btn btn-primary">Edit</a>
-                                   <a href="{{ path('delete_catoffre', {'id': catoffre.id}) }}" class="btn btn-danger">Delete</a>
+                                   <a href="{{ path('edit_catoffre', {'id': catoffre.id}) }}" class="btn btn-light btn-round px-5">Edit</a>
+                                   <a href="{{ path('delete_catoffre', {'id': catoffre.id}) }}" class="btn btn-light btn-round px-5">Delete</a>
                                </td>
                            </tr>
                         {% else %}

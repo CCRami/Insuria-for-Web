@@ -19,7 +19,7 @@ class CategorieOffreformType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => '/^[A-Z][a-zA-Z]{1,9}$/',
-                        'message' => 'Le nom de la catégorie doit commencer par une majuscule et contenir entre 2 et 10 lettres.'
+                        'message' => 'The cantegory name must start with an uppercase letter and contain between 2 and 10 letters.'
                     ])
                 ]
             ])
@@ -28,7 +28,8 @@ class CategorieOffreformType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => '/^[A-Z].{0,29}\.$/',
-                        'message' => 'La description doit commencer par une majuscule, contenir maximum 30 mots et se terminer par un point.'
+                        'message' => 'The description_cat must start with an uppercase letter , contain maximum 30 words and ends with ".".'
+                        
                     ])
                 ]
             ])

@@ -135,7 +135,15 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
             'offres' => $offres,
         ]);
     }
+    #[Route('/displayoffbycat/{id}', name: 'display_offrefbycat')]
+    public function displayOffrefbycat(OffreRepository $offreRepository, $id): Response
+    {
+        $offres = $offreRepository->findBy(['categorie' => $id]);
 
+        return $this->render('front/offre.html.twig', [
+            'offres' => $offres,
+        ]);
+    }
 
 
 

@@ -9,9 +9,9 @@
 
         <div class="row justify-content-center mb-4">
             <div class="col-12 col-lg-8">
-                <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offre</a>
+                <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offer</a>
                 <div class="card">
-                    <div class="card-header">Listes catégories d'offres</div>
+                    <div class="card-header">List of offer categories </div>
                     <div class="table-responsive text-center">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -19,9 +19,10 @@
                                     <th>Image</th>
                                     <th>Advantage</th>
                                     <th>Conditions</th>
-                                    <th>Duration</th>
-                                    <th>Discount</th>
+                                    <th>Duration(Days)</th>
+                                    <th>Discount(%)</th>
                                     <th>Actions</th>
+                                    <th>Category name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,9 +40,10 @@
                                     <td>{{ offre.duration }}</td>
                                     <td>{{ offre.discount }}</td>
                                     <td>
-                                        <a href="{{ path('edit_offre', {'id': offre.id}) }}" class="btn btn-primary">Edit</a>
-                                        <a href="{{ path('delete_offre', {'id': offre.id}) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ path('edit_offre', {'id': offre.id}) }}" class="btn btn-light btn-round px-3">Edit</a>
+                                        <a href="{{ path('delete_offre', {'id': offre.id}) }}" class="btn btn-light btn-round px-3">Delete</a>
                                     </td>
+                                    <td>{{ offre.categorie.categoriename}}</td>
                                 </tr>
                                 {% else %}
                                 <tr>
