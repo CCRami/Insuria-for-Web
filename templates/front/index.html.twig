@@ -5,7 +5,7 @@
             <div class="row g-0 align-items-center">
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
                     <div class="tp-logo">
-                        <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="hello"></a>
+                        <a href="{{ path('app_home') }}"><img src="{{ asset('../front_assets/img/logo/logo.png')}}" alt="hello"></a>
                     </div>
                 </div>
                 
@@ -62,7 +62,7 @@
                                 <ul>
                                     <li class="hasdropdown"><a href="portfolio-details.html">{{ app.user.username }}</a>
                                     <ul class="submenu">
-                                            <li><a href="service-details.html">Manage account</a></li>
+                                            <li><a href="{{path('app_home_manage', {'id': app.user.id})}}">Manage account</a></li>
                                             <li><a href="{{ path('app_logout') }}">Logout</a></li>
                                         </ul>
                                     </li>

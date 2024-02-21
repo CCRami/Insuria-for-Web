@@ -1,25 +1,23 @@
 {% extends 'front_base.html.twig' %}
 {% block header %}
-<div class="header" style="background-color: #051B46;">
-    <div class="container-fluid">
-                <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-bottom: -20px;">
-                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
-                </div>
-    </div>
-</div>
 {% endblock %}
 {% block main %}
 {% block insurance %}
-<div class="contactform" style="text-align: center; color: #051B46; width: 450px; margin: auto;">
-    
-    <div id="signup-form" class="toggle-form">
+<div class="tp-insurance-area pt-120 pb-120 black-bg"  data-background="../front_assets/img/about/about-bg-shape-1.png">
+<div class="container-fluid">
+        <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-top: -120px; ">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
+        </div>
+</div>
+    <div id="signup-form" class="toggle-form" style="text-align: center; color: #FFFFFF; width: 450px; margin: auto; ">
     <hr>
-         <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Sign up</h4>
-         {% for flash_error in app.flashes('verify_email_error') %}
+    {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+         <h4 class="tp-section-subtitle" style="color: #2CA2FB;">Sign up</h4>
+        <strong>
     {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
-    <strong>
+
     <div class="row">
         <div class="col">
             <div class="contactform__input">
@@ -46,13 +44,12 @@
                 <div style="color: red;">{{ form_errors(registrationForm.email) }}</div>
             </div>
         </div>
-        <div class="col">
+        
             <div class="contactform__input">
-                {{ form_label(registrationForm.password) }}
                 {{ form_widget(registrationForm.password, {'attr': {'placeholder': 'Enter Password'}}) }}
                 <div style="color: red;">{{ form_errors(registrationForm.password) }}</div>
             </div>
-        </div>
+        
     </div>
 
     <div class="row">
@@ -81,11 +78,13 @@
     </div>
     
     {{ form_end(registrationForm) }}
+    <hr>
+    <button onclick="window.location.href='{{ path('app_login') }}'" id="toggle-form-button" class="tp-section-subtitle" >Already have an account?</button>
     </div>
 
 </strong>
-<hr>
-        <button onclick="window.location.href='{{ path('app_login') }}'" id="toggle-form-button" class="tp-section-subtitle">Already have an account?</button>
+
+        
 </div>
 
 

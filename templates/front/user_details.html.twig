@@ -1,0 +1,94 @@
+{% extends 'front/index.html.twig' %}
+
+{% block main %}
+    {% if user is defined %}
+    <div class="am-about-me-area pt-110 pb-100" style="background-color: #051B46;">
+      <div class="container">
+         <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+               <div class="ac-ab-img fix" style="margin-top:30px;"> 
+                  <img src="{{ asset('../front_assets/img/team/team-9.jpg')}}" alt="">
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:30px;">
+               <div class="amaboutinfo">
+                  <div class="amaboutinfo__client-info" >
+                     <h4 style="color: #FFFFFF;">{{ user.username}}</h4>
+                     {% for role in app.user.roles %}
+                        <span>{{ role|replace({'ROLE_': ''}) }}</span>
+                    {% endfor %}
+                     <p style="color: #FFFFFF;">Phasellus in libero et nunc malesuada tincidu  Morbi auctor tristique semper. Nunc
+                        condimentum dapibus felis</p>
+                  </div>
+                  <div class="amaboutinfo__experience">
+                  <p style="color: #FFFFFF;"><b style="color: #FCAF3D;">Phone Number:</b> {{ user.phonenumber}}</p>
+                     <p style="color: #FFFFFF;"><b style="color: #FCAF3D;">Birth Date:</b> {{ user.birthdate|date('Y-m-d') }}</p>
+                     <p style="color: #FFFFFF;"><a href="mailto:{{ user.email }}"><b style="color: #FCAF3D;">E-mail:</b> {{ user.email }}</a></p>
+                  </div>    
+               </div>
+               
+               <div class="tp-header-button d-none d-md-block">
+                    <a href="{{ path('app_forgot_password', {'email': user.email}) }}" class="tp-btn">Reset Password</a>
+            </div>
+            <hr>
+               <div class="card-body" style="color: #FFFFFF;">
+            <h4 style="color: #FFFFFF;">Modify</h4>
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form_row(form.first_name, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Name'}}) }}
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form_row(form.last_name, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3" style="display: none;">
+                    <div class="form-group">
+                        {{ form_row(form.email, {'attr': {'value': '{{app.user.email}}','class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form_row(form.phone_number, {'attr': {'class': 'form-control', 'placeholder': 'Enter Your Mobile Number'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                    {{ form_row(form.birth_date, {'attr': {'class': 'form-control', 'placeholder': 'Enter Birth Date', 'type': 'date'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3" >
+                <div class="col-md-3" style="display: none;">
+                    <div class="form-group">
+                        {{ form_row(form.password, {'attr': {'value': 'FillPASS10@','class': 'hidden', 'placeholder': 'Enter Password'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-3" style="display: none;">
+                <div class="form-group">
+                    {{ form_row(form.roles, {'attr': {'value': '{{app.user.roles}}','class': 'hidden', 'placeholder': 'Enter Roles'}, 'multiple': 'multiple'}) }}
+                </div>
+            </div>
+                <div class="col-md-3">
+                    <div class="form-group mt-4">
+                    <div class="tp-header-button d-none d-md-block">
+                            <button type="submit" class="tp-btn" ><a class="tp-btn">Submit</a> </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      {% else %}
+        <p>User not found.</p>
+    {% endif %}
+{% endblock %}

@@ -56,7 +56,7 @@ class RegistrationController extends AbstractController
             $this->mailerService->sendEmail(
                 $user->getEmail(),
                 'Please Confirm your Email',
-                $this->renderView('registration/confirmation_email.html.twig', [
+                $this->renderView('email/confirmation_email.html.twig', [
                     'user' => $user,
                     'verificationUrl' => $verificationUrl,
                 ])

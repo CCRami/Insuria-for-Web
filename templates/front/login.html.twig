@@ -1,17 +1,16 @@
 {% extends 'front_base.html.twig' %}
 {% block header %}
-<div class="header" style="background-color: #051B46;">
-    <div class="container-fluid">
-                <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-bottom: -20px;">
-                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
-                </div>
-    </div>
-</div>
 {% endblock %}
 {% block main %}
 {% block insurance %}
+<div class="tp-insurance-area pt-120 pb-120 black-bg"  data-background="../front_assets/img/about/about-bg-shape-1.png">
+<div class="container-fluid">
+        <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-top: -120px; ">
+                    <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt="Insuria"></a>
+        </div>
+</div>
 <strong>
-<div class="contactform" style="text-align: center; color: #051B46; width: 450px; margin: auto;">
+<div class="contactform" style="text-align: center; color: #FFFFFF; width: 450px; margin: auto;">
     <div id="login-form">
     <form method="post">
         {% if error %}
@@ -64,6 +63,7 @@
 </strong>
 <hr>
         <button onclick="window.location.href='{{ path('app_register') }}'" id="toggle-form-button" class="tp-section-subtitle">Don't have an account?</button>
+</div>
 </div>
 {% endblock %}
 {% endblock %}
