@@ -40,9 +40,9 @@ class AgenceController extends AbstractController
     #[Route('/delete/{id}', name: 'name_delete')]
     public function deleteAuthor(AgenceRepository $rep,$id,EntityManagerInterface $em):Response
     {
-        $auth=new Agence();
-        $auth=$rep->find($id);
-        $em->remove($auth);
+        $agence=new Agence();
+        $agence=$rep->find($id);
+        $em->remove($agence);
         $em->flush();
        return $this->redirectToRoute('app_afficheragences');
 
@@ -51,13 +51,13 @@ class AgenceController extends AbstractController
     #[Route('/ajouteragence', name: 'name_add')]
     public function addAuthor(Request $request,EntityManagerInterface $em):Response
     {
-        $auth=new Agence();
-        $form=$this->createForm(agenceadd::class,$auth);
+        $agence=new Agence();
+        $form=$this->createForm(agenceadd::class,$agence);
         $form->add('save',SubmitType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         { 
-            $em->persist($auth);
+            $em->persist($agence);
             $em->flush();
             return $this->redirectToRoute('app_afficheragences');
         }
@@ -67,14 +67,14 @@ class AgenceController extends AbstractController
     #[Route('/edit/{id}', name: 'name_edit')]
     public function editAuthor(Request $request,EntityManagerInterface $em,AgenceRepository $rep,int $id):Response
     {
-        $auth=new Agence();
-        $auth=$rep->find($id);
-        $form=$this->createForm(agenceType::class,$auth);
+        $agence=new Agence();
+        $agence=$rep->find($id);
+        $form=$this->createForm(agenceType::class,$agence);
         $form->add('save',SubmitType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         { 
-            $em->persist($auth);
+            $em->persist($agence);
             $em->flush();
             return $this->redirectToRoute('app_afficheragences');
         }

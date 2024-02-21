@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Validation;
 
 #[ORM\Entity(repositoryClass: AgenceRepository::class)]
 class Agence
@@ -20,7 +21,7 @@ class Agence
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min:8,minMessage:'Name must more than 8 caracter')]
+    #[Assert\Length(min:8,minMessage:'Name must be more than 8 caracter')]
     #[Assert\NotBlank(message:'Name is required')]
 
     private ?string $nomage = null;
@@ -38,8 +39,8 @@ class Agence
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Assert\Length(min:8,minMessage:'Number must 8 caracter')]
-    #[Assert\Length(max:8,minMessage:'Number must 8 caracter')]
+    #[Assert\Length(min:8,minMessage:'Number must be 8 caracter')]
+    #[Assert\Length(max:8,minMessage:'Number must be 8 caracter')]
     #[Assert\Positive(message:'Number must be positive')]
     #[Assert\NotBlank(message:'Number is required')]
 
@@ -69,7 +70,6 @@ class Agence
     {
         return $this->nomage;
     }
-
     public function setNomAge(string $nomage): static
     {
         $this->nomage = $nomage;

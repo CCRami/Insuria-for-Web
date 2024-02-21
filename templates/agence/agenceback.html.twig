@@ -43,19 +43,19 @@
                     
                    </tr>
                    </thead>
-                   {% for oneauth in listX %}
+                   {% for agence in listX %}
                    <tbody><tr>
                     
-                    <td>{{oneauth.nomage}}</td>
-                    <td>{{oneauth.email}}</td>
-                    <td>{{oneauth.tel}}</td>
-                    <td>{{oneauth.addresse}}</td>
-<td>{{ oneauth.create_at|date('d/m/Y') }}</td>
+                    <td>{{agence.nomage}}</td>
+                    <td>{{agence.email}}</td>
+                    <td>{{agence.tel}}</td>
+                    <td>{{agence.addresse}}</td>
+<td>{{ agence.create_at|date('d/m/Y') }}</td>
 
                    
-                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_delete',{'id':oneauth.id})}}">Delete</a></button>
+                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_delete',{'id':agence.id})}}">Delete</a></button>
 
-                    <button style="background-color: #0056b3;"><a href="{{path('name_edit',{'id':oneauth.id})}}">Edit</a></button>
+                    <button style="background-color: #0056b3;"><a href="{{path('name_edit',{'id':agence.id})}}">Edit</a></button>
                     <button>Show Notes</button>
                     <button>Contact</button></td>
 					<td><div class="" style="height: 3px;">

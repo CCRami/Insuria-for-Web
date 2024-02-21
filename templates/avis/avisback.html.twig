@@ -33,23 +33,23 @@
                     
                    </tr>
                    </thead>
-                   {% for oneauth in listX %}
+                   {% for avis in listX %}
                    <tbody><tr>
-                      <td>{{oneauth.agenceav.nomage}}</td>
-                    <td>{{oneauth.note}}</td>
-                    <td>{{oneauth.commentaire}}</td>
+                      <td>{{avis.agenceav.nomage}}</td>
+                    <td>{{avis.note}}</td>
+                    <td>{{avis.commentaire}}</td>
                   
-                    <td>{{oneauth.avis.first_name}} {{oneauth.avis.last_name}}</td>
-<td>{{ oneauth.date_avis|date('d/m/Y') }}</td>
+                    <td>{{avis.avis.first_name}} {{avis.avis.last_name}}</td>
+<td>{{ avis.date_avis|date('d/m/Y') }}</td>
 
                    
-                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_deleteavis',{'id':oneauth.id})}}">Delete</a></button>
+                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_deleteavis',{'id':avis.id})}}">Delete</a></button>
                     <button>Contact</button></td>
 					<td><div class="" style="height: 3px;">
                           <div class="progress-bar" role="progressbar" style="width: 90%"></div>
                         </div></td>
                    </tr>
-                {%endfor%}
+                {% endfor %}
                   
 
                  </tbody></table>

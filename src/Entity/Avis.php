@@ -16,7 +16,7 @@ class Avis
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min:10,minMessage:'Comment must more than 8 caracter')]
+    #[Assert\Length(min:10,minMessage:'Comment must be more than 8 caracter')]
     #[Assert\NotBlank(message:'Comment is required')]
     private ?string $commentaire = null;
 
