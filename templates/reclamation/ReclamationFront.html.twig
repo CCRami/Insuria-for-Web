@@ -1,0 +1,134 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+<main>
+{% block slider %}
+<section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
+            data-background="assets/img/breadcurmb/breadcurmb.jpg">
+            <div class="tp-breadcrmb-circle-one"></div>
+            <div class="tp-breadcrmb-circle-two"></div>
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-12">
+                     <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
+                        <div class="breadcrumb__content">
+                           <h3 class="breadcrumb__title">Blog Details</h3>
+                        </div>
+                        <div class="breadcrumb__button">
+                           <a class="tp-btn-white" href="contact.html">Contact us today<i class="far fa-arrow-right"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            </section>
+<style>
+    .espacement-superieur {
+        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+    }
+    .contenu-centre {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centrage vertical */
+        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+    }
+    .couleur-carte {
+        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+    }
+</style>
+
+<div class="contenu-centre">
+    <div class="container espacement-superieur">
+        {% block service %}
+<style>
+    .custom-margin-top {
+        margin-top: 7rem; 
+    }
+</style>
+
+     <div class="tp-service-shape-1">
+                    <img src="front_assets/img/slider/02_Shape.png" alt="">
+                </div>
+                <div class="tp-service-shape-2">
+                    <img src="front_assets/img/slider/03_Shape.png" alt="">
+                </div>
+                <div class="container">
+                    <div class="row">
+                     
+                            <div class="tp-service-section text-center mb-60">
+                                <h4 class="tp-section-subtitle">My Claims</h4>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-14 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">Claim Table</div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Libel</th>
+                                            <th>Claim Date</th>
+                                            
+                                            <th>Reponse</th>
+                                      
+                                              <th>show Reponse</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for rec in list %}
+                                            <tr class="table-row">
+                                                <td>{{ rec.id }}</td>
+                                                <td>{{ rec.libelle }}</td>
+                                                <td>{{ rec.getDateDecl()? rec.getDateDecl().format('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ rec.getDateSin() ? rec.getDateSin().format('Y-m-d H:i:s') : '' }}</td>
+                                                <td>{{ rec.getContenuRec() }}</td>
+                                                <td>{{ rec.isReponse() }}</td>
+                                              
+  
+                                                <td>
+    {% if rec.isReponse() == 'refused' or rec.isReponse() == 'accepted' %}
+        <a href="{{ path('showRep',{'id':rec.id}) }}">
+            <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Show Reponse</button>
+        </a>
+    {% endif %}
+</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<style>
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+    .table-row:hover td {
+        color: #007bff;
+    }
+    .table-row:hover .btn {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+
+{% endblock %}
+{% endblock %}

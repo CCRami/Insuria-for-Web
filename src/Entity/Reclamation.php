@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 class Reclamation
 {
@@ -15,19 +16,61 @@ class Reclamation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le libellé est obligatoire")]
+    #[Assert\Length(
+        max: 15,
+        maxMessage: "Le libellé ne peut pas dépasser {{ limit }} caractères"
+    )]
+    
     private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    
     private ?\DateTimeInterface $date_decl = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_sin = null;
+    public function __construct()
+    {
+        $this->date_decl = new \DateTime();
+    }
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
+#[Assert\LessThanOrEqual("today", message:"La date ne peut pas être dans le futur.")]
+#[Assert\NotNull(message: "La date ne peut pas être nulle.")]
+    private ?\DateTimeInterface $date_sin ;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le contenu est obligatoire")]
+    #[Assert\Length(
+        min: 5,
+        minMessage: "Le contenu de la réclamation doit dépasser {{ limit }} caractères"
+    )]
     private ?string $contenu_rec = null;
 
-    #[ORM\Column]
-    private ?bool $reponse = null;
+
+   
+
+
+    #[ORM\Column(nullable: true)]
+    private ?string $reponse= "Currently being processed";
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+   
+    private ?Indemnissation $indemnissation = null;
+     #[ORM\Column(type:"string", length:255, nullable:true)]
+   
+   private $fileName;
+
+   public function getFileName(): ?string
+   {
+       return $this->fileName;
+   }
+
+   public function setFileName(?string $fileName): self
+   {
+       $this->fileName = $fileName;
+
+       return $this;
+   }
+    
+    
 
     public function getId(): ?int
     {
@@ -45,16 +88,16 @@ class Reclamation
 
         return $this;
     }
-    public function getDate_decl(): ?\DateTimeInterface
-     {
-    return $this->date_decl;
-     }
-
-     public function setDate_decl(\DateTimeInterface $date_decl): static
+    public function getDateDecl(): ?\DateTimeInterface
     {
-    $this->date_decl = $date_decl;
+        return $this->date_decl;
+    }
 
-    return $this;
+    public function setDateDecl(\DateTimeInterface $date_decl): static
+    {
+        $this->date_decl= $date_decl;
+
+        return $this;
     }
 
     public function getDateSin(): ?\DateTimeInterface
@@ -81,15 +124,30 @@ class Reclamation
         return $this;
     }
     
-    public function isReponse(): ?bool
+    public function isReponse(): ?string
     {
         return $this->reponse;
     }
 
-    public function setReponse(bool $reponse): static
+    public function setReponse(string $reponse): static
     {
         $this->reponse = $reponse;
 
         return $this;
     }
+
+    public function getIndemnissation(): ?Indemnissation
+    {
+        return $this->indemnissation;
+    }
+
+    public function setIndemnissation(?Indemnissation $indemnissation): static
+    {
+        $this->indemnissation = $indemnissation;
+
+        return $this;
+    }
+    
+  
+  
 }

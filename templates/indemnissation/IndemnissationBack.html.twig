@@ -21,51 +21,46 @@
     </div>
 </div>
 
-<div class="text-right">
-    <a href="{{ path('reclamationAdmin_new') }}" class="btn btn-light btn-round px-2">
-        <i class="icon-lock"></i>Add New Claim
-    </a>
-</div>
+
 <div class="content-wrapper">
     <div class="container-fluid">
-
+       
             <div class="card-content">
                 <div class="row">
                     <div class="col-14 col-lg-12">
                         <div class="card">
-                            <div class="card-header">Claim Table</div>
+                            <div class="card-header"> compensation Table</div>
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush table-borderless">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Libel</th>
-                                            
-                                            <th>Reponse</th>
-                
-                                            <th>Indemnisation ID</th>
-                                              <th>Show/Edit/Delete</th>
+                                            <th>Date</th>
+                                            <th>Beneficitaire</th>
+                                            <th>Montant</th>
+                                            <th>Contenue</th>
+                                   
+                                              <th>Edit/Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for rec in list %}
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
-                                                <td>{{ rec.libelle }}</td>
-                                                <td>{{ rec.reponse }}</td>
-                                                {% if rec.getIndemnissation() is not null %}
-                                                      <td>{{ rec.getIndemnissation().getId() }}</td>
-                                                                     {% else %}
-                                                                           <td></td>
-                                                                                      {% endif %}
+                                                 {% if rec.getDate() is not null %}
+                                                <td>{{ rec.getDate() ? rec.getDate().format('Y-m-d H:i:s') : '' }}</td>
+                                                {% else %}<td></td> {% endif %}
+                                                <td>{{ rec.beneficitaire }}</td>
+                                            {% if rec.getMontant() is not null %}
+                                                <td>{{ rec.getMontant() }}</td>{% else %}<td>0</td>
+                                        
+                                                    {% endif %}
+                                                    <td></td>
                                                 <td>
-                                                <a href="{{ path('reclamationAdmin_show',{'id':rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>details</button>
-                                                    </a>
-                                                    <a href="{{ path('reclamationAdmin_edit',{'id':rec.id}) }}">
+                                                    <a href="{{ path('ind_edit',{'id':rec.id}) }}">
                                                         <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Edit</button>
                                                     </a>
-                                                    <a href="{{ path('rec_delete', {'id': rec.id}) }}">
+                                                    <a href="{{ path('ind_delete', {'id': rec.id}) }}">
                                                         <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Delete</button>
                                                     </a>
                                                 </td>

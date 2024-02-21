@@ -1,0 +1,104 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+  
+           <style>  .custom-file-label {
+        border-radius: 0.25rem;
+    }</style> 
+        
+
+<div class="clearfix"></div>
+  
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+  <div class="card mt-3">
+    <div class="card-content">
+        <!-- Symfony Form Start -->
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">Add New Claim</div>
+              <hr>
+             {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+              
+              <div class="form-group row">
+    <label for="libel" class="col-sm-2 col-form-label">{{ form_label(form.libelle, 'Label', {'label_attr': {'class': 'control-label'}}) }}</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.libelle, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Your Label'}}) }}
+        {{ form_errors(form.libelle) }}
+    </div>
+</div>
+
+
+
+              <div class="form-group row">
+                <!-- Champ de Date Sinistre -->
+                <label for="date_sin" class="col-sm-2 col-form-label">{{ form_label(form.date_sin, 'Date Sinistre', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <div class="col-sm-7">
+                    {{ form_widget(form.date_sin, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Date Sinistre', 'id': 'date_sin'}}) }}
+                 {{ form_errors(form.date_sin) }}
+                </div>
+              </div>
+              <br>
+              <div class="form-group row">
+                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenu_rec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <div class="col-sm-7">
+                {{ form_widget(form.contenu_rec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec'}}) }}
+ {{ form_errors(form.contenu_rec) }}              
+              </div></div><br>
+             <div class="form-group row">
+    <label for="file" class="col-sm-2 col-form-label">{{ form_label(form.file, ' Import file', {'label_attr': {'class': 'control-label'}}) }}</label>
+    <div class="col-sm-7">
+        <div class="custom-file">
+            {{ form_widget(form.file, {'attr': {'class': 'custom-file-input ', 'id': 'file'}}) }}
+             <label class="custom-file-label">Choose file</label>
+        </div>
+        {{ form_errors(form.file) }}
+    </div>
+</div>
+
+
+      <br>
+
+ 
+              <div class="row">
+   
+      <div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-6">
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+
+            <div class="form-group row">
+                <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+          <div class="col-sm-1">
+                 <a href="{{ path('app_reclamation_admin') }}"< class="btn btn-light btn-round px-5"> Cancel</button>
+           </a> </div></div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+            
+      
+  <!--End Dashboard Content-->
+  
+  <!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  
+    </div>
+    <!-- End container-fluid-->
+    
+  </div><!--End content-wrapper-->
+   <style>
+             .btn:hover {
+                        background-color: #f8f9fa;
+                        color: #007bff;
+                    }
+                </style>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+    .custom-margin-top {
+        margin-top: 7rem; 
+    }
+    .center {
+        text-align: center;
+    }
+    .label-value {
+        margin-left:20px;
+        text-decoration: underline;
+        display: inline-block; 
+        width:200px; 
+    }
+    .btn-row {
+        margin-top: 10px;
+    }
+    .btn:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card-content">
+            <div class="row justify-content-center mt-5 mb-5">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <h3 class="center">Indemnisation Details</h3>
+                        <br>
+                        <!-- Les détails de l'indemnisation -->
+                        <p><strong class="label-value">Id:</strong> {{ ind.id }}</p>
+                        <p><strong class="label-value">Date:</strong> {% if ind.date %} {{ ind.date.format('Y-m-d') }} {% else %} null {% endif %}</p>
+                        <p><strong class="label-value">Beneficiary:</strong> {{ ind.beneficitaire }}</p>
+                        <p><strong class="label-value">Amount:</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <br><br>
+<div class="form-group btn-row">
+    <a href="{{ path('app_reclamation_admin') }}" class="btn btn-light btn-round px-4">Back</a>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

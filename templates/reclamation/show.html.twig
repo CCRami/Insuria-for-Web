@@ -1,0 +1,75 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+    .custom-margin-top {
+        margin-top: 7rem; 
+    }
+    .center {
+        text-align: center;
+    }
+    .label-value {margin-left:20px;
+        text-decoration: underline;
+        display: inline-block; 
+        width:200px; 
+    }
+    .btn-row {
+        margin-top: 10px;
+    }
+     .btn:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card-content">
+            <div class="row justify-content-center mt-5 mb-5">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <h3 class="center">Claim Details</h3>
+                        <br>
+                        <!-- Les détails de la réclamation -->
+                        <p><strong class="label-value">Id:</strong> {{ reclamation.id }}</p>
+                        <p><strong class="label-value">Label:</strong> {{ reclamation.libelle }}</p>
+                        <p><strong class="label-value">Date of Incident:</strong> {{ reclamation.getDateDecl() ? reclamation.getDateDecl().format('Y-m-d H:i:s') }}</p>
+                        <p><strong class="label-value">Date of Sinistre:</strong> {{ reclamation.getDateSin() ? reclamation.getDateSin().format('Y-m-d H:i:s') }}</p>
+                        <p><strong class="label-value">Content:</strong> {{ reclamation.contenuRec }}</p>
+                        <p><strong class="label-value">File Name:</strong>{% if reclamation.getFileName() is not null %} <a href="{{ asset('uploads/' ~ reclamation.fileName) }}">{{ reclamation.fileName }}</a>{% else %} nothing{% endif %}</p>
+                        <p><strong class="label-value">Reponse:</strong> {{ reclamation.reponse }}</p>
+                        <p><strong class="label-value">Indemnisation ID:</strong> {% if reclamation.getIndemnissation() is not null %}
+                                {{ reclamation.getIndemnissation().getId() }}
+                            {% else %}
+                                nothing
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <br><br>
+                    <div class="form-group row btn-row">
+                        <a href="{{ path('reclamationAdmin_edit',{'id':reclamation.id}) }}">
+                            <button type="button" class="btn btn-light btn-round px-4"><i class="icon-lock"></i>Edit</button>
+                        </a>
+                    </div>
+                    <div class="form-group row btn-row">
+                        <a href="{{ path('rec_delete', {'id': reclamation.id}) }}">
+                            <button type="button" class="btn btn-light btn-round px-4"><i class="icon-lock"></i>Delete</button>
+                        </a>
+                    </div>
+                    <div class="form-group row btn-row">
+                        <a href="{{ path('app_reclamation_admin') }}"< class="btn btn-light btn-round px-4"> Cancel</button>
+                        </a>
+                    </div>
+                      <div class="form-group btn-row">
+                            {% if reclamation.getIndemnissation() is not null %}
+                                <a href="{{ path('indemnisation_show', {'id': reclamation.getIndemnissation().getId()}) }}" class="btn btn-light btn-round px-4">View Indemnisation</a>
+                            {% endif %}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
