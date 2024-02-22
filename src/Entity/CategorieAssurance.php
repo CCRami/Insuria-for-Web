@@ -6,6 +6,7 @@ use App\Repository\CategorieAssuranceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieAssuranceRepository::class)]
 class CategorieAssurance
@@ -16,9 +17,17 @@ class CategorieAssurance
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 15,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters'
+    )]
     private ?string $name_cat_ins = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Description cannot be blank')]
+    #[Assert\Length(max: 255, maxMessage: 'Description cannot be longer than {{ limit }} characters')]
     private ?string $desc_cat_ins = null;
 
     #[ORM\OneToMany(targetEntity: Assurance::class, mappedBy: 'catA')]

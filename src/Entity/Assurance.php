@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\AssuranceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: AssuranceRepository::class)]
 class Assurance
 {
@@ -15,9 +15,16 @@ class Assurance
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 15,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters'
+    )]
     private ?string $name_ins = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message: 'The Price Cannot Be Negative')]
     private ?float $montant = null;
 
     #[ORM\Column(length: 255)]
@@ -27,6 +34,7 @@ class Assurance
     private ?CategorieAssurance $catA = null;
 
     #[ORM\Column(length: 255)]
+   
     private ?string $insImage = null;
 
     public function getId(): ?int

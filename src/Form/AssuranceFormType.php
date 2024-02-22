@@ -34,9 +34,7 @@ class AssuranceFormType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            'attr' => [
-                'class' => 'form-control form-control-rounded doa-field'
-            ],
+           
             'label' => false, // Set label to false to hide it
         ])
          

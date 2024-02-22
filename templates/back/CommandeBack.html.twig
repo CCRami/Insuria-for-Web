@@ -1,0 +1,49 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+    <div class="clearfix"></div>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8">
+                    
+                    <div class="card">
+                        <div class="card-header">Orders Table</div>
+                        <div class="table-responsive text-center">
+                            <table class="table align-items-center table-flush table-borderless table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Full Premium</th>
+                                        <th>Effective Date</th>
+                                        <th>Expiration Date</th>
+                                        <!-- Add more columns as needed -->
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for command in command %}
+                                        <tr>
+                                            <td>{{ command.id }}</td>
+                                            <td>{{ command.montant }}</td>
+                                            <td>{{ command.dateEffet ? command.dateEffet|date('Y-m-d') : 'N/A' }}</td>
+                                            <td>{{ command.dateExp ? command.dateExp|date('Y-m-d') : 'N/A' }}</td>
+                                            <!-- Add more columns as needed -->
+                                            <td>
+                                               <a href="{{ path('delete_com', {'id': command.id}) }}">Delete</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">No Records Found</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

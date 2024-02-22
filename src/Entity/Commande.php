@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -24,13 +25,21 @@ class Commande
     private ?\DateTimeInterface $date_exp = null;
 
     #[ORM\Column(length: 255)]
+ 
     private ?array $full_doa = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Assurance::class)]
     private ?Assurance $doaCom = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
+
+    #[ORM\Column]
+    #[Assert\Positive(message:"The Value Must Be Positive!")]
+    private ?float $InsValue = null;
+
+   
 
 
     public function getId(): ?int
@@ -109,6 +118,20 @@ class Commande
 
         return $this;
     }
+
+    public function getInsValue(): ?float
+    {
+        return $this->InsValue;
+    }
+
+    public function setInsValue(float $InsValue): static
+    {
+        $this->InsValue = $InsValue;
+
+        return $this;
+    }
+
+   
 
     
 }

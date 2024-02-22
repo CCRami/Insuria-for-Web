@@ -51,7 +51,7 @@ return $this->render('front/InsFront.html.twig', [
 
 
 
-#[Route('/addAss', name: 'add_assurance')]
+
 #[Route('/addAss', name: 'add_assurance')]
 public function addIns(Request $request, EntityManagerInterface $em): Response
 {

@@ -14,16 +14,18 @@
                             <div class="card-body">
                                 <div class="card-title">Add An Insurance</div>
                                 <hr>
-                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form'}}) }}
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
                                 
                                 <div class="form-group">
                                     {{ form_label(form.name_ins, 'Insurance Name', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.name_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Insurance Name'}}) }}
+                                      {{ form_errors(form.name_ins) }}
                                 </div>
                                 
                                 <div class="form-group">
                                     {{ form_label(form.montant, 'Base Price', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter The Base Price'}}) }}
+                                     {{ form_errors(form.montant) }}
                                 </div>
                                 
                                 <div class="form-group">
@@ -78,7 +80,7 @@
         fieldCounter++;
         var newFieldHtml = `
             <div class="form-group">
-                <label for="doaField${fieldCounter}" class="control-label">Dynamic Field ${fieldCounter}</label>
+                <label for="doaField${fieldCounter}" class="control-label"> Field ${fieldCounter}</label>
                 <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
             </div>
         `;
@@ -90,7 +92,7 @@
         var combinedValue = ""; // Variable to store combined values
         
         // Loop through all dynamically added fields
-        for (var i = 1; i <= fieldCounter; i++) {
+        for (var i = 0; i <= fieldCounter; i++) {
             var fieldValue = document.getElementById('doaField' + i)?.value.trim(); // Get value of each dynamically added field
             
             if (fieldValue) {
@@ -106,11 +108,7 @@
         // Print the combined value to the console
         console.log("Combined value:", combinedValue);
 
-        // Set the combined value to a hidden input field if necessary
-        // document.getElementById("combinedDoa").value = combinedValue;
-
-        // Submit the form if needed
-        // document.getElementById("commande_form").submit();
+       
     }
 
     // Add event listener for dynamically added fields
