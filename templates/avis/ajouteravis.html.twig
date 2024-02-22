@@ -31,10 +31,10 @@
                                         <li><a href="service-details.html">Service Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
                                     <ul class="submenu">
-                                        <li><a href="portfolio.html">Agencies Details</a></li>
-                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                        <li><a href="{{path('app_afficheragencesc')}}">Agencies Details</a></li>
+                                        <li><a href="{{path('app_afficheravisc')}}">Reviews</a></li>
                                     </ul>
                                 </li>
                                 <li ><a href="blog-details.html">Offers</a> 
@@ -152,7 +152,7 @@
         {% block service %}
             <div class="tp-service-area  pt-200 pb-200 z-index p-relative" >
                 
-                <div class="card mt-3" style=" background-color: #007bff;">
+                <div class="card mt-3">
                     <div class="card-header text-center">
                         <h1>Add Note</h1>
                     </div>
@@ -160,20 +160,7 @@
                         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                         <div class="form-group">
                             {{ form_label(form.note, "Note:") }}
-                            <div class="rating">
-
-                                <input type="radio" id="star5" name="rating" value="5">
-                                <label for="star5" title="5 stars"></label>
-                                  <input type="radio" id="star4" name="rating" value="4">
-                                <label for="star4" title="4 stars"></label>
-                                 <input type="radio" id="star3" name="rating" value="3">
-                                <label for="star3" title="3 stars"></label>
-                                 <input type="radio" id="star2" name="rating" value="2">
-                                <label for="star2" title="2 stars"></label>
-                                
-                                  <input type="radio" id="star1" name="rating" value="1">
-                                <label for="star1" title="1 star"></label>
-                            </div>
+                            {{ form_widget(form.note) }}
                             {{ form_errors(form.note) }}
                         </div>
                  <div class="form-group" style="margin-bottom: 22px;">
@@ -182,22 +169,19 @@
     {{ form_errors(form.commentaire) }}
 </div>
                         <div class="form-group" >
-                            {{ form_label(form.avis, "Client:") }}
+                            <div class="col-md-3">
+         {{ form_label(form.avis, "Client:") }}
+      </div>
                             {{ form_widget(form.avis, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.avis) }}
-                        </div>
+                        </div><div class="col-md-4" style="margin-left: 50%;margin-top:5%;">
                         {{ form_widget(form.save, {'attr': {'class': 'form-submit-btn'}}) }}
-                       
+                      </div>   {{ form_end(form) }}
                     </div>
                 </div>
             </div>
         {% endblock %}
     </div>
 </div>
-   <script>
-        function scrollToForm() {
-            var element = document.getElementById("section-ajout");
-            element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-        }
-    </script>
+   
 {% endblock %}

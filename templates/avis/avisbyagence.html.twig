@@ -30,7 +30,7 @@
                                         <li><a href="service-details.html">Service Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
+                                 <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
                                     <ul class="submenu">
                                         <li><a href="{{path('app_afficheragencesc')}}">Agencies Details</a></li>
                                         <li><a href="{{path('app_afficheravisc')}}">Reviews</a></li>
@@ -77,31 +77,23 @@
    <!-- tp-testimonial-area-start -->
    <div class="tp-testimonial-area  pt-200 pb-200 p-relative">
       <div class="tp-service-section text-center mb-10">
-         <div class="tp-testimonial-area ">
-          
-           
-         
+         <div class="tp-testimonial-area  ">
             <div class="container">
                <div class="row">
                   <div class="col-xl-12">
-                     <div class="tp-testimonial-section-box text-center mb-33">
-                        <h5 class="tp-section-subtitle"> reviews</h5>
+                     <div class="tp-testimonial-section-box text-center mb-44">
+                        <h4 class="tp-section-subtitle">reviews</h4>
                      </div>
                   </div>
                </div>
                <div class="row">
                   {% for avis in listX %}
-                     <div class="col-md-4" style='width: 430px; margin-right: 10px;margin-top:40px;'>
-                    
+                     <div class="col-md-6" style='width: 400px; margin-right: 10px;margin-top:40px;'>
+                     
                         {% if avis.note == 1 %}
                         
-
-                        
-
-
-
                            <div class="tptestimonial">
-                              <div class="tptestimonial__rating" ><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>
                                   <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
@@ -111,18 +103,15 @@
                            </div>
                         {% elseif avis.note == 2 %}                        
 
-       <div class="tptestimonial">
-    <div class="tptestimonial__rating" >
-        <h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
-        <span><i class="fas fa-star"></i></span>
-        <span><i class="fas fa-star"></i></span>
-        <div style="width: 100%;height:50%;word-wrap: break-word;">
-            <p >{{ avis.commentaire }}</p>
-        </div>
-        <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
-        <p style="color: white;">{{ avis.date_avis|date('d/m/Y') }}</p>
-    </div>
-</div>
+                           <div class="tptestimonial" >
+                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="col-md-6">{{ avis.commentaire }}</p> </div>
+                                <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
                         {% elseif avis.note == 3 %}                       
 
                            <div class="tptestimonial">
@@ -130,9 +119,8 @@
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
-                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div> 
-                                  <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
-                                   <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>
+                                 <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5> <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
                               </div>
                            </div>
                         {% elseif avis.note == 4 %}                     
@@ -142,14 +130,15 @@
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
-                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>  
-                                  <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5><p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                                <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>
+                                <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
                               </div>
                            </div>
                         {% elseif avis.note == 5 %}                       
 
                            <div class="tptestimonial">
-                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating" ><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>

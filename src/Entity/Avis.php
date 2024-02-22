@@ -23,7 +23,6 @@ class Avis
     #[ORM\Column]
     #[Assert\NotBlank(message:'Note is required')]
     #[Assert\Positive(message:'Note must be positive')]
-    
     private ?int $note = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -49,7 +48,7 @@ class Avis
         return $this->commentaire;
     }
 
-    public function setCommentaire(string $commentaire): static
+    public function setCommentaire(?string $commentaire): static
     {
         $this->commentaire = $commentaire;
 
@@ -61,7 +60,7 @@ class Avis
         return $this->note;
     }
 
-    public function setNote(int $note): static
+    public function setNote(?int $note): static
     {
         $this->note = $note;
 

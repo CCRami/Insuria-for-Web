@@ -8,8 +8,6 @@
 
   <!--Start Dashboard Content-->
 
-	
-	  
 	<div class="row">
      <div class="col-16 col-lg-12 col-xl-12">
 	   
@@ -25,7 +23,7 @@
               <i class="icon-options"></i>
              </a>
               <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="{{path('name_add')}}">Add new agence </a>
+              <a class="dropdown-item" href="{{path('agence_add')}}">Add new agence </a>
             
               </div>
              </div>
@@ -53,16 +51,17 @@
 <td>{{ agence.create_at|date('d/m/Y') }}</td>
 
                    
-                    <td><button  style="background-color: #0056b3;"><a href="{{path('name_delete',{'id':agence.id})}}">Delete</a></button>
+                    <td><button  class="btn btn-light btn-round px-5;"
+><a href="{{path('agence_delete',{'id':agence.id})}}">Delete</a></button>
 
-                    <button style="background-color: #0056b3;"><a href="{{path('name_edit',{'id':agence.id})}}">Edit</a></button>
-                    <button>Show Notes</button>
-                    <button>Contact</button></td>
+                    <button class="btn btn-light btn-round px-5;"><a href="{{path('agence_edit',{'id':agence.id})}}">Edit</a></button>
+                    <button class="btn btn-light btn-round px-5;"><a href="{{path('SearchByagence',{'id':agence.id})}}">Show Notes</button>
+                   </td>
 					<td><div class="" style="height: 3px;">
                           <div class="progress-bar" role="progressbar" style="width: 90%"></div>
                         </div></td>
                    </tr>
-                {%endfor%}
+                {% endfor %}
                   
 
                  </tbody></table>

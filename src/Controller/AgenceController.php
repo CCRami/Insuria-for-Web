@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
+
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -37,8 +37,8 @@ class AgenceController extends AbstractController
         return $this->render('agence/agencefront.html.twig',['listX' => $list, ]);
     }
 
-    #[Route('/delete/{id}', name: 'name_delete')]
-    public function deleteAuthor(AgenceRepository $rep,$id,EntityManagerInterface $em):Response
+    #[Route('/delete/{id}', name: 'agence_delete')]
+    public function deleteagence(AgenceRepository $rep,$id,EntityManagerInterface $em):Response
     {
         $agence=new Agence();
         $agence=$rep->find($id);
@@ -48,11 +48,12 @@ class AgenceController extends AbstractController
 
         
     }
-    #[Route('/ajouteragence', name: 'name_add')]
-    public function addAuthor(Request $request,EntityManagerInterface $em):Response
+    #[Route('/ajouteragence', name: 'agence_add')]
+    public function addagence(Request $request,EntityManagerInterface $em):Response
     {
         $agence=new Agence();
         $form=$this->createForm(agenceadd::class,$agence);
+        $agence->setcreate_at(new \DateTime());
         $form->add('save',SubmitType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
@@ -64,8 +65,8 @@ class AgenceController extends AbstractController
         return $this->render('agence/ajouterage.html.twig',['form'=>$form->createView()]);
 
     }
-    #[Route('/edit/{id}', name: 'name_edit')]
-    public function editAuthor(Request $request,EntityManagerInterface $em,AgenceRepository $rep,int $id):Response
+    #[Route('/edit/{id}', name: 'agence_edit')]
+    public function editagence(Request $request,EntityManagerInterface $em,AgenceRepository $rep,int $id):Response
     {
         $agence=new Agence();
         $agence=$rep->find($id);

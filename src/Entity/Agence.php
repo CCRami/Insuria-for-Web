@@ -70,7 +70,7 @@ class Agence
     {
         return $this->nomage;
     }
-    public function setNomAge(string $nomage): static
+    public function setNomAge(?string $nomage): static
     {
         $this->nomage = $nomage;
 
@@ -82,7 +82,7 @@ class Agence
         return $this->addresse;
     }
 
-    public function setAddresse(string $addresse): static
+    public function setAddresse(?string $addresse): static
     {
         $this->addresse = $addresse;
 
@@ -94,7 +94,7 @@ class Agence
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -106,7 +106,7 @@ class Agence
         return $this->tel;
     }
 
-    public function setTel(int $tel): static
+    public function setTel(?int $tel): static
     {
         $this->tel = $tel;
 

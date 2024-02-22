@@ -29,7 +29,7 @@
                     <div class="card-header text-center">
                    <h1>Edit Agence</h1>
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'onsubmit': 'return validateForm(event)'}}) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="form-group">
         {{ form_label(form.nomage, "Name :") }}
         {{ form_widget(form.nomage, {'required': 'required'}) }}
@@ -38,64 +38,26 @@
 
     <div class="form-group">
         {{ form_label(form.email, "Email :") }}
-        {{ form_widget(form.email, {'required': 'required'}) }}
+        {{ form_widget(form.email) }}
         {{ form_errors(form.email) }}
     </div>
 
     <div class="form-group">
         {{ form_label(form.addresse, "Address :") }}
-        {{ form_widget(form.addresse, {'required': 'required'}) }}
+        {{ form_widget(form.addresse) }}
         {{ form_errors(form.addresse) }}
     </div>
 
     <div class="form-group">
         {{ form_label(form.tel, "Number :") }}
-        {{ form_widget(form.tel, {'required': 'required'}) }}
+        {{ form_widget(form.tel) }}
         {{ form_errors(form.tel) }}
     </div>
 
     {{ form_widget(form.save, {'attr': {'style': 'background-color: #0056b3;'}}) }}
 {{ form_end(form) }}
 
-<script>
-    function validateForm(event) {
-        var nomageField = document.getElementById("{{ form.nomage.vars.id }}");
-        var emailField = document.getElementById("{{ form.email.vars.id }}");
-        var addresseField = document.getElementById("{{ form.addresse.vars.id }}");
-        var telField = document.getElementById("{{ form.tel.vars.id }}");
 
-        if (nomageField.value.trim() === "") {
-            alert("Name is required.");
-            nomageField.focus();
-            event.preventDefault();
-            return false;
-        }
-
-        if (emailField.value.trim() === "") {
-            alert("Email is required.");
-            emailField.focus();
-            event.preventDefault();
-            return false;
-        }
-
-        if (addresseField.value.trim() === "") {
-            alert("Address is required.");
-            addresseField.focus();
-            event.preventDefault();
-            return false;
-        }
-
-        if (telField.value.trim() === "") {
-            alert("Number is required.");
-            telField.focus();
-            event.preventDefault();
-            return false;
-        }
-
-        return true;
-    }
-</script>
-		
     </div>
     <!-- End container-fluid-->
     
