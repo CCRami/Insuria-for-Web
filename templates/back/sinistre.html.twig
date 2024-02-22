@@ -5,6 +5,10 @@
     .custom-margin-top {
         margin-top: 10rem; 
     }
+    .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
 </style>
 
 <div class="container">
@@ -35,6 +39,7 @@
                                             <th>Id</th>
                                             <th>Claim Name</th>
                                             <th>Description</th>
+                                            <th>Photo Path</th>
                                             <th>Edit/Delete</th>
                                         </tr>
                                     </thead>
@@ -43,7 +48,9 @@
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
                                                 <td>{{ rec.getSinName }}</td>
-                                                <td>{{ rec.getDescriptionSin }}</td>
+                                                <td>
+                                                <div class="description">{{ rec.getDescriptionSin }}</div></td>
+                                                <td>{{ rec.getImagePath }}</td>
                                                 <td>
                                                     <a href="{{ path('sinistre_edit', {'id': rec.id}) }}">
                                                         <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i>Edit</button>

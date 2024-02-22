@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx">
 
 <head>
+ 
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
    <title>Insuarea – Insurance Company HTML5 Template</title>
@@ -1026,6 +1027,8 @@
 {% endblock %}
    <!-- JS here -->
    {% block js %}
+  {% block javascripts %}
+   {% endblock %}
     <script src="{{ asset('front_assets/js/jquery.js') }}"></script>
     <script src="{{ asset('front_assets/js/waypoints.js') }}"></script>
     <script src="{{ asset('front_assets/js/bootstrap.bundle.min.js') }}"></script>

@@ -5,6 +5,10 @@
     .custom-margin-top {
         margin-top: 10rem; 
     }
+    .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
 </style>
 
 <div class="container">
@@ -12,7 +16,7 @@
         <div class="form-group row">
             <div class="nav-item">
                 <form class="search-bar">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search Claim with Id.... ">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search Policy with Id.... ">
                     <a href="javascript:void();"><i class="icon-magnifier"></i></a>
                 </form>
             </div>
@@ -44,7 +48,9 @@
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
                                                 <td>{{ rec.getPoliceName }}</td>
-                                                <td>{{ rec.getDescriptionPolice }}</td>
+                                                <td>
+                                                <div class="description">{{ rec.getDescriptionPolice }}</div>
+                                                </td>
                                                 <td>{{ rec.sinistre ? rec.sinistre.getSinName : 'None' }}</td>
                                                 <td>
                                                     <a href="{{ path('police_edit',{'id':rec.id}) }}">

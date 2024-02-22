@@ -1,6 +1,6 @@
 {% extends 'back_base.html.twig' %}
-
 {% block content %}
+
 <style>
     .form-container {
         margin-top: 10rem;
@@ -12,12 +12,12 @@
         color: #007bff;
     }
     .table-row:hover .btn, .form-submit-btn {
-        background-color: #007bff; /* To make the button have a blue background */
-        color: #ffffff; /* White text for contrast */
-        border-radius: 20px; /* Rounded borders for "btn-round" style */
-        border: none; /* Removes the default button border */
-        padding: 10px 20px; /* Padding adjustment to match your needs */
-        cursor: pointer; /* Changes cursor on hover */
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 20px;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
     }
 </style>
 
@@ -27,7 +27,7 @@
             <div class="col-md-6 form-container">
                 <div class="card mt-3">
                     <div class="card-header text-center">
-                        <h2>Add a New Policy</h2>
+                        <h2>Add A New Policy</h2>
                     </div>
                     <div class="card-body">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
@@ -38,11 +38,11 @@
                             {{ form_errors(form.police_name) }}
                         </div>
                         
-                        <div class="form-group">
-                            {{ form_label(form.Description_police, 'Policy Description') }}
-                            {{ form_widget(form.Description_police, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_errors(form.Description_police) }}
-                        </div>
+<div class="form-group">
+    {{ form_label(form.Description_police, 'Policy Description') }}
+    {{ form_widget(form.Description_police, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.Description_police) }}
+</div>
                         
                         <div class="form-group">
                             {{ form_label(form.sinistre, 'Associated Claim') }}
@@ -64,3 +64,6 @@
     </div>
 </div>
 {% endblock %}
+
+
+

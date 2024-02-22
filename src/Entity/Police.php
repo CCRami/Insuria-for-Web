@@ -19,7 +19,7 @@ class Police
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "The police name is required.")]
     #[Assert\Length(
-        max: 20,
+        max: 30,
         maxMessage: "The police name cannot exceed {{ limit }} characters."
     )]
     #[Assert\Regex(
@@ -57,7 +57,7 @@ class Police
         return $this->police_name;
     }
 
-    public function setPoliceName(string $police_name): self
+    public function setPoliceName(?string $police_name): self
     {
         $this->police_name = $police_name;
 
@@ -69,7 +69,7 @@ class Police
         return $this->Description_police;
     }
 
-    public function setDescriptionPolice(string $Description_police): self
+    public function setDescriptionPolice(?string $Description_police): self
     {
         
         $this->Description_police = preg_replace('/\s+/', ' ', trim($Description_police));

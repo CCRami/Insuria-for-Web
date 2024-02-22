@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 #[ORM\Entity(repositoryClass: SinistreRepository::class)]
+#[UniqueEntity(fields: ['sin_name'], message: 'An identical claim name already exists.')]
 class Sinistre
 {
     #[ORM\Id]
@@ -19,9 +20,9 @@ class Sinistre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "The claim name is mandatory.")]
+    #[Assert\NotBlank(message: "The claim name is required.")]
     #[Assert\Length(
-        max: 20,
+        max: 30,
         maxMessage: "The claim name cannot exceed {{ limit }} characters."
     )]
     #[Assert\Regex(
@@ -32,7 +33,7 @@ class Sinistre
     private ?string $sin_name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "The claim description is mandatory.")]
+    #[Assert\NotBlank(message: "The claim description is required.")]
     #[Assert\Regex(
         pattern: '/^[A-Z].*$/',
         message: "The description must start with an uppercase letter."
@@ -44,8 +45,13 @@ class Sinistre
 
     private ?string $description_sin = null;
 
+
     #[ORM\OneToMany(targetEntity: Police::class, mappedBy: 'sinistre')]
     private Collection $police;
+
+    #[ORM\Column(length: 255)]
+    
+    private ?string $imagePath = null;
 
     public function __construct()
     {
@@ -63,7 +69,7 @@ class Sinistre
         return $this->sin_name;
     }
 
-    public function setSinName(string $sin_name): static
+    public function setSinName(?string $sin_name): static
     {
         $this->sin_name = $sin_name;
 
@@ -75,7 +81,7 @@ class Sinistre
         return $this->description_sin;
     }
 
-    public function setDescriptionSin(string $description_sin): static
+    public function setDescriptionSin(?string $description_sin): static
     {
         $this->description_sin = $description_sin = preg_replace('/\s+/', ' ', trim($description_sin));
 
@@ -108,6 +114,18 @@ class Sinistre
                 $police->setSinistre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): static
+    {
+        $this->imagePath = $imagePath;
 
         return $this;
     }

@@ -58,7 +58,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
         $entityManager->persist($police);
         $entityManager->flush();
 
-        // Redirection après l'ajout
+        
         return $this->redirectToRoute('app_police');
     }
 
@@ -75,7 +75,7 @@ public function deleteRec(Request $req, PoliceRepository $rep, $id, EntityManage
     $rec = $rep->find($id);
 
     if (!$rec) {
-        // Gérer le cas où la police n'existe pas
+        
         $this->addFlash('error', 'La police demandée n\'existe pas.');
         return $this->redirectToRoute('app_police');
     }
@@ -83,7 +83,6 @@ public function deleteRec(Request $req, PoliceRepository $rep, $id, EntityManage
     $em->remove($rec);
     $em->flush();
 
-    // Ajouter un message flash de succès
     $this->addFlash('success', 'La police a été supprimée avec succès.');
 
     return $this->redirectToRoute('app_police');

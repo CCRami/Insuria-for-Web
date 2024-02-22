@@ -1,6 +1,8 @@
 {% extends 'front_base.html.twig' %}
 
 {% block header %}
+<link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+<script src="{{ asset('front_assets/js/jquery.min.js') }}"></script>
     <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
         <div class="container-fluid">
             <div class="row g-0 align-items-center">
@@ -76,41 +78,77 @@
 {% endblock %}
 {% block main %}
 <style>
-    .espacement-superieur {
-        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+.espacement-superieur {
+    padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+}
+.contenu-centre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrage vertical */
+    min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+}
+.couleur-carte {
+    background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+}
+.espacement-inferieur {
+    padding-bottom: 150px; /* Ajustez cette valeur pour augmenter l'espace sous le contenu principal */
+}
+ .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
     }
-    .contenu-centre {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Centrage vertical */
-        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
-    }
-    .couleur-carte {
-        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
-    }
+    
 </style>
-
-<div class="contenu-centre">
-    <div class="container espacement-superieur">
-        <div class="row justify-content-center">
-            {% for police in polices %}
-                <div class="col-xl-4 col-lg-6 mb-4"> <!-- Ajustement pour un affichage plus serré -->
-                    <div class="card couleur-carte">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ police.policeName }}</h5>
-                            <p class="card-text">{{ police.descriptionPolice }}</p>
-                            
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-12">
-                    <p class="text-center">Aucune police n'a été trouvée.</p>
-                </div>
-            {% endfor %}
+<div class="container-centre espacement-inferieur">
+<div class="container espacement-superieur">
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="tp-service-section text-center mb-60">
+            <h4 class="tp-section-subtitle">Our Policies</h4>
+            <h3 class="tp-section-title text"><span>Our Policies</span></h3>
         </div>
     </div>
 </div>
+    <div class="row gx-20">
+        {% for police in polices %}
+        <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="tpservice mb-20 tp-sv-color-1">
+<div class="tpservice__icon">
+                    <a href="#"><i class="fas fa-file-contract"></i></a>
+                </div>
+                <div class="tpservice__title">
+                    <h4 class="tp-sv-title">{{ police.policeName }}</h4>
+                    <div class="description"><p> {{ police.descriptionPolice }}</p></div><!-- Assurez-vous que c'est le champ correct pour la description -->
+<a href="javascript:void(0);" class="btn btn-primary toggle-details-btn" data-bs-toggle="collapse" data-bs-target="#details-{{ police.id }}">View Details</a>
+                    <div id="details-{{ police.id }}" class="collapse mt-3" style="color: white;">
+    <strong>Associated Claim:</strong> {{ police.sinistre.sinName }}<br>
+    <strong>Description:</strong> {{ police.sinistre.descriptionSin }}
+</div>
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-center">No policies found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
 {% endblock %}
 
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('.toggle-details-btn').on('click', function() {
+        var detailsId = $(this).data('bs-target');
+        $(detailsId).collapse('toggle');
 
+        var buttonText = $(this).text() == 'View Details' ? 'Hide Details' : 'View Details';
+        $(this).text(buttonText);
+    });
+});
+</script>
+{% endblock %}

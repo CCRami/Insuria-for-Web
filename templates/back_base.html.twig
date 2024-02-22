@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="{{ asset('front_assets/js/jquery.min.js') }}"></script>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -59,7 +60,8 @@
 
 <li>
     <a href="{{ path('app_police') }}">
-        <i class="zmdi zmdi-file-text"></i> <span>Policies</span>
+        <i class="zmdi zmdi-file-text"></i> <span>  
+Policies</span>
     </a>
 </li>
 
@@ -493,8 +495,9 @@
   <!--end color switcher-->
    {% endblock %}
   </div><!--End wrapper-->
-
+  
 {% block JSA %}
+
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>

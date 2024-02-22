@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Sinistre;
 use App\Form\SinistreType;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 
@@ -34,47 +35,84 @@ class SinistreController extends AbstractController
         ]);
     }
     #[Route('/sinistre/edit/{id}', name: 'sinistre_edit')]
-    public function editsini(Request $request,EntityManagerInterface $em,SinistreRepository $rep,int $id):Response
-  {
-        $rec=new Sinistre();
-        $rec=$rep->find($id);
-        $form=$this->createForm(SinistreType::class,$rec);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        { 
-            $em->persist($rec);
-            $em->flush();
-            return $this->redirectToRoute('app_sinistre');
-        }
-        return $this->render('back/sinistreedit.html.twig',['form'=>$form->createView()]);
-
-    }
-    #[Route('/sinistre/new', name: 'sinistre_new')]
-public function new(Request $request, EntityManagerInterface $entityManager): Response
+public function editsini(Request $request, EntityManagerInterface $em, SinistreRepository $rep, int $id, SluggerInterface $slugger): Response
 {
-    $sinistre = new Sinistre();
-    $form = $this->createForm(SinistreType::class, $sinistre);
+    $rec = $rep->find($id);
+    $originalImage = $rec->getImagePath();
+    $form = $this->createForm(SinistreType::class, $rec);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager->persist($sinistre);
-        $entityManager->flush();
+        $file = $form->get('imagePath')->getData();
+        if ($file) {
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
-        // Redirection après l'ajout
+            
+            $sinistreDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/sinistres';
+            $file->move($sinistreDirectory, $newFilename);
+
+            $rec->setImagePath($newFilename);
+        } else {
+            
+            $rec->setImagePath($originalImage);
+        }
+
+        $em->persist($rec);
+        $em->flush();
+
         return $this->redirectToRoute('app_sinistre');
     }
 
-    return $this->render('back/sinistreadd.html.twig', [
+    return $this->render('back/sinistreedit.html.twig', [
         'form' => $form->createView(),
     ]);
 }
+
+    #[Route('/sinistre/new', name: 'sinistre_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        $sinistre = new Sinistre();
+        $form = $this->createForm(SinistreType::class, $sinistre);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('imagePath')->getData(); 
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = $slugger->slug($originalFilename);
+                
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+    
+                
+                $sinistreDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/sinistres';
+                $file->move($sinistreDirectory, $newFilename);
+    
+                
+                $sinistre->setImagePath($newFilename);
+            }
+    
+            $entityManager->persist($sinistre);
+            $entityManager->flush();
+    
+            
+            return $this->redirectToRoute('app_sinistre');
+        }
+    
+        return $this->render('back/sinistreadd.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
 #[Route('/sinistre/delete/{id}', name: 'sinistre_delete')]
 public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityManagerInterface $em): Response
 {
     $rec = $rep->find($id);
 
     if (!$rec) {
-        // Gérez le cas où le sinistre n'existe pas, par exemple, en ajoutant un message flash d'erreur
+        
         $this->addFlash('error', 'Le sinistre demandé n\'existe pas.');
         return $this->redirectToRoute('app_sinistre');
     }
@@ -82,7 +120,7 @@ public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityMana
     $em->remove($rec);
     $em->flush();
 
-    // Ajouter ici un message flash de succès si désiré
+    
     $this->addFlash('success', 'Le sinistre a été supprimé avec succès.');
 
     return $this->redirectToRoute('app_sinistre');

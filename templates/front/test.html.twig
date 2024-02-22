@@ -1,6 +1,7 @@
 {% extends 'front_base.html.twig' %}
 
 {% block header %}
+<script src="{{ asset('front_assets/js/jquery.min.js') }}"></script>
     <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
         <div class="container-fluid">
             <div class="row g-0 align-items-center">
@@ -75,55 +76,23 @@
    </header>
 {% endblock %}
 {% block main %}
-<style>
-
-
-.container-centre {
-    display: flex;
-    justify-content: center; /* Centrage horizontal du contenu */
-    align-items: center; /* Centrage vertical du contenu */
-    min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
-}
-
-.espacement-superieur {
-    padding-top: 50px; /* Réduction de l'espacement supérieur pour un meilleur centrage vertical */
-}
-
-.espacement-inferieur {
-    padding-bottom: 50px; /* Réduction de l'espacement inférieur */
-}
-
-.image-sinistre {
-    width: 566px; /* Définissez la largeur souhaitée */
-    height: 634px; /* Définissez la hauteur souhaitée */
-    object-fit: cover; /* Assurez-vous que l'image couvre la zone sans perdre ses proportions */
-}
-.tp-about-area {
-    margin-top: 100px; /* Ajoute un espace entre le header et la section tp-about-area */
-}
-.sinistre-item {
-    margin-bottom: 20px; /* Ajustez cette valeur selon l'espace souhaité */
-}
-    
-</style>
-<div class="tp-about-area pb-130">
-    <div class="container-centre espacement-inferieur">
-    <div class="container espacement-superieur">
+      <div class="tp-about-area pb-130">
+    <div class="container">
         <div class="row align-items-center">
-            {% for sinistre in sinistre %}
-                 <div class="col-xl-6 col-lg-6 sinistre-item">
+        {% for sinistre in sinistres %}
+            <div class="col-xl-6 col-lg-6">
                 <div class="tp-about-thumb">
                     {# Utiliser le chemin d'image dynamique de l'entité Sinistre #}
-                    <img src="{{ asset('uploads/sinistres/' ~ sinistre.imagePath) }}" alt="Image du sinistre" class="image-sinistre">
+                    <img src="{{ asset('uploads/sinistres/' ~ sinistre.imagePath) }}" alt="Image du sinistre">
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="tp-about-section-box mb-40">
-                
-                    <h3 class="tp-section-title pb-20">{{ sinistre.sinName }}</h3>
-        
-
-                   <div class="description"> <p class="paragraph-one">{{ sinistre.descriptionSin }}</p></div>
+                    <h4 class="tp-section-subtitle">About us</h4>
+                    <h5 class="card-title">{{ sinistre.sinName }}</h5>
+                </div>
+                <div class="tp-about-button-box d-flex align-items-center">
+                    <p class="card-text">{{ sinistre.descriptionSin }}</p>
                 </div>
             </div>
         {% else %}
@@ -133,6 +102,5 @@
         {% endfor %} 
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

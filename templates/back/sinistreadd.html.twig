@@ -27,7 +27,7 @@
             <div class="col-md-6 form-container">
                 <div class="card mt-3">
                     <div class="card-header text-center">
-                        <h2>Add a New Claim</h2>
+                        <h2>Add A New Claim</h2>
                     </div>
                     <div class="card-body">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
@@ -43,6 +43,11 @@
                             {{ form_widget(form.description_sin, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.description_sin) }}
                         </div>
+                        <div class="form-group">
+    {{ form_label(form.imagePath, 'Claim Image') }}
+    {{ form_widget(form.imagePath, {'attr': {'class': 'form-control-file'}}) }}
+    {{ form_errors(form.imagePath) }}
+</div>
 
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-primary btn-round">
