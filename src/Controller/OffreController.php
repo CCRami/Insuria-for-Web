@@ -39,29 +39,29 @@ class OffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            // Handle image upload
+            
             $imageFile = $form->get('offreimg')->getData();
             
-            // Check if an image has been uploaded
+           
             if ($imageFile) {
-                // Generate a unique name for the file
+               
                 $fileName = uniqid().'.'.$imageFile->guessExtension();
                 
-                // Move the file to the directory where images are stored
+                
                 try {
                     $imageFile->move(
-                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $this->getParameter('offre_images_directory'), 
                         $fileName
                     );
                 } catch (FileException $e) {
-                    // Handle file upload error
+                    
                 }
                 
-                // Set the image file name to the offre entity
+                
                 $offre->setOffreimg($fileName);
             }
             
-            // Persist the offre entity
+           
             $em->persist($offre);
             $em->flush();
             
@@ -82,29 +82,29 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
     $form->handleRequest($request);
     
     if ($form->isSubmitted() && $form->isValid()) {
-        // Handle image upload
+        
         $imageFile = $form->get('offreimg')->getData();
         
-        // Check if an image has been uploaded
+       
         if ($imageFile) {
-            // Generate a unique name for the file
+            
             $fileName = uniqid().'.'.$imageFile->guessExtension();
             
-            // Move the file to the directory where images are stored
+           
             try {
                 $imageFile->move(
                     $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
                     $fileName
                 );
             } catch (FileException $e) {
-                // Handle file upload error
+              
             }
             
-            // Set the image file name to the offre entity
+          
             $offre->setOffreimg($fileName);
         }
         
-        // Persist the changes to the offre entity
+       
         $em->flush();
         
         return $this->redirectToRoute('display_offre');

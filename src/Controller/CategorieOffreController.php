@@ -51,22 +51,22 @@ class CategorieOffreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('catimg')->getData();
             
-            // Check if an image has been uploaded
+           
             if ($imageFile) {
-                // Generate a unique name for the file
+                
                 $fileName = uniqid().'.'.$imageFile->guessExtension();
                 
-                // Move the file to the directory where images are stored
+              
                 try {
                     $imageFile->move(
-                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $this->getParameter('offre_images_directory'), 
                         $fileName
                     );
                 } catch (FileException $e) {
-                    // Handle file upload error
+                   
                 }
                 
-                // Set the image file name to the offre entity
+                
                 $catoffre->setCatimg($fileName);
             }
             $em->persist($catoffre);
@@ -86,26 +86,18 @@ class CategorieOffreController extends AbstractController
         $catoffre = $rep->find($id);
         $form = $this->createForm(CategorieOffreformType::class, $catoffre);
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('catimg')->getData();
-            
-            // Check if a new image has been uploaded
             if ($imageFile) {
-                // Generate a unique name for the file
                 $fileName = uniqid().'.'.$imageFile->guessExtension();
-                
-                // Move the file to the directory where images are stored
                 try {
                     $imageFile->move(
-                        $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
+                        $this->getParameter('offre_images_directory'), 
                         $fileName
                     );
                 } catch (FileException $e) {
-                    // Handle file upload error
+                   
                 }
-                
-                // Set the new image file name to the offre entity
                 $catoffre->setCatimg($fileName);
             }
             

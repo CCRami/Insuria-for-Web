@@ -35,10 +35,10 @@ class CategorieOffreformType extends AbstractType
             ])
             ->add('catimg', FileType::class, [
                 'label' => 'Image (JPEG, PNG)',
-                'mapped' => false, // This means that this field is not mapped to any entity property
-                'required' => false, // This field is not required
+                'mapped' => false,
+                'required' => false, 
                 'attr' => [
-                    'accept' => 'image/jpeg, image/png', // Limit file types to JPEG and PNG
+                    'accept' => 'image/jpeg, image/png', 
                 ],
             ]);
     }

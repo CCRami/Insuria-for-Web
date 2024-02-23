@@ -43,11 +43,13 @@ class OffreformType extends AbstractType
             ])
             ->add('duration', null, [
                 'constraints' => [
+                    new NotBlank(),
                     new GreaterThan(['value' => 0])
                 ]
             ])
             ->add('discount', null, [
                 'constraints' => [
+                    new NotBlank(),
                     new GreaterThan(['value' => 0]),
                     new Range(['min' => 0, 'max' => 100])
                 ]
@@ -59,8 +61,8 @@ class OffreformType extends AbstractType
             ])
             ->add('offreimg', FileType::class, [
                 'label' => 'Image (JPEG, PNG)',
-                'mapped' => false, // This means that this field is not mapped to any entity property
-                'required' => false, // This field is not required
+                'mapped' => false, 
+                'required' => false, 
                 'constraints' => [
                     new File([
                         'maxSize' => '5024k',
@@ -72,7 +74,7 @@ class OffreformType extends AbstractType
                     ])
                 ],
                 'attr' => [
-                    'accept' => 'image/jpeg, image/png', // Limit file types to JPEG and PNG
+                    'accept' => 'image/jpeg, image/png', 
                 ],
             ])
         ;
@@ -85,3 +87,6 @@ class OffreformType extends AbstractType
         ]);
     }
 }
+
+
+
