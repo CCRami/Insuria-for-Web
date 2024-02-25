@@ -92,8 +92,11 @@
     }
     
     .form-container {
-        margin-top: 10rem;
-        margin-bottom: 10rem;
+        margin-top: 9rem;
+        margin-bottom: 5rem; border: 1px solid #ccc;
+       width:50%;margin-left:25%;
+        border-radius: 5px;
+        background-color: #f9f9f9;
     }
     .table-row:hover {
         background-color: #007bff;
@@ -148,11 +151,11 @@
 </style>
 
 <div class="contenu-centre">
-    <div class="container" >
+    <div class="form-container " >
         {% block service %}
-            <div class="tp-service-area  pt-200 pb-200 z-index p-relative" >
+            <div  >
                 
-                <div class="card mt-3">
+                <div class="card ">
                     <div class="card-header text-center">
                         <h1>Add Note</h1>
                     </div>
@@ -163,9 +166,9 @@
                             {{ form_widget(form.note) }}
                             {{ form_errors(form.note) }}
                         </div>
-                 <div class="form-group" style="margin-bottom: 22px;">
+                 <div class="form-group" style="margin-bottom: 22px;" type='textarea'>
     {{ form_label(form.commentaire, "Comment:") }}
-    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}, 'widget': 'textarea'}) }}
+    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}, 'type': 'textarea'}) }}
     {{ form_errors(form.commentaire) }}
 </div>
                         <div class="form-group" >
@@ -174,7 +177,7 @@
       </div>
                             {{ form_widget(form.avis, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.avis) }}
-                        </div><div class="col-md-4" style="margin-left: 50%;margin-top:5%;">
+                        </div><div class="col-md-4" style="margin-left: 50%;margin-top:5%; ">
                         {{ form_widget(form.save, {'attr': {'class': 'form-submit-btn'}}) }}
                       </div>   {{ form_end(form) }}
                     </div>

@@ -85,7 +85,7 @@ class AvisController extends AbstractController
 
     #[Route('/avisbyclient/{id}', name:'SearchByclient')]
     function Rechercheavisbyclient(AvisRepository $repo, $id){
-        //$x=$request->get('LaRef');
+       
         $x=$repo->findavisbyclient($id);
         
         return $this->render('avis/avisback.html.twig',['listX' => $x, ]);
@@ -93,7 +93,7 @@ class AvisController extends AbstractController
 
        #[Route('/avisbyagence/{id}', name:'SearchByagence')]
        function Rechercheavisbyag(AvisRepository $repo, $id){
-           //$x=$request->get('LaRef');
+           
            $x=$repo->findavisbyagence($id);
            
            return $this->render('avis/avisbackbyag.html.twig',['listX' => $x, ]);
@@ -101,7 +101,7 @@ class AvisController extends AbstractController
 
           #[Route('/avisbyagencec/{id}', name:'SearchfrontByagence')]
           function Rechercheavisbyagfront(AvisRepository $repo, $id){
-              //$x=$request->get('LaRef');
+            
               $x=$repo->findavisbyagence($id);
               
               return $this->render('avis/avisbyagence.html.twig',['listX' => $x, ]);
@@ -109,7 +109,7 @@ class AvisController extends AbstractController
 
           #[Route('/mesavis/{id}', name:'Searchmesavis')]
           function Recherchmesavis(AvisRepository $repo, $id){
-              //$x=$request->get('LaRef');
+             
               $x=$repo->findavisbyid($id);
               
               return $this->render('avis/mesavis.html.twig',['listX' => $x, ]);

@@ -23,16 +23,17 @@ class Avis
     #[ORM\Column]
     #[Assert\NotBlank(message:'Note is required')]
     #[Assert\Positive(message:'Note must be positive')]
+    #[Assert\Range(min: 1, max: 5, minMessage: 'Note must be at least 1', maxMessage: 'Note must be at most 5')]
     private ?int $note = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_avis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'client')]
+    #[ORM\ManyToOne(inversedBy: 'client', cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $Avis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'agav')]
+    #[ORM\ManyToOne(inversedBy: 'agav', cascade: ['remove'])]
     private ?Agence $agenceav = null;
 
 

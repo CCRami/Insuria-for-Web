@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240214234615 extends AbstractMigration
+final class Version20240223092015 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20240214234615 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE avis ADD agenceav_id INT NOT NULL');
-        $this->addSql('ALTER TABLE avis ADD CONSTRAINT FK_8F91ABF08B12E471 FOREIGN KEY (agenceav_id) REFERENCES agence (id)');
-        $this->addSql('CREATE INDEX IDX_8F91ABF08B12E471 ON avis (agenceav_id)');
+        $this->addSql('ALTER TABLE agence DROP createAt');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE avis DROP FOREIGN KEY FK_8F91ABF08B12E471');
-        $this->addSql('DROP INDEX IDX_8F91ABF08B12E471 ON avis');
-        $this->addSql('ALTER TABLE avis DROP agenceav_id');
+        $this->addSql('ALTER TABLE agence ADD createAt DATE DEFAULT NULL');
     }
 }

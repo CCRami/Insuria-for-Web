@@ -1,69 +1,118 @@
+
+
 {% extends 'back_base.html.twig' %}
 
 {% block content %}
-<style>
-    .form-container {
-        margin-top: 5rem;
-    }
-    .table-row:hover {
-        background-color: #f8f9fa;
-    }
-    .table-row:hover td {
-        color: #007bff;
-    }
-    .table-row:hover .btn, .form-submit-btn {
-        background-color: #007bff; /* Pour que le bouton ait le fond bleu */
-        color: #ffffff; /* Texte en blanc pour contraste */
-        border-radius: 20px; /* Bordures arrondies pour le style "btn-round" */
-        border: none; /* Supprime la bordure par défaut des boutons */
-        padding: 10px 20px; /* Ajustement du padding pour correspondre à vos besoins */
-        cursor: pointer; /* Change le curseur au survol */
-    }
-</style>
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <!-- Start Dashboard Content -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card mt-3">
+                        <div class="card-content">
+                            <!-- Symfony Form Start -->
+                            <div class="card-body">
+                                <div class="card-title">Add new agence</div>
+                                <hr>
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.nomage, 'name of agence', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.nomage, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter agence Name'}}) }}
+                                      {{ form_errors(form.nomage) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.email, 'email', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter agence email '}}) }}
+                                     {{ form_errors(form.email) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.addresse, 'adress', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.addresse, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter agence adress '}}) }}
+                                 {{ form_errors(form.addresse) }}
+                                 </div>
+                                 <div class="form-group">
+                                    {{ form_label(form.tel, 'telephone number', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.tel, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter agence telephone number '}}) }}
+                                 {{ form_errors(form.tel) }}
+                                 </div>
 
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-6 form-container">
-                <div class="card mt-3">
-                    <div class="card-header text-center">
-                   <h1>Add Agence</h1>
-
-   {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }} 
-        <div class="form-group">
-            {{ form_label(form.nomage,"Name :") }}
-            {{ form_widget(form.nomage) }}
-            {{ form_errors(form.nomage) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_label(form.email,"Email :") }}
-            {{ form_widget(form.email) }}
-             {{ form_errors(form.email) }}
-        </div>
- <div class="form-group">
-            {{ form_label(form.addresse,"Address  :   ") }}
-            {{ form_widget(form.addresse) }}
-             {{ form_errors(form.addresse) }}
-        </div>
-
-         <div class="form-group">
-            {{ form_label(form.tel,"Number  :") }}
-            {{ form_widget(form.tel) }}
-             {{ form_errors(form.tel) }}
-        </div>
-       {{ form_widget(form.save, {'attr': {'style': 'background-color: #0056b3;'}}) }}
-    {{ form_end(form) }}
-		<!--end overlay-->
-		
-    </div>
-    <!-- End container-fluid-->
-    
-    </div>
+                            
+                               
+                                <div class="form-group text-center">
+                                     {{ form_end(form,{'attr': {'class': 'form-control form-control-rounded','type':'button' },'style' :{'color': 'red'}}) }}
+                                     
+                                </div>
+                               
+                               
+                            </div>
+                            <!-- Symfony Form End -->
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- End Dashboard Content -->
+          
+            <!-- Start overlay -->
+            <div class="overlay toggle-menu"></div>
+            <!-- End overlay -->
         </div>
-    </div>
-</div>
+        <!-- End container-fluid -->
+    </div><!-- End content-wrapper -->
+
+    <script>
+    var fieldCounter = 0; // Counter for field names
+
+    function addField() {
+        fieldCounter++;
+        var newFieldHtml = `
+            <div class="form-group">
+                <label for="doaField${fieldCounter}" class="control-label"> Field ${fieldCounter}</label>
+                <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
+            </div>
+        `;
+        document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
+    }
+
+    // Function to concatenate the values of all dynamic fields into a single string
+    function combineFields() {
+        var combinedValue = ""; // Variable to store combined values
+        
+        // Loop through all dynamically added fields
+        for (var i = 0; i <= fieldCounter; i++) {
+            var fieldValue = document.getElementById('doaField' + i)?.value.trim(); // Get value of each dynamically added field
+            
+            if (fieldValue) {
+                combinedValue += fieldValue + "; "; // Concatenate values with a separator
+            }
+        }
+        
+        // Remove the trailing separator
+        if (combinedValue.length > 0) {
+            combinedValue = combinedValue.slice(0, -2);
+        }
+        
+        // Print the combined value to the console
+        console.log("Combined value:", combinedValue);
+
+       
+    }
+
+    // Add event listener for dynamically added fields
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('addFieldButton').addEventListener('click', addFieldOnce);
+    });
+
+    // Function to add field once, preventing multiple clicks
+    function addFieldOnce() {
+        addField();
+        this.removeEventListener('click', addFieldOnce); // Remove the event listener after adding the field once
+    }
+</script>
 
 
-{% endblock  %}
+{% endblock %}
