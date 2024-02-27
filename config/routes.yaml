@@ -5,3 +5,4 @@
 app_admin:
     path: /affichercatoffre
     controller: C:\Insuria\Insuria\templates\back::afficherCatOffre
+    
