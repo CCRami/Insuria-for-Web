@@ -17,7 +17,7 @@
                                         <th>Full Premium</th>
                                         <th>Effective Date</th>
                                         <th>Expiration Date</th>
-                                        <!-- Add more columns as needed -->
+                                        
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -28,9 +28,9 @@
                                             <td>{{ command.montant }}</td>
                                             <td>{{ command.dateEffet ? command.dateEffet|date('Y-m-d') : 'N/A' }}</td>
                                             <td>{{ command.dateExp ? command.dateExp|date('Y-m-d') : 'N/A' }}</td>
-                                            <!-- Add more columns as needed -->
+                                         
                                             <td>
-                                               <a href="{{ path('delete_com', {'id': command.id}) }}">Delete</a>
+                                               <a href="{{ path('delete_com', {'id': command.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
                                             </td>
                                         </tr>
                                     {% else %}

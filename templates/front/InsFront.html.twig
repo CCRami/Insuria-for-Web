@@ -11,7 +11,7 @@
                     <div class="col-xxl-12">
                         <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
                             <div class="breadcrumb__content">
-                                <h3 class="breadcrumb__title">Portfolio</h3>
+                                <h3 class="breadcrumb__title">Insurances</h3>
                             </div>
                             <div class="breadcrumb__button">
                                 <a class="tp-btn-white" href="contact.html">Contact us today<i
@@ -55,9 +55,13 @@
                                     <div class="tpcaseitem__content">
                                         <div class="tpcase-info p-relative">
                                             <!-- Insurance name wrapped in its own HTML element -->
-                                            <h4 class="tp-case-title">
+                                            <h3 class="tp-case-title">
                                                 <a href="{{ path('add_com', {'id': assurance.id}) }}">{{ assurance.nameins }}</a>
-                                            </h4>
+                                               
+                                            </h3>
+                                             <h4 class="tp-case-title">Starting Price:
+                                             <a href="{{ path('add_com', {'id': assurance.id}) }}">{{ assurance.montant }}</a> DT
+                                             </h4>
                                             <div class="tp-case-icon">
                                                 <a href="#"><i class="fal fa-arrow-right"></i></a>
                                             </div>

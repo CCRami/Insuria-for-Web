@@ -74,7 +74,7 @@
     </div><!-- End content-wrapper -->
 
     <script>
-    var fieldCounter = 0; // Counter for field names
+    var fieldCounter = 0; 
 
     function addField() {
         fieldCounter++;
@@ -87,40 +87,40 @@
         document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
     }
 
-    // Function to concatenate the values of all dynamic fields into a single string
+    
     function combineFields() {
-        var combinedValue = ""; // Variable to store combined values
+        var combinedValue = ""; 
         
-        // Loop through all dynamically added fields
-        for (var i = 0; i <= fieldCounter; i++) {
-            var fieldValue = document.getElementById('doaField' + i)?.value.trim(); // Get value of each dynamically added field
+        
+        for (var i = 1; i <= fieldCounter; i++) {
+            var fieldValue = document.getElementById('doaField' + i)?.value.trim(); 
             
             if (fieldValue) {
-                combinedValue += fieldValue + "; "; // Concatenate values with a separator
+                combinedValue += fieldValue + "; "; 
             }
         }
         
-        // Remove the trailing separator
+        
         if (combinedValue.length > 0) {
             combinedValue = combinedValue.slice(0, -2);
         }
         
-        // Print the combined value to the console
+        
         console.log("Combined value:", combinedValue);
 
        
     }
 
-    // Add event listener for dynamically added fields
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('addFieldButton').addEventListener('click', addFieldOnce);
-    });
+    
+   document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('addFieldButton').addEventListener('click', addFieldOnce);
+});
 
-    // Function to add field once, preventing multiple clicks
-    function addFieldOnce() {
-        addField();
-        this.removeEventListener('click', addFieldOnce); // Remove the event listener after adding the field once
-    }
+function addFieldOnce() {
+    addField();
+    this.removeEventListener('click', addFieldOnce); 
+}
+
 </script>
 
 

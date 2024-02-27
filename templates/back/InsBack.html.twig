@@ -44,8 +44,8 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <a href="{{ path('edit_assurance', {'id': assurance.id}) }}">Edit</a>
-                                                <a href="{{ path('delete_assurance', {'id': assurance.id}) }}">Delete</a>
+                                                <a href="{{ path('edit_assurance', {'id': assurance.id}) }}" class="btn btn-light btn-round px-5">Edit</a>
+                                                <a href="{{ path('delete_assurance', {'id': assurance.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
                                             </td>
                                         </tr>
                                     {% else %}

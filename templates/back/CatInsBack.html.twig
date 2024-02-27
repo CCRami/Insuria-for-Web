@@ -22,7 +22,7 @@
                             <th>Category Description</th>
                             
                             <th>Actions</th>
-                            <!-- Add more table headers if needed -->
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -32,11 +32,10 @@
                             <td>{{ catA.desccatins }}</td>
                             
                             <td>
-                                <a href="{{ path('edit_catA', {'id': catA.id}) }}">Edit</a>
-                                <a href="{{ path('delete_catA', {'id': catA.id}) }}">Delete</a>
+                                <a href="{{ path('edit_catA', {'id': catA.id}) }}"class="btn btn-light btn-round px-5">Edit</a>
+                                <a href="{{ path('delete_catA', {'id': catA.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
                             </td>
-                            <!-- Adjust the date format as needed -->
-                            <!-- Add more table columns if needed -->
+                          
                         </tr>
                         {% else %}
                         <tr>

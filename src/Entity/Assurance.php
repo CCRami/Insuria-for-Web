@@ -21,20 +21,23 @@ class Assurance
         minMessage: 'The name must be at least {{ limit }} characters long',
         maxMessage: 'The name cannot be longer than {{ limit }} characters'
     )]
+    #[Assert\NotBlank(message: 'Name cannot be blank')]
     private ?string $name_ins = null;
 
     #[ORM\Column]
     #[Assert\Positive(message: 'The Price Cannot Be Negative')]
+    #[Assert\NotBlank(message: 'Name cannot be blank')]
     private ?float $montant = null;
 
     #[ORM\Column(length: 255)]
     private ?array $doa = null;
 
     #[ORM\ManyToOne(inversedBy: 'assurance')]
+   
     private ?CategorieAssurance $catA = null;
 
     #[ORM\Column(length: 255)]
-   
+    
     private ?string $insImage = null;
 
     public function getId(): ?int

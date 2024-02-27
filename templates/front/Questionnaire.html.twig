@@ -1,0 +1,121 @@
+{# templates/assurance/questionnaire.html.twig #}
+
+{% extends 'front_base.html.twig' %}
+{% block main %}
+<main>
+    <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
+             data-background="assets/img/breadcurmb/breadcurmb.jpg">
+        <div class="tp-breadcrmb-circle-one"></div>
+        <div class="tp-breadcrmb-circle-two"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
+                        <div class="breadcrumb__content">
+                            <h3 class="breadcrumb__title">Insurances</h3>
+                        </div>
+                        <div class="breadcrumb__button">
+                            <a class="tp-btn-white" href="contact.html">Contact us today<i
+                                        class="far fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{ form_start(form) }}
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.age, 'Age', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.age) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.income, 'Annual Income', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.income, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.income) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.marital_status, 'Marital Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.marital_status, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.marital_status) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.employment_status, 'Employment Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.employment_status, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.employment_status) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.health_status, 'Health Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.health_status, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.health_status) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.risk_tolerance, 'Risk Tolerance', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.risk_tolerance, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.risk_tolerance) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.assets, 'Total Assets', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.assets, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.assets) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.liabilities, 'Total Liabilities', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.liabilities, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.liabilities) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.financial_goals, 'Financial Goals', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.financial_goals, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.financial_goals) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.preferred_coverage, 'Preferred Coverage', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.preferred_coverage, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.preferred_coverage) }}
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        {{ form_label(form.geographic_factors, 'Geographic Factors', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.geographic_factors, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.geographic_factors) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    {{ form_end(form) }}
+</main>
+{% endblock %}

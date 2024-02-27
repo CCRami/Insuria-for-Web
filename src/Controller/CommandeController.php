@@ -57,35 +57,37 @@ class CommandeController extends AbstractController
 public function addCom(Request $request, EntityManagerInterface $em, int $id): Response
 {
     $assurance = $em->getRepository(Assurance::class)->find($id);
-    // Get the doa values from the Assurance entity
-    $doaValues = $assurance->getDoa();
     $user = $em->getRepository(User::class)->find('1');
-    // Create a new instance of Commande entity
+    $doaValues = $assurance->getDoa();
+    
+   
     $com = new Commande();
 
-    // Create the form and pass the doa values to it
+    
     $form = $this->createForm(CommandeFormType::class, $com, [
         'doa_values' => $doaValues,
     ]);
 
-    // Handle form submission
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Process form data and redirect
+       
 
-        // Set the date_effet property to the current date
         $com->setDateEffet(new DateTime());
 
-        // Set the date_expedition property to the current date plus one year
+        
         $dateExpedition = new DateTime();
         $dateExpedition->modify('+1 year');
         $com->setDateExp($dateExpedition);
 
-        // Set the default value for the montant property
+        $baseMontant = $assurance->getMontant();
+        $insvalue = $form->get('insvalue')->getData();
+        $additionalValue = $insvalue * 0.0075;
+        $finalMontant = $baseMontant + $additionalValue;
+        
       
 
-        // Set the doafull property of the Commande entity
+        
         $doaData = [];
         foreach ($form->all() as $childForm) {
             $childName = $childForm->getName();
@@ -97,24 +99,13 @@ public function addCom(Request $request, EntityManagerInterface $em, int $id): R
         $com->setFullDoa($doaData);
         $com->setDoaCom($assurance);
         $com->setUser($user);
-
-        $baseMontant = $assurance->getMontant();
-
-        // Calculate the additional value based on the form data
-        $insvalue = $form->get('insvalue')->getData();
-        $additionalValue = $insvalue * 0.0075;
-
-        // Calculate the final montant
-        $finalMontant = $baseMontant + $additionalValue;
-
-        // Set the montant property of the Commande entity
         $com->setMontant($finalMontant);
-        // Process form data and redirect
+        
         $em->persist($com);
         $em->flush();
 
         $idc = $com->getId(); 
-        // Redirect to the display_com route with the ID of the newly created command
+        
         return $this->redirectToRoute('display_com', ['id' => $id, 'idc' => $idc]);
     }
 
@@ -126,69 +117,59 @@ public function addCom(Request $request, EntityManagerInterface $em, int $id): R
 
 
 
-
 #[Route('/editcom/{id}', name: 'edit_com')]
 public function editCom(Request $request, EntityManagerInterface $em, CommandeRepository $rep, int $id): Response
 {
-    // Retrieve the existing command entity
     $com = $rep->find($id);
     
-    // Check if the command entity exists
-    if (!$com) {
-        throw $this->createNotFoundException('Command not found');
-    }
-   
-    // Retrieve the associated assurance entity from the command entity
     $assurance = $com->getDoaCom();
-   
-    // Retrieve the doa values from the associated assurance entity if available
     $doaValues = $assurance ? $assurance->getDoa() : [];
 
-    // Create the form and bind it to the existing command entity
     $form = $this->createForm(CommandeFormType::class, $com, [
         'doa_values' => $doaValues,
     ]);
+
+   
+$data = $com->getFullDoa(); 
+
+foreach ($data as $index => $value) {
+   
+    $fieldName = $index;
+    $form->get($fieldName)->setData(htmlspecialchars($value)); 
+    dump($fieldName);
+    dump($value); 
+}
+
     
-    // Loop through doa values and set initial data for each doa_ field
-    foreach ($doaValues as $index => $value) {
-        $fieldName = 'doa_' . $index;
-        if ($form->has($fieldName)) {
-            $form->get($fieldName)->setData($value);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Handle form submission and entity updates
+        try {
+            $em->flush();
+            
+            $baseMontant = $assurance->getMontant();
+            $insvalue = $form->get('insvalue')->getData();
+            $additionalValue = $insvalue * 0.0075;
+            $finalMontant = $baseMontant + $additionalValue;
+           
+            $com->setMontant($finalMontant);
+            
+            $em->flush();
+            
+            return $this->redirectToRoute('display_com', ['idc' => $com->getId()]);
+        } catch (\Exception $e) {
+            // Handle any exceptions here, e.g., log the error
+            $this->addFlash('error', 'An error occurred while processing your request.');
         }
     }
-    
-    // Handle form submission
-    $form->handleRequest($request);
-    
-    // Process form submission and entity update
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Persist changes to the database
-        $em->flush();
-        
-        // Recalculate the final montant
-        $baseMontant = $assurance->getMontant();
-        $insvalue = $form->get('insvalue')->getData();
-        $additionalValue = $insvalue * 0.0075;
-        $finalMontant = $baseMontant + $additionalValue;
 
-        // Set the montant property of the Commande entity
-        $com->setMontant($finalMontant);
-        
-        // Persist the updated montant to the database
-        $em->flush();
-        
-        // Redirect to the appropriate route
-        return $this->redirectToRoute('display_com', ['idc' => $com->getId()]);
-    }
-
-    // Render the form for editing
     return $this->render('front/CommandeFront.html.twig', [
         'form' => $form->createView(),
         'id' => $id,
         'command' => $com,
     ]);
 }
-
 
 
     

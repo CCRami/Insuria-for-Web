@@ -23,6 +23,11 @@ class CategorieAssurance
         minMessage: 'The name must be at least {{ limit }} characters long',
         maxMessage: 'The name cannot be longer than {{ limit }} characters'
     )]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z]+$/',
+        message: 'Name cannot contain numbers'
+    )]
+    #[Assert\NotBlank(message: 'Name cannot be blank')]
     private ?string $name_cat_ins = null;
 
     #[ORM\Column(length: 255)]

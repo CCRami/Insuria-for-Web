@@ -35,7 +35,7 @@ class AssuranceFormType extends AbstractType
             'allow_delete' => true,
             'prototype' => true,
            
-            'label' => false, // Set label to false to hide it
+            'label' => false, 
         ])
          
        
