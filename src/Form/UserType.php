@@ -35,7 +35,7 @@ class UserType extends AbstractType
                 'Client' => 'ROLE_CLIENT',
                 'Agent' => 'ROLE_AGENT',
             ],
-            'multiple' => true, // Optional, if you want checkboxes/radio buttons for better UI
+            'multiple' => true,
             'expanded' => true,
         ])
     ;

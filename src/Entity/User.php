@@ -50,11 +50,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $birth_date = null;
 
     #[ORM\Column(type: 'json')]
+    #[Assert\NotBlank(message:"No roles selected.")]
     private ?array $roles = null;
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+    
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $secret = null;
+    
+    public function getSecret(): ?string
+    {
+        return $this->secret;
+    }
 
+    public function setSecret(?string $secret): static
+    {
+        $this->secret = $secret;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -66,7 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->first_name;
     }
 
-    public function setFirstName(string $first_name): static
+    public function setFirstName(?string $first_name): static
     {
         $this->first_name = $first_name;
 
@@ -78,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->last_name;
     }
 
-    public function setLastName(string $last_name): static
+    public function setLastName(?string $last_name): static
     {
         $this->last_name = $last_name;
 
@@ -102,7 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(?string $password): static
     {
         $this->password = $password;
 
@@ -114,7 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(int $phone_number): static
+    public function setPhoneNumber(?int $phone_number): static
     {
         $this->phone_number = $phone_number;
 
@@ -138,7 +153,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
-    public function setRoles(array $roles): static
+    public function setRoles(?array $roles): static
 {
     $this->roles = $roles;
     return $this;

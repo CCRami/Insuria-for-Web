@@ -25,6 +25,7 @@ use App\Service\MyGmailMailerService;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use App\Service\AuthenticatorService;
 
 class UserController extends AbstractController
 {
@@ -39,6 +40,7 @@ class UserController extends AbstractController
         $this->repo=$repo;
         $this->mailerService = $mailerService;
         $this->tokenGenerator = $tokenGenerator;
+        
     }
     #[Route('/admin/user', name: 'app_admin_user', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
@@ -53,6 +55,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
+            $user->setIsVerified(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -112,8 +115,9 @@ class UserController extends AbstractController
  * client controller
  */
 #[Route('/home/user/{id}', name: 'app_home_manage')]
-public function displaymanage(Request $request, EntityManagerInterface $entityManager,$id , UserPasswordEncoderInterface $passwordEncoder): Response
+public function displaymanage(Request $request, EntityManagerInterface $entityManager,$id , UserPasswordEncoderInterface $passwordEncoder, AuthenticatorService $authenticatorservice): Response
 {
+    
     $userRepository = $this->getDoctrine()->getRepository(User::class);
     $user = $userRepository->find($id);
     $encodedpass=$user->getPassword();
@@ -126,9 +130,19 @@ public function displaymanage(Request $request, EntityManagerInterface $entityMa
 
         return $this->redirectToRoute('app_home_manage', ['id' => $id]);
     }
+    if ($request->isMethod(request::METHOD_POST))
+    {
+        $authenticatorservice->validatepairing($user, $request->request->get('secret'));
+        $this->addFlash('success', '2FA was paired successfully!');	
+        return $this->redirectToRoute('app_home_manage', ['id' => $id]);
+
+    }
+    [$qrCodeUri, $secret] = $authenticatorservice->getQrCodeUri($user);
     return $this->render('front/user_details.html.twig', [
         'user' => $user,
         'form' => $form->createView(),
+        'qrCodeUri' => $qrCodeUri,
+        'secret' => $secret
     ]);
 }
 
@@ -157,7 +171,6 @@ public function displaymanage(Request $request, EntityManagerInterface $entityMa
                     ])
                 );
 
-                // Add a flash message or redirect to a success page
             }
         return $this->redirectToRoute('app_home_manage', ['id' => $user->getId()]);
     }
@@ -166,41 +179,35 @@ public function displaymanage(Request $request, EntityManagerInterface $entityMa
     {
         $userId = $request->attributes->get('id');
 
-        // Fetch the user from the database based on the provided id and email
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $userId]);
 
     if (!$user) {
-        // Token not found or expired, handle accordingly
+        throw $this->createNotFoundException('No user found for id '.$userId);
     }
 
-    // Handle the form submission to reset the password
     if ($request->isMethod('POST')) {
         $currentPassword = $request->request->get('current_password');
         $newPassword = $request->request->get('new_password');
         $confirmNewPassword = $request->request->get('confirm_new_password');
 
-        // Check if the current password matches the user's actual password
+
         if (!$passwordEncoder->isPasswordValid($user, $currentPassword)) {
-            // Incorrect current password
             $this->addFlash('error', 'Incorrect current password. Please try again.');
             return $this->redirectToRoute('app_reset_password', ['id' => $user->getId()]);
         }
         
-        // Check if the new password and confirm new password match
         if ($newPassword !== $confirmNewPassword OR empty($newPassword)) {
-            // Password mismatch
+
             $this->addFlash('error', 'New password and confirm new password do not match nor can be blank. Please try again.');
             return $this->redirectToRoute('app_reset_password', ['id' => $user->getId()]);
         }
 
-        // Set the new password and persist the changes
         $user->setPassword($passwordEncoder->encodePassword($user, $newPassword));
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // Add a flash message or redirect to a success page
         $this->addFlash('success', 'Password successfully changed!');
         return $this->redirectToRoute('app_home_manage', ['id' => $user->getId()]);
     }

@@ -3,15 +3,10 @@
 {% block main %}
     {% if user is defined %}
     <div class="am-about-me-area pt-110 pb-100" style="background-color: #051B46;">
-      <div class="container">
+      <div class="container" style="margin-top:30px;">
          <div class="row align-items-center">
-            <div class="col-xl-6 col-lg-6 col-md-12">
-               <div class="ac-ab-img fix" style="margin-top:30px;"> 
-                  <img src="{{ asset('../front_assets/img/team/team-9.jpg')}}" alt="">
-               </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:30px;">
-               <div class="amaboutinfo">
+            <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="amaboutinfo">
                   <div class="amaboutinfo__client-info" >
                      <h4 style="color: #FFFFFF;">{{ user.username}}</h4>
                      {% for role in app.user.roles %}
@@ -26,10 +21,34 @@
                      <p style="color: #FFFFFF;"><a href="mailto:{{ user.email }}"><b style="color: #FCAF3D;">E-mail:</b> {{ user.email }}</a></p>
                   </div>    
                </div>
-               
+               <div class="ac-ab-img fix" > 
+                  <img src="{{ asset('../front_assets/img/team/team-9.jpg')}}" alt="">
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:-300px;" >
+               <div class="row">
+                    <div class="col">
+                        <div class="tp-header-button d-none d-md-block" style="margin-bottom:20px;">
+                            <a href="#" id="toggleButton" class="tp-btn" onclick="toggleQRCode()">Enable 2FA</a>
+                        </div>
+                    </div>
+                    <div class="col" id="qrCodeContainer" style="display: none;">
+                        <img alt="QR code" id="qrCodeImage" src="{{ qrCodeUri }}" />
+                        <form method="post">
+                        <input type="hidden" name="secret" value="{{ secret }}" />
+                        <button type="submit" class="tp-btn" style="margin-top:20px; margin-left:30px;">Validate Pairing</button>
+                        </form>
+                    </div>
+                </div>
+                
+                {% if app.session.flashbag.has('success') %}
+                    <div class="alert alert-success">
+                        {{ app.session.flashbag.get('success')|first }}
+                    </div>
+                {% endif %}
                <div class="tp-header-button d-none d-md-block">
                     <a href="{{ path('app_forgot_password', {'email': user.email}) }}" class="tp-btn">Reset Password</a>
-            </div>
+                </div>
             <hr>
                <div class="card-body" style="color: #FFFFFF;">
             <h4 style="color: #FFFFFF;">Modify</h4>
@@ -48,7 +67,7 @@
                 </div>
                 <div class="col-md-3" style="display: none;">
                     <div class="form-group">
-                        {{ form_row(form.email, {'attr': {'value': '{{app.user.email}}','class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
+                        {{ form_row(form.email, {'attr': {'value': app.user.email,'class': 'form-control', 'placeholder': 'Enter Your Email Address'}}) }}
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -91,4 +110,19 @@
       {% else %}
         <p>User not found.</p>
     {% endif %}
+    <script>
+    function toggleQRCode() {
+        var qrCodeContainer = document.getElementById("qrCodeContainer");
+        var buttonContainer = document.querySelector(".tp-header-button");
+
+        // Toggle the visibility of the QR code container and the button container
+        if (qrCodeContainer.style.display === "none" || qrCodeContainer.style.display === "") {
+            qrCodeContainer.style.display = "block";
+            buttonContainer.style.display = "none";
+        } else {
+            qrCodeContainer.style.display = "none";
+            buttonContainer.style.display = "block";
+        }
+    }
+    </script>
 {% endblock %}

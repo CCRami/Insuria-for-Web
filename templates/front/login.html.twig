@@ -3,6 +3,13 @@
 {% endblock %}
 {% block main %}
 {% block insurance %}
+<script>    
+    {% if app.session.flashBag.has('requires_otp') %}
+        {{ app.request.session.set('requires_otp', true) }}
+    {% else %}
+        {{ app.request.session.set('requires_otp', false) }}
+    {% endif %}
+</script>
 <div class="tp-insurance-area pt-120 pb-120 black-bg"  data-background="../front_assets/img/about/about-bg-shape-1.png">
 <div class="container-fluid">
         <div class="tp-logo" style="text-align: center; margin-left: -100px; margin-top: -120px; ">
@@ -51,6 +58,14 @@
                 </div>
             </div>
         </div>
+        {% if app.request.session.get('requires_otp') %}
+        <div class="row">
+            <div class="contactform__input">
+                <label for="otp">Enter OTP</label>
+                <input class="form-control" id="otp" name="otp">
+            </div>
+        </div>
+        {% endif %}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <div class="col">
             <div class="contactform__button">

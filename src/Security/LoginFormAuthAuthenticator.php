@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-
+use OTPHP\TOTP;
 
 class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -43,15 +43,31 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
+        $user = $this->userRepository->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+        $hasSecret = $user->getSecret() !== null;
+
+        if (!$user->isVerified()) {
+            throw new CustomUserMessageAuthenticationException('Your account is not verified. Please check your email for verification.');
+        }
+        if ($hasSecret) {
+            $otp = $request->request->get('otp');
+            if (!$otp) {
+                $request->getSession()->getFlashBag()->add('requires_otp', true);
+                throw new CustomUserMessageAuthenticationException('Please enter your OTP.');
+            }
+            $totp = TOTP::create($user->getSecret());
+            if (!$totp->verify($otp)) {
+                $request->getSession()->getFlashBag()->add('requires_otp', true);
+                throw new CustomUserMessageAuthenticationException('Invalid OTP.');
+            }
+        }
+        
         return new Passport(
-            new UserBadge($email, function($userIdentifier) {
-                $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
-                if (!$user) {
-                    throw new UserNotFoundException();
-                }
-                if (!$user->isVerified()) {
-                    throw new CustomUserMessageAuthenticationException('Your account is not verified. Please check your email for verification.');
-                }
+            new UserBadge($email, function ($userIdentifier) use ($user) {
                 return $user;
             }),
             new PasswordCredentials($password)
@@ -63,7 +79,7 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
         $user = $token->getUser();
 
         if ($this->security->isGranted('ROLE_ADMIN')) {
-            // Redirect to the admin page if the user has the "ROLE_ADMIN" role
+
             return new RedirectResponse($this->urlGenerator->generate('app_admin'));
         }
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {

@@ -1,3 +1,4 @@
+{% if app.user %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -519,3 +520,11 @@
   
 </body>
 </html>
+{% else %}
+{% set redirectPath = path('app_home') %}
+            {% block java %}
+                <script>
+                    window.location.href = "{{ redirectPath }}";
+                </script>
+            {% endblock %}
+{% endif %}

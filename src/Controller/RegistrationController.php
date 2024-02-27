@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 
 class RegistrationController extends AbstractController
 {
@@ -27,8 +28,9 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/home/signup', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UrlGeneratorInterface $router): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,UrlGeneratorInterface $router, Recaptcha3Validator $recaptcha3Validator): Response
     {
+        $request->getSession()->getFlashBag()->clear();
         $user = new User();
         $user->setRoles(['ROLE_CLIENT']);
         $user->setBirthDate(new \DateTime());
@@ -43,6 +45,7 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $score = $recaptcha3Validator->getLastResponse()->getScore();
             $entityManager->persist($user);
             $entityManager->flush();
             
@@ -52,7 +55,7 @@ class RegistrationController extends AbstractController
                 'email' => $user->getEmail(),
                 'token' => $verificationToken,
             ], UrlGeneratorInterface::ABSOLUTE_URL);
-            // generate a signed url and email it to the user
+            
             $this->mailerService->sendEmail(
                 $user->getEmail(),
                 'Please Confirm your Email',
@@ -61,8 +64,7 @@ class RegistrationController extends AbstractController
                     'verificationUrl' => $verificationUrl,
                 ])
             );
-
-            // do anything else you need here, like send an email
+            $this->addFlash('success', sprintf('Your account has been created. Please check your email for a verification link. Score: %s', $score));
 
             return $this->redirectToRoute('app_login');
         }
