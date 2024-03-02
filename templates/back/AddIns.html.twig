@@ -19,19 +19,20 @@
                                 <div class="form-group">
                                     {{ form_label(form.name_ins, 'Insurance Name', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.name_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Insurance Name'}}) }}
-                                      {{ form_errors(form.name_ins) }}
+                                    {{ form_errors(form.name_ins) }}
                                 </div>
                                 
                                 <div class="form-group">
                                     {{ form_label(form.montant, 'Base Price', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter The Base Price'}}) }}
-                                     {{ form_errors(form.montant) }}
+                                    {{ form_errors(form.montant) }}
                                 </div>
                                 
                                 <div class="form-group">
                                     {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
                                 </div>
+                                
                                 <div class="form-group">
                                     <label for="insimage" class="control-label">Insurance Image</label>
                                     <div class="custom-file">
@@ -43,18 +44,22 @@
                                 <div id="fieldsContainer">
                                     {% for field in form.doa %}
                                         <div class="form-group">
-                                            <label for="{{ field.vars.id }}" class="control-label">{{ field.vars.label }}</label>
+                                            {{ form_label(field, {'label_attr': {'class': 'control-label'}}) }}
                                             {{ form_widget(field, {'attr': {'class': 'form-control form-control-rounded doa-field'}}) }}
+                                            {{ form_errors(field) }}
                                         </div>
                                     {% endfor %}
                                 </div>
+
+                                <input type="hidden" id="combinedValue" name="combinedValue">
 
                                 <!-- Button to add a new field -->
                                 <div class="form-group text-center">
                                     <button type="button" id="addFieldButton" class="btn btn-light btn-round px-5" onclick="addField()">Add Field</button>
                                 </div>
+                                
                                 <div class="form-group text-center">
-                                    <button type="submit" onclick="combineFields()" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                                    <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
                                 </div>
 
                                 {{ form_end(form) }}
@@ -73,8 +78,8 @@
         <!-- End container-fluid -->
     </div><!-- End content-wrapper -->
 
-    <script>
-    var fieldCounter = 0; 
+   <script>
+    var fieldCounter = 0;
 
     function addField() {
         fieldCounter++;
@@ -87,40 +92,42 @@
         document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
     }
 
-    
-    function combineFields() {
-        var combinedValue = ""; 
-        
-        
-        for (var i = 1; i <= fieldCounter; i++) {
-            var fieldValue = document.getElementById('doaField' + i)?.value.trim(); 
-            
-            if (fieldValue) {
-                combinedValue += fieldValue + "; "; 
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        var addFieldButton = document.getElementById('addFieldButton');
+        if (addFieldButton) {
+            addFieldButton.addEventListener('click', addField);
         }
         
+        var form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', combineFields);
+        }
+    });
+
+    function combineFields(event) {
+        event.preventDefault(); // Prevent form submission
         
+        var combinedValue = "";
+
+        for (var i = 1; i <= fieldCounter; i++) {
+            var fieldValue = document.getElementById('doaField' + i)?.value.trim();
+            if (fieldValue) {
+                combinedValue += fieldValue + "; ";
+            }
+        }
+
         if (combinedValue.length > 0) {
             combinedValue = combinedValue.slice(0, -2);
         }
-        
-        
+
+        // Set the combined value to the hidden input field
+        document.getElementById('combinedValue').value = combinedValue;
+
         console.log("Combined value:", combinedValue);
-
-       
+        
+        // Optionally, submit the form programmatically if needed
+        // event.currentTarget.submit();
     }
-
-    
-   document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('addFieldButton').addEventListener('click', addFieldOnce);
-});
-
-function addFieldOnce() {
-    addField();
-    this.removeEventListener('click', addFieldOnce); 
-}
-
 </script>
 
 

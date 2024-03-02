@@ -1,121 +1,213 @@
 {# templates/assurance/questionnaire.html.twig #}
 
 {% extends 'front_base.html.twig' %}
+
 {% block main %}
 <main>
-    <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
-             data-background="assets/img/breadcurmb/breadcurmb.jpg">
-        <div class="tp-breadcrmb-circle-one"></div>
-        <div class="tp-breadcrmb-circle-two"></div>
+    <section class="sd-accordio-area grey-bg pt-130 pb-130">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7">
+                    <h3 class="tp-section-title text-center mb-70">Insurance Questionnaire</h3>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-xxl-12">
-                    <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
-                        <div class="breadcrumb__content">
-                            <h3 class="breadcrumb__title">Insurances</h3>
-                        </div>
-                        <div class="breadcrumb__button">
-                            <a class="tp-btn-white" href="contact.html">Contact us today<i
-                                        class="far fa-arrow-right"></i></a>
+                <div class="col-xl-12">
+                    <div class="tp-custom-accordio">
+                        <div class="accordion" id="accordionQuestionnaire">
+                            <div class="accordion-items faq-accordio-border">
+                                <h2 class="accordion-header" id="ageHeading">
+                                    <button class="accordion-buttons " type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#ageCollapse" aria-expanded="true"
+                                            aria-controls="ageCollapse">
+                                        What is your age?
+                                    </button>
+                                </h2>
+                                <div id="ageCollapse" class="accordion-collapse collapse show"
+                                     aria-labelledby="ageHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.age, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.age) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="incomeHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#incomeCollapse"
+                                            aria-expanded="false" aria-controls="incomeCollapse">
+                                        What is your annual income?
+                                    </button>
+                                </h2>
+                                <div id="incomeCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="incomeHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.income, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.income) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="maritalStatusHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#maritalStatusCollapse"
+                                            aria-expanded="false" aria-controls="maritalStatusCollapse">
+                                        What is your marital status?
+                                    </button>
+                                </h2>
+                                <div id="maritalStatusCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="maritalStatusHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.marital_status, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.marital_status) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="employmentStatusHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#employmentStatusCollapse"
+                                            aria-expanded="false" aria-controls="employmentStatusCollapse">
+                                        What is your employment status?
+                                    </button>
+                                </h2>
+                                <div id="employmentStatusCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="employmentStatusHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.employment_status, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.employment_status) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="healthStatusHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#healthStatusCollapse"
+                                            aria-expanded="false" aria-controls="healthStatusCollapse">
+                                        How would you describe your health status?
+                                    </button>
+                                </h2>
+                                <div id="healthStatusCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="healthStatusHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.health_status, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.health_status) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="riskToleranceHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#riskToleranceCollapse"
+                                            aria-expanded="false" aria-controls="riskToleranceCollapse">
+                                        How would you describe your risk tolerance?
+                                    </button>
+                                </h2>
+                                <div id="riskToleranceCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="riskToleranceHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.risk_tolerance, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.risk_tolerance) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="assetsHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#assetsCollapse"
+                                            aria-expanded="false" aria-controls="assetsCollapse">
+                                        What are your total assets?
+                                    </button>
+                                </h2>
+                                <div id="assetsCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="assetsHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.assets, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.assets) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="liabilitiesHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#liabilitiesCollapse"
+                                            aria-expanded="false" aria-controls="liabilitiesCollapse">
+                                        What are your total liabilities?
+                                    </button>
+                                </h2>
+                                <div id="liabilitiesCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="liabilitiesHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.liabilities, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.liabilities) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="financialGoalsHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#financialGoalsCollapse"
+                                            aria-expanded="false" aria-controls="financialGoalsCollapse">
+                                        What are your financial goals?
+                                    </button>
+                                </h2>
+                                <div id="financialGoalsCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="financialGoalsHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.financial_goals, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.financial_goals) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="preferredCoverageHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#preferredCoverageCollapse"
+                                            aria-expanded="false" aria-controls="preferredCoverageCollapse">
+                                        What type of coverage do you prefer?
+                                    </button>
+                                </h2>
+                                <div id="preferredCoverageCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="preferredCoverageHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.preferred_coverage, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.preferred_coverage) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-items">
+                                <h2 class="accordion-header" id="geographicFactorsHeading">
+                                    <button class="accordion-buttons collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#geographicFactorsCollapse"
+                                            aria-expanded="false" aria-controls="geographicFactorsCollapse">
+                                        What are your geographic factors?
+                                    </button>
+                                </h2>
+                                <div id="geographicFactorsCollapse" class="accordion-collapse collapse"
+                                     aria-labelledby="geographicFactorsHeading" data-bs-parent="#accordionQuestionnaire">
+                                    <div class="accordion-body">
+                                        {{ form_row(form.geographic_factors, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.geographic_factors) }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+             <div class="row justify-content-center mt-4">
+                <div class="col-xl-6 col-lg-7">
+                    {{ form_start(form) }}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    
+    {% if answer is not empty %}
+        <p>The answer is: {{ answer }}</p>
+    {% endif %}
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </section>
-
-    {{ form_start(form) }}
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.age, 'Age', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.age) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.income, 'Annual Income', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.income, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.income) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.marital_status, 'Marital Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.marital_status, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.marital_status) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.employment_status, 'Employment Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.employment_status, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.employment_status) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.health_status, 'Health Status', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.health_status, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.health_status) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.risk_tolerance, 'Risk Tolerance', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.risk_tolerance, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.risk_tolerance) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.assets, 'Total Assets', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.assets, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.assets) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.liabilities, 'Total Liabilities', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.liabilities, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.liabilities) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.financial_goals, 'Financial Goals', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.financial_goals, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.financial_goals) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.preferred_coverage, 'Preferred Coverage', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.preferred_coverage, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.preferred_coverage) }}
-        </div>
-    </div>
-
-    <div class="form-group row mb-3">
-        {{ form_label(form.geographic_factors, 'Geographic Factors', {'label_attr': {'class': 'col-sm-4 col-form-label text-right font-weight-bold text-black tp-footer-title'}}) }}
-        <div class="col-sm-8">
-            {{ form_widget(form.geographic_factors, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.geographic_factors) }}
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-
-    {{ form_end(form) }}
 </main>
 {% endblock %}

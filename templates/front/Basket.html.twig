@@ -1,0 +1,70 @@
+{% extends 'front_base.html.twig' %}
+
+{% block main %}
+    <main>
+        <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix" data-background="assets/img/breadcurmb/breadcurmb.jpg">
+            <div class="tp-breadcrmb-circle-one"></div>
+            <div class="tp-breadcrmb-circle-two"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
+                            <div class="breadcrumb__content">
+                                <h3 class="breadcrumb__title">Your Insurance</h3>
+                            </div>
+                            <div class="breadcrumb__button">
+                                <a class="tp-btn-white" href="contact.html">Contact us today<i class="far fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <h1 class="tp-section-subtitle" style="font-size: 30px;">Your Shopping Basket</h1>
+            <div class="tp-price-wrapper active">
+                <div class="tpprice mb-20 tpprice__info text-center">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="font-size: 20px; color: orange;">Insurance</th>
+                                    <th style="font-size: 20px; color: orange;">Price</th>
+                                    <th style="font-size: 20px; color: orange;">Effective Date</th>
+                                    <th style="font-size: 20px; color: orange;">Expiration Date</th>
+                                    <th style="font-size: 20px; color: orange;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set totalPrice = 0 %}
+                                {% for item in commands %}
+                                    {% set totalItemPrice = item.montant %}
+                                    {% set totalPrice = totalPrice + totalItemPrice %}
+                                    <tr>
+                                        <td>{{ item.doacom.nameins }}</td>
+                                        <td>{{ item.montant }}</td>
+                                        <td>{{ item.dateEffet ? item.dateEffet|date('Y-m-d') : 'N/A' }}</td>
+                                        <td>{{ item.dateExp ? item.dateExp|date('Y-m-d') : 'N/A' }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="font-size: 24px; color: red;">
+                        <h3>Total Price: {{ totalPrice }} DT</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <a class="tp-btn-white" href="checkout.html">Checkout <i class="far fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

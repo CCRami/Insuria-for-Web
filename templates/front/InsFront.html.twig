@@ -78,27 +78,49 @@
         </div>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.tp-case-tab-button button');
-            const assuranceItems = document.querySelectorAll('.assurance-item');
+   <script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.tp-case-tab-button button');
+    const assuranceItems = document.querySelectorAll('.assurance-item');
 
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.dataset.filter;
-                    filterAssurances(category);
-                });
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.dataset.filter;
+            filterAssurances(category);
+        });
+    });
+
+    function filterAssurances(category) {
+        const url = '/filter-assurances'; // Replace with your Symfony route for filtering assurances
+        const formData = new FormData();
+        formData.append('catA', category.replace('.', '')); // Adjust the key to match the one in your controller
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide all assurance items
+            assuranceItems.forEach(item => {
+                item.style.display = 'none';
             });
 
-            function filterAssurances(category) {
-                assuranceItems.forEach(item => {
-                    if (category === '*' || item.classList.contains(category)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            }
+            // Show filtered assurance items
+            data.forEach(id => {
+                const assuranceItem = document.querySelector(`.assurance-item.cat${id}`);
+                if (assuranceItem) {
+                    assuranceItem.style.display = 'block';
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    </script>
+    }
+});
+
+
+</script>
+
 {% endblock %}

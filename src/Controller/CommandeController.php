@@ -26,6 +26,24 @@ class CommandeController extends AbstractController
     }
 
 
+    #[Route('/basket', name: 'basket')]
+    public function viewBasket(CommandeRepository $commandeRepository): Response
+    {
+        // Get the user with ID 1 from the database
+        $userId = 1;
+        $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
+
+        // Retrieve commands associated with the user from the database
+        $commands = $commandeRepository->findBy(['user' => $user]);
+
+        return $this->render('front/Basket.html.twig', [
+            'commands' => $commands,
+        ]);
+    }
+    
+   
+
+
     #[Route('/displayComB', name: 'display_comb')]
     public function displayIns(CommandeRepository $commandeRepository): Response
 {
@@ -146,7 +164,7 @@ foreach ($data as $index => $value) {
     if ($form->isSubmitted() && $form->isValid()) {
         // Handle form submission and entity updates
         try {
-            $em->flush();
+          
             
             $baseMontant = $assurance->getMontant();
             $insvalue = $form->get('insvalue')->getData();
