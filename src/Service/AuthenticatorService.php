@@ -18,7 +18,7 @@ class AuthenticatorService
     {
         $totp = TOTP::generate();
         $totp->setIssuer($this->params->get('app.issuer'));
-        $totp->setLabel($user->getId());
+        $totp->setLabel($user->getUsername());
         $qrCodeUri = $totp->getQRCodeUri(
             'https://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=[DATA]&qzone=2&margin=0&size=300x300&ecc=M',
             '[DATA]'

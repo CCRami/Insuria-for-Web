@@ -25,20 +25,20 @@
                   <img src="{{ asset('../front_assets/img/team/team-9.jpg')}}" alt="">
                </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:-300px;" >
+            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:-550px;" >
                <div class="row">
-                    <div class="col">
-                        <div class="tp-header-button d-none d-md-block" style="margin-bottom:20px;">
-                            <a href="#" id="toggleButton" class="tp-btn" onclick="toggleQRCode()">Enable 2FA</a>
-                        </div>
-                    </div>
-                    <div class="col" id="qrCodeContainer" style="display: none;">
+                    <div class="col" id="qrCodeContainer" style="display: none; margin-top:250px;">
                         <img alt="QR code" id="qrCodeImage" src="{{ qrCodeUri }}" />
                         <form method="post">
-                        <input type="hidden" name="secret" value="{{ secret }}" />
-                        <button type="submit" class="tp-btn" style="margin-top:20px; margin-left:30px;">Validate Pairing</button>
+                            <input type="hidden" name="secret" value="{{ secret }}" />
+                            <button type="submit" class="tp-btn" style="margin-top:20px; margin-left:30px; margin-bottom:20px;">Validate Pairing</button>
                         </form>
                     </div>
+                    <div class="col">
+                        <div class="tp-header-button d-none d-md-block" style="margin-bottom:20px;margin-left:50px;">
+                            <a href="#" id="enable2faButton" class="tp-btn" onclick="toggleQRCode()">Enable 2FA</a>
+                        </div>
+                    </div>   
                 </div>
                 
                 {% if app.session.flashbag.has('success') %}
@@ -47,7 +47,7 @@
                     </div>
                 {% endif %}
                <div class="tp-header-button d-none d-md-block">
-                    <a href="{{ path('app_forgot_password', {'email': user.email}) }}" class="tp-btn">Reset Password</a>
+                    <a href="{{ path('app_forgot_password', {'email': user.email}) }}" class="tp-btn" style="margin-left:30px;">Reset Password</a>
                 </div>
             <hr>
                <div class="card-body" style="color: #FFFFFF;">
@@ -112,17 +112,11 @@
     {% endif %}
     <script>
     function toggleQRCode() {
-        var qrCodeContainer = document.getElementById("qrCodeContainer");
-        var buttonContainer = document.querySelector(".tp-header-button");
+        // Hide the enable 2FA button
+        document.getElementById('enable2faButton').style.display = 'none';
 
-        // Toggle the visibility of the QR code container and the button container
-        if (qrCodeContainer.style.display === "none" || qrCodeContainer.style.display === "") {
-            qrCodeContainer.style.display = "block";
-            buttonContainer.style.display = "none";
-        } else {
-            qrCodeContainer.style.display = "none";
-            buttonContainer.style.display = "block";
-        }
+        // Display the QR code container
+        document.getElementById('qrCodeContainer').style.display = 'block';
     }
-    </script>
+</script>
 {% endblock %}

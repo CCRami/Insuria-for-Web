@@ -26,6 +26,7 @@ use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use App\Service\AuthenticatorService;
+use Knp\Component\Pager\PaginatorInterface;
 
 class UserController extends AbstractController
 {
@@ -43,10 +44,16 @@ class UserController extends AbstractController
         
     }
     #[Route('/admin/user', name: 'app_admin_user', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(EntityManagerInterface $em,PaginatorInterface $paginator,Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $userRepository = $this->getDoctrine()->getRepository(User::class);
         $users = $userRepository->findAll();
+        $pagination = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1),
+            5
+        );
+
 
         $user = new User();
         $user->setBirthDate(new \DateTime());
@@ -70,6 +77,7 @@ class UserController extends AbstractController
             'users' => $users,
             'user' => $user,
             'form' => $form->createView(),
+            'pagination' => $pagination,
         ]);
     }
 
@@ -172,6 +180,7 @@ public function displaymanage(Request $request, EntityManagerInterface $entityMa
                 );
 
             }
+            $this->addFlash('success', 'Check email to reset password!');	
         return $this->redirectToRoute('app_home_manage', ['id' => $user->getId()]);
     }
 #[Route('/change-pass/{id}', name: 'app_reset_password')]
