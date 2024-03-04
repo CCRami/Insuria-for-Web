@@ -68,5 +68,25 @@ function findavisbyclient($idag){
     ->getResult();
 }
 
+ function findBySearchTerm($agence)
+{
+    return $this->createQueryBuilder('a')
+        ->where('a.nom LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $agence . '%')
+        ->getQuery()
+        ->getResult();
+}
 
+function OrderbyMail(){
+    $em=$this->getEntityManager();
+    return $em->createQuery('SELECT b from App\Entity\Agence b ORDER BY b.email
+    ASC ')
+    ->getResult();
+}
+function OrderagBynom(){
+    $em=$this->getEntityManager();
+    return $em->createQuery('SELECT a from App\Entity\Agence a ORDER BY a.nomage
+    ASC ')
+    ->getResult();
+}
 }

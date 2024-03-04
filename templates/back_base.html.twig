@@ -118,8 +118,9 @@
     </li>
     <li class="nav-item">
       <form class="search-bar">
-        <input type="text" class="form-control" placeholder="Enter keywords">
-         <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ..." class="form-control"
+                id="search-input">
+     
       </form>
     </li>
   </ul>
@@ -503,6 +504,19 @@
 <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/index.js') }}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   <script>
+       $(document).ready(function () {
+           $("#myInput").on("keyup", function () {
+               var value = $(this).val().toLowerCase();
+               $("#myTable tr").filter(function () {
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+           })
+       });
+   </script>
+   
 {% endblock %}
 
   

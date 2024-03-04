@@ -149,42 +149,62 @@
     }
 
 </style>
+ <div class="clearfix"></div>
+  <div class="content-wrapper" style="margin-top:211px;margin-bottom:211px">
+        <div class="container-fluid">
+            <!-- Start Dashboard Content -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6" >
+                    <div class="card " >
+                        <div class="card-content"  style="margin-top:11px;margin-bottom:11px;">
+                            <!-- Symfony Form Start -->
+                            <div class="card-body" style="margin-top:11px;margin-bottom:11px;
+; ">
+                                <div class="card-title" style="margin-top:11px;margin-bottom:11px
+; " ><h3>Add new agence</h3></div>
+                                <hr>
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.note, 'note', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.note, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter your note'}}) }}
+                                      {{ form_errors(form.note) }}
+                                </div>
+                                
+                                <div class="form-group" style="margin-top:11px;margin-bottom:11px">
+                                    {{ form_label(form.commentaire, 'comment', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control form-control-rounded','type':'textarea', 'placeholder': 'Enter your comment '}}) }}
+                                     {{ form_errors(form.commentaire) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.avis, 'client', {'label_attr': {'class': 'control-label'},'style' :{'margin-bottom':'11px;'}}) }}
+                                    {{ form_widget(form.avis, {'attr': {'class': 'form-control form-control-rounded'}}) }}
+                                 {{ form_errors(form.avis) }}
+                                 </div>
+                              
 
-<div class="contenu-centre">
-    <div class="form-container " >
-        {% block service %}
-            <div  >
-                
-                <div class="card ">
-                    <div class="card-header text-center">
-                        <h1>Add Note</h1>
-                    </div>
-                    <div class="card-body">
-                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                        <div class="form-group">
-                            {{ form_label(form.note, "Note:") }}
-                            {{ form_widget(form.note) }}
-                            {{ form_errors(form.note) }}
-                        </div>
-                 <div class="form-group" style="margin-bottom: 22px;" type='textarea'>
-    {{ form_label(form.commentaire, "Comment:") }}
-    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}, 'type': 'textarea'}) }}
-    {{ form_errors(form.commentaire) }}
+                            
+                               
+                                <div class="form-group text-center" style="margin-left: 41%; margin-top: 31px; margin-bottom: 31px; background-color: orange; width: 20%; border-radius: 3px;">
+    {{ form_end(form, {'attr': {'class': 'form-control form-control-rounded', 'type': 'button'}, 'style': {'color': 'orange'}}) }}
 </div>
-                        <div class="form-group" >
-                            <div class="col-md-3">
-         {{ form_label(form.avis, "Client:") }}
-      </div>
-                            {{ form_widget(form.avis, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_errors(form.avis) }}
-                        </div><div class="col-md-4" style="margin-left: 50%;margin-top:5%; ">
-                        {{ form_widget(form.save, {'attr': {'class': 'form-submit-btn'}}) }}
-                      </div>   {{ form_end(form) }}
+                               
+                               
+                            </div>
+                            <!-- Symfony Form End -->
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endblock %}
-    </div>
-</div>
+            <!-- End Dashboard Content -->
+          
+            <!-- Start overlay -->
+            <div class="overlay toggle-menu"></div>
+            <!-- End overlay -->
+        </div>
+        <!-- End container-fluid -->
+    </div><!-- End content-wrapper -->
+
    
 {% endblock %}

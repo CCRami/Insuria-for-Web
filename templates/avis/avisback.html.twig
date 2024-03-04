@@ -1,6 +1,16 @@
 {% extends 'back_base.html.twig' %}
 
 {% block content %}
+<script>
+       $(document).ready(function () {
+           $("#myInput").on("keyup", function () {
+               var value = $(this).val().toLowerCase();
+               $("#myTable tr").filter(function () {
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+           })
+       });
+   </script>
 <div class="clearfix"></div>
 	
   <div class="content-wrapper">
@@ -21,7 +31,7 @@
 	     <div class="card-header">Notes
 		  
 	       <div class="table-responsive">
-                 <table class="table align-items-center table-flush table-borderless">
+                 <table class="table align-items-center table-flush table-borderless" id="myTable">
                   <thead>
                    <tr>
                      <th>Name of agence</th>

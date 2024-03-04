@@ -1040,6 +1040,17 @@
     <script src="{{ asset('front_assets/js/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('front_assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('front_assets/js/main.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   <script>
+       $(document).ready(function () {
+           $("#myInput").on("keyup", function () {
+               var value = $(this).val().toLowerCase();
+               $("#myTable tr").filter(function () {
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+           })
+       });
+   </script>
 {% endblock %}
 
 
