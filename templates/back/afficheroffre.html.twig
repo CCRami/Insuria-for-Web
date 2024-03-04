@@ -11,6 +11,8 @@
             <div class="col-12 col-lg-8">
                 <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offer</a>
                 <div class="card">
+                <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+                <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>    
                     <div class="card-header">List of offer categories </div>
                     <div class="table-responsive text-center">
                         <table class="table table-bordered table-hover">
@@ -24,6 +26,7 @@
                                     <th>Actions</th>
                                     <th>Category name</th>
                                 </tr>
+                                {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
                             </thead>
                             <tbody>
                                 {% for offre in offres %}

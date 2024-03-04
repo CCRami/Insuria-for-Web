@@ -145,10 +145,17 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         ]);
     }
 
+    public function create(FlashyNotifier $flashy)
+    {
+        
+    
+        $flashy->primaryDark('Offer added!', 'front/offre.html.twig');
+    
+        return $this->redirectToRoute('front/offre.html.twig');
+    }
 
 
-
-
+    
 
 
 

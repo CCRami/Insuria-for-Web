@@ -107,9 +107,30 @@
                                         <div class="intro-text">
                                             <p>Discount: <span class="offre-discount">{{ offre.discount }}</span> %</p>
                                         </div>
-                                        <div class="post__button">
-                                            <a class="tp-btn" href="{{ path('display_offref', {'id': offre.id}) }}"> Choose </a>
-                                        </div>
+                                       {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <script src="//code.jquery.com/jquery.js"></script>
+{% endblock %}
+
+{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+<form id="flashyForm" action="{{ path('display_offref', {'id': offre.id}) }}" method="post">
+    <div class="post__button">
+        <a class="tp-btn" href="javascript:void(0);" onclick="submitForm()">Choose</a>
+    </div>
+</form>
+
+<script>
+    function submitForm() {
+        $('#flashyForm').submit();
+    }
+</script>
+
+
                                     </div>
                                 </article>
                             </div>
