@@ -58,6 +58,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $secret = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $googleId;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $avatar;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $hostedDomain;
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): void
+    {
+        $this->googleId = $googleId;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getHostedDomain(): ?string
+    {
+        return $this->hostedDomain;
+    }
+
+    public function setHostedDomain(?string $hostedDomain): void
+    {
+        $this->hostedDomain = $hostedDomain;
+    }
     
     public function getSecret(): ?string
     {

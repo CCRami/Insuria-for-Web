@@ -16,7 +16,10 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\LoginFormAuthAuthenticator
+            custom_authenticators:
+                - App\Security\LoginFormAuthAuthenticator
+                - App\Security\GoogleAuthenticator
+
             logout:
                 path: app_logout
                 target: app_login

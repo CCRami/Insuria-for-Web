@@ -21,7 +21,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use OTPHP\TOTP;
-
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
 class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -93,4 +93,5 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+    
 }

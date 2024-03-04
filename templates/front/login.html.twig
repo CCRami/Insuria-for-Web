@@ -74,7 +74,22 @@
         </div>
     </form>
 </div>
-
+<button class="nav-links active" id="nav-Home-tab" data-bs-toggle="tab"
+    onclick="window.location.href='{{ path('connect_google') }}'" type="button" role="tab" aria-controls="nav-Home-tab"
+    aria-selected="true"
+    style="margin-top: 20px; ">
+    <span class="tpfeature">                  
+        <span class="tpfeature__item mb-15 d-flex justify-content-between align-items-center">
+        <span class="tpfeature__item-info d-flex align-items-center">
+            <i class="fab fa-google"></i>
+            <span class="tp-feature-title m-0">Login with Google</span>
+        </span>
+        <span style="margin-left: 50px; " >
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        </span>
+    </span>
+</button>
 </strong>
 <hr>
         <button onclick="window.location.href='{{ path('app_register') }}'" id="toggle-form-button" class="tp-section-subtitle">Don't have an account?</button>

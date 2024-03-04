@@ -7,6 +7,9 @@
          <div class="row align-items-center">
             <div class="col-xl-6 col-lg-6 col-md-6">
             <div class="amaboutinfo">
+            <div class="ac-ab-img fix" > 
+                  <img src="{{ user.avatar}}" alt="">
+               </div>
                   <div class="amaboutinfo__client-info" >
                      <h4 style="color: #FFFFFF;">{{ user.username}}</h4>
                      {% for role in app.user.roles %}
@@ -21,13 +24,11 @@
                      <p style="color: #FFFFFF;"><a href="mailto:{{ user.email }}"><b style="color: #FCAF3D;">E-mail:</b> {{ user.email }}</a></p>
                   </div>    
                </div>
-               <div class="ac-ab-img fix" > 
-                  <img src="{{ asset('../front_assets/img/team/team-9.jpg')}}" alt="">
-               </div>
+               
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:-550px;" >
+            <div class="col-xl-6 col-lg-6 col-md-12" style="margin-top:0px;" >
                <div class="row">
-                    <div class="col" id="qrCodeContainer" style="display: none; margin-top:250px;">
+                    <div class="col" id="qrCodeContainer" style="display: none;">
                         <img alt="QR code" id="qrCodeImage" src="{{ qrCodeUri }}" />
                         <form method="post">
                             <input type="hidden" name="secret" value="{{ secret }}" />
