@@ -22,12 +22,13 @@ class SinistreController extends AbstractController
     #[Route('/sinistre', name: 'app_sinistre')]
     public function index(SinistreRepository $rep, PaginatorInterface $paginator, Request $request): Response
     {
-        $query = $rep->createQueryBuilder('u')->getQuery(); // Adjust 'u' as needed or customize the query
+        $queryBuilder = $rep->createQueryBuilder('u')->getQuery(); // Adjust 'u' as needed or customize the query
     
+        $sinister = $rep->findAll();
         $pagination = $paginator->paginate(
-            $query, // Use query, not result
+            $sinister,
             $request->query->getInt('page', 1),
-            2 // Number of results per page
+            2
         );
     
         return $this->render('back/sinistre.html.twig', [
