@@ -54,6 +54,9 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
         if (!$user->isVerified()) {
             throw new CustomUserMessageAuthenticationException('Your account is not verified. Please check your email for verification.');
         }
+        if ($user->isBlocked()) {
+            throw new CustomUserMessageAuthenticationException('Your account is Blocked. Contact us for more information.');
+        }
         if ($hasSecret) {
             $otp = $request->request->get('otp');
             if (!$otp) {

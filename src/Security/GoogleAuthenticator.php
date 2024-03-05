@@ -17,17 +17,20 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Security;
+
 class GoogleAuthenticator extends OAuth2Authenticator
 {
     private ClientRegistry $clientRegistry;
     private EntityManagerInterface $entityManager;
     private RouterInterface $router;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, Security $security)
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
+        $this->security = $security;
     }
 
     public function supports(Request $request): ?bool
@@ -85,6 +88,11 @@ class GoogleAuthenticator extends OAuth2Authenticator
         if ($user instanceof User && $user->isBlocked()) {
             
             return new RedirectResponse($this->router->generate('app_logout'));
+        }
+
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+
+            return new RedirectResponse($this->router->generate('app_admin'));
         }
 
         // Continue with the default success redirect (e.g., app_home)
