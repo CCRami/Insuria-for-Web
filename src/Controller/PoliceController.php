@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,6 +87,23 @@ public function deleteRec(Request $req, PoliceRepository $rep, $id, EntityManage
 
     return $this->redirectToRoute('app_police');
 }
+#[Route('/police/{id}/pdf', name: 'police_pdf')]
+public function pdf(Pdf $snappy, $id,Request $req, PoliceRepository $rep): Response
+    {
+        $police = $rep->find($id);  
+        
+        $html = $this->renderView('front/pdf.html.twig', [
+            'police' => $police,
+        ]);
+
+        $pdf = $snappy->getOutputFromHtml($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $police->getPoliceName() . '.pdf"',
+        ]);
+    }
+
    
     
     

@@ -120,9 +120,11 @@
                     <h4 class="tp-sv-title">{{ police.policeName }}</h4>
                     <div class="description"><p> {{ police.descriptionPolice }}</p></div><!-- Assurez-vous que c'est le champ correct pour la description -->
 <a href="javascript:void(0);" class="btn btn-primary toggle-details-btn" data-bs-toggle="collapse" data-bs-target="#details-{{ police.id }}">View Details</a>
+                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class="btn btn-info" style="margin-top: 10px;">Generate PDF</a>
                     <div id="details-{{ police.id }}" class="collapse mt-3" style="color: white;">
     <strong>Associated Claim:</strong> {{ police.sinistre.sinName }}<br>
     <strong>Description:</strong> {{ police.sinistre.descriptionSin }}
+     
 </div>
 
                 </div>

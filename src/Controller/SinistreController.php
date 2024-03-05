@@ -74,7 +74,7 @@ public function editsini(Request $request, EntityManagerInterface $em, SinistreR
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $sinistre = new Sinistre();
-        $form = $this->createForm(SinistreType::class, $sinistre);
+        $form = $this->createForm(SinistreType::class, $sinistre );
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {

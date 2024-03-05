@@ -51,6 +51,8 @@ class Sinistre
 
     #[ORM\Column(length: 255)]
     
+
+    
     private ?string $imagePath = null;
 
     public function __construct()
