@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 class GoogleAuthenticator extends OAuth2Authenticator
 {
     private ClientRegistry $clientRegistry;
@@ -58,7 +58,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     $existingUser->setFirstName($googleUser->getFirstName());
                     $existingUser->setLastName($googleUser->getLastName() ?? $googleUser->getFirstName());
                     $existingUser->setPassword(bin2hex(random_bytes(16)));
-                    $existingUser->isVerified(false);
+                    $existingUser->isVerified(true);
                     $existingUser->setRoles(['ROLE_CLIENT']);
                     $existingUser->setPhoneNumber('0');
                     $existingUser->setBirthDate(new \DateTime());
@@ -66,9 +66,10 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     $existingUser->setHostedDomain($googleUser->getHostedDomain() ?? 'insuria.com');
                     $this->entityManager->persist($existingUser);
                 }
+                
                 $existingUser->setAvatar($googleUser->getAvatar());
                 $this->entityManager->flush();
-
+                
                 return $existingUser;
             })
         );
@@ -77,10 +78,17 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        // change "app_dashboard" to some route in your app
-        return new RedirectResponse(
-            $this->router->generate('app_home')
-        );
+        
+        $user = $token->getUser();
+
+        // Check if the user is blocked
+        if ($user instanceof User && $user->isBlocked()) {
+            
+            return new RedirectResponse($this->router->generate('app_logout'));
+        }
+
+        // Continue with the default success redirect (e.g., app_home)
+        return new RedirectResponse($this->router->generate('app_home'));
 
         // or, on success, let the request continue to be handled by the controller
         //return null;

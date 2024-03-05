@@ -59,7 +59,79 @@
     </div>
 </div>
 
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+            </div>
+            <br>
+            <span class="search-result-label">Search result:</span><span class="fa arrow"></span>
+            <table class="table table-hover">
+            <tr class="text-center">
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Blocked</th>
+                    </tr>
+                <tbody id="entitiesNav">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var searchRequest = null;
+        $("#search").keyup(function() {
+            var minlength = 1;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#entitiesNav").html('');
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_search') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value===$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key === 'users') {
+                                        if (id !== 'error') {
+                                            console.log(value[0]);
+                                            var blockButtonLabel = value[3] ? 'Unblock' : 'Block';
+                                            var blockButtonClass = value[3] ? 'btn btn-danger' : 'btn btn-warning';
+                                            var blockButtonPath = value[3] ? "{{ path('unblock_user', {'id': 'dummy'}) }}" : "{{ path('block_user', {'id': 'dummy'}) }}";
+                                            blockButtonPath = blockButtonPath.replace('dummy', id);
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td>'+value[1]+'</td><td><b>'+value[2]+'</td><td><a href="'+blockButtonPath+'" class="'+blockButtonClass+'">'+blockButtonLabel+'</a></td></tr>');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 <div class="col-lg-12">
     <div class="card">

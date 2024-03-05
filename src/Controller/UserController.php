@@ -41,7 +41,7 @@ class UserController extends AbstractController
         $this->repo=$repo;
         $this->mailerService = $mailerService;
         $this->tokenGenerator = $tokenGenerator;
-        
+        $this->entityManager = $manager->getManager();
     }
     #[Route('/admin/user', name: 'app_admin_user', methods: ['GET', 'POST'])]
     public function new(EntityManagerInterface $em,PaginatorInterface $paginator,Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
@@ -225,6 +225,55 @@ public function displaymanage(Request $request, EntityManagerInterface $entityMa
         'user' => $user,
     ]);
 
+    }
+    #[Route('/search', name: 'ajax_search')]
+    public function searchAction(EntityManagerInterface $em,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('q');
+        $posts =  $em->getRepository(User::class)->findEntitiesByString($requestString);
+        if(!$posts) {
+            $result['users']['error'] = "User Not found :( ";
+        } else {
+            $result['users'] = $this->getRealEntities($posts);
+        }
+        return new Response(json_encode($result));
+    }
+    public function getRealEntities($users){
+        foreach ($users as $users){
+            $realEntities[$users->getId()] = [$users->getFirstName(),$users->getLastName(),$users->getEmail(),$users->isBlocked(),$users->getRoles()];
+
+        }
+        return $realEntities;
+    }
+
+    #[Route("/block/{id}", name:"block_user")]
+    public function blockUser($id): Response
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        $user->setIsBlocked(true);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('app_admin_user');
+    }
+
+
+    #[Route("/unblock/{id}", name:"unblock_user")]
+    public function unblockUser($id): Response
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        $user->setIsBlocked(false);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('app_admin_user');
     }
  
 }
