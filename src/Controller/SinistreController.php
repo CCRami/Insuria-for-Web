@@ -150,4 +150,26 @@ public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityMana
             'data' => $sinistres
         ]);
     }
+
+    #[Route('/search', name: 'ajax_search')]
+    public function searchAction(EntityManagerInterface $em,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('q');
+        $posts =  $em->getRepository(Sinistre::class)->findEntitiesByString($requestString);
+        dump($posts);
+        if(!$posts) {
+            $result['sinisters']['error'] = "Sinister  Not found :( ";
+        } else {
+            $result['sinisters'] = $this->getRealEntities($posts);
+        }
+        return new Response(json_encode($result));
+    }
+    public function getRealEntities($sinisters){
+        foreach ($sinisters as $sinisters){
+            $realEntities[$sinisters->getId()] = [$sinisters->getSinName(),$sinisters->getDescriptionSin(),$sinisters->getImagePath()];
+
+        }
+        return $realEntities;
+    }
 }

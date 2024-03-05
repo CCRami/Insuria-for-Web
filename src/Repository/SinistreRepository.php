@@ -20,13 +20,32 @@ class SinistreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sinistre::class);
     }
-    public function findByTerm(string $term)
-{
-    $qb = $this->createQueryBuilder('s');
-    $qb->where('s.name LIKE :term')
-       ->setParameter('term', '%' . $term . '%');
-    return $qb->getQuery()->getResult();
-}
+
+    public function findAllSins()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function findSinById($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+public function findEntitiesByString($username)
+    {
+    return $this->createQueryBuilder('u')
+        ->where('u.sin_name LIKE :username')
+        ->setParameter('username', '%' . $username . '%')
+        ->getQuery()
+        ->getResult();
+    }
 
 
 //    /**
