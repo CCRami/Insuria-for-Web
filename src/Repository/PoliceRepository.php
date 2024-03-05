@@ -20,6 +20,31 @@ class PoliceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Police::class);
     }
+    public function findAllSins()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function findSinById($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+public function findEntitiesByString($policename)
+    {
+    return $this->createQueryBuilder('u')
+        ->where('u.police_name LIKE :policename')
+        ->setParameter('policename', '%' . $policename . '%')
+        ->getQuery()
+        ->getResult();
+    }
 
 //    /**
 //     * @return Police[] Returns an array of Police objects

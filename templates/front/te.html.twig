@@ -1,34 +1,255 @@
-document.querySelectorAll('.filter-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const sinistreId = this.getAttribute('data-sinistre-id');
-        fetch(`/filter-polices/${sinistreId}`)
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('polices-container');
-                container.innerHTML = ''; // Vide le contenu actuel
-                data.polices.forEach(police => {
-    // Créez le même type de div que votre structure HTML initiale.
-    const policeCard = document.createElement('div');
-    policeCard.className = 'col-xl-4 col-lg-6 mb-4'; // Réutilisez les classes de votre structure HTML initiale.
-    
-    // Utilisez les mêmes classes pour le style de la police card.
-    const policeCardInnerHtml = `
-        <div class="tpservice mb-20 tp-sv-color-1">
-            <div class="tpservice__icon">
-                <a href="#"><i class="fas fa-file-contract"></i></a>
+{% extends 'back_base.html.twig' %}
+{% block topbar %}
+<!--Start topbar header-->
+<header class="topbar-nav">
+ <nav class="navbar navbar-expand fixed-top">
+  <ul class="navbar-nav mr-auto align-items-center">
+    <li class="nav-item">
+      <a class="nav-link toggle-menu" href="javascript:void();">
+       <i class="icon-menu menu-icon"></i>
+     </a>
+    </li>
+    {% block chsear %}
+    <li class="nav-item">
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ..." class="form-control"
+
+                id="search-input">
+
+    </li>
+    {% endblock %}
+  </ul>
+     
+  <ul class="navbar-nav align-items-center right-nav-link">
+    <li class="nav-item dropdown-lg">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+      <i class="fa fa-envelope-open-o"></i></a>
+    </li>
+    <li class="nav-item dropdown-lg">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+      <i class="fa fa-bell-o"></i></a>
+    </li>
+    <li class="nav-item language">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
+        </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+        <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle" alt="user avatar"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+       <li class="dropdown-item user-details">
+        <a href="javaScript:void();">
+           <div class="media">
+             <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110" alt="user avatar"></div>
+            <div class="media-body">
+            <h6 class="mt-2 user-title">Sarajhon Mccoy</h6>
+            <p class="user-subtitle">mccoy@example.com</p>
             </div>
-            <div class="tpservice__title">
-                <h4 class="tp-sv-title">${police.policeName}</h4>
-                <div class="description"><p>${police.descriptionPolice}</p></div>
-                <!-- Plus d'éléments peuvent être ajoutés ici si nécessaire -->
+           </div>
+          </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</header>
+<!--End topbar header-->
+ {% endblock %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+
+       $(document).ready(function () {
+
+           $("#myInput").on("keyup", function () {
+
+               var value = $(this).val().toLowerCase();
+
+               $("#myTable tr").filter(function () {
+
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+               });
+
+           })
+
+       });
+
+      
+
+   
+
+   </script>
+<style>
+    .custom-margin-top {
+        margin-top: 10rem; 
+    }
+    .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
+    
+</style>
+
+
+<div style="margin-top:100px; margin-left:300px;">
+    <div class="card">
+        <div class="card-body">
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+            </div>
+            <br>
+            <span class="search-result-label">Search result:</span><span class="fa arrow"></span>
+            <table class="table table-hover">
+            <tr class="text-center">
+                        <th>Sin Name</th>
+                        <th>Description</th>
+                        <th>image path</th>
+                    </tr>
+                <tbody id="entitiesNav">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var searchRequest = null;
+        $("#search").keyup(function() {
+           
+            var minlength = 1;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#entitiesNav").html('');
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_search') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value===$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key === 'sinisters') {
+                                        if (id !== 'error') {
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td>'+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card mt-">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col-14 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">Claim Table</div>
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush table-borderless" id="myTable">
+    <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Claim Name', 'u.sinName') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionSin') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Photo Path', 'u.imagePath') }}</th>
+            <th>Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in pagination %}
+            <tr class="table-row">
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.sinName }}</td>
+                <td><div class="description">{{ rec.descriptionSin }}</div></td>
+                <td>{{ rec.imagePath }}</td>
+                <td>
+                    <a href="{{ path('sinistre_edit', {'id': rec.id}) }}">
+                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i>Edit</button>
+                    </a>
+                    <a href="{{ path('sinistre_delete', {'id': rec.id}) }}">
+                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-trash"></i>Delete</button>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+                        </div>
+                        <div class="navigation" style="margin-left:350px;">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+                    </div>
+                </div>
             </div>
         </div>
-    `;
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-right">
+        <a href="{{ path('sinistre_new') }}" class="btn btn-primary btn-round">
+            <i class="fas fa-plus"></i> Add a Claim
+        </a>
+    </div>
+</div>
 
-    policeCard.innerHTML = policeCardInnerHtml;
-    container.appendChild(policeCard);
-});
-            })
-            .catch(error => console.error('Erreur :', error));
-    });
-});
+<style>
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+    .table-row:hover td {
+        color: #007bff;
+    }
+    .table-row:hover .btn {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+{% endblock %}

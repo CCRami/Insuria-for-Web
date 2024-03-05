@@ -38,11 +38,11 @@ class SinistreRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-public function findEntitiesByString($username)
+public function findEntitiesByString($sinname)
     {
     return $this->createQueryBuilder('u')
-        ->where('u.sin_name LIKE :username')
-        ->setParameter('username', '%' . $username . '%')
+        ->where('u.sin_name LIKE :sinname')
+        ->setParameter('sinname', '%' . $sinname . '%')
         ->getQuery()
         ->getResult();
     }

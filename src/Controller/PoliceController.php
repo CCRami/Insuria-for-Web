@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Police;
+use App\Entity\Sinistre;
 use App\Form\PoliceType;
 use App\Repository\PoliceRepository;
 use App\Repository\SinistreRepository;
@@ -151,6 +152,31 @@ public function allPolices(PoliceRepository $policeRepository): JsonResponse
 
     return new JsonResponse(['polices' => $data]);
 }
+#[Route('/searchp', name: 'ajax_searchp')]
+    public function searchAction(EntityManagerInterface $em,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $requestString = $request->get('q');
+        $posts =  $em->getRepository(Police::class)->findEntitiesByString($requestString);
+        dump($posts);
+        if(!$posts) {
+            $result['sinisters']['error'] = "policie  Not found :( ";
+        } else {
+            $result['sinisters'] = $this->getRealEntities($posts);
+        }
+        return new Response(json_encode($result));
+    }
+    public function getRealEntities($sinisters){
+        foreach ($sinisters as $sinisters){
+            $realEntities[$sinisters->getId()] = [
+                $sinisters->getPoliceName(),
+                $sinisters->getDescriptionPolice(),
+                $sinisters->getSinistre()->getSinName()
+            ];
+
+        }
+        return $realEntities;
+    }
 
 
    

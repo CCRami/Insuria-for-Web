@@ -94,6 +94,86 @@
    
 
    </script>
+   <style>
+    .custom-margin-top {
+        margin-top: 10rem; 
+    }
+    .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
+    
+</style>
+
+
+<div style="margin-top:100px; margin-left:300px; margin-right:100px;">
+    <div class="card">
+        <div class="card-body">
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+            </div>
+            <br>
+            <span class="search-result-label">Search result:</span><span class="fa arrow"></span>
+            <table class="table table-hover">
+            <tr class="text-center">
+                        <th>Police Name</th>
+                        <th>Description</th>
+                        <th>sin</th>
+                    </tr>
+                <tbody id="entitiesNav">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br><br>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var searchRequest = null;
+        $("#search").keyup(function() {
+           
+            var minlength = 1;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#entitiesNav").html('');
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_searchp') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value===$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key === 'sinisters') {
+                                        if (id !== 'error') {
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td><div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 <style>
     .custom-margin-top {
         margin-top: 10rem; 
@@ -132,18 +212,7 @@
 
 </style>
 
-<div class="container">
-    <div class="row justify-content-center align-items-center custom-margin-top">
-        <div class="form-group row">
-            <div class="nav-item">
-                <form class="search-bar">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search Policy with Id.... ">
-                    <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="content-wrapper">
     <div class="container-fluid">

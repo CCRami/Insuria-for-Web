@@ -106,7 +106,7 @@
 </style>
 
 
-<div style="margin-top:100px; margin-left:300px;">
+<div style="margin-top:100px; margin-left:300px; margin-right:100px;">
     <div class="card">
         <div class="card-body">
             <div class="sidebar-search">
@@ -118,9 +118,9 @@
             <span class="search-result-label">Search result:</span><span class="fa arrow"></span>
             <table class="table table-hover">
             <tr class="text-center">
-                        <th>Sin Name</th>
+                        <th>Claim Name</th>
                         <th>Description</th>
-                        <th>image path</th>
+                        <th>photo path</th>
                     </tr>
                 <tbody id="entitiesNav">
                     
@@ -160,7 +160,7 @@
                                 $.each(arr, function(id, value) {
                                     if (key === 'sinisters') {
                                         if (id !== 'error') {
-                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td>'+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td><div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
                                         } else {
                                             entitySelector.append('<li class="errorLi">'+value+'</li>');
                                         }
