@@ -17,7 +17,7 @@ class CommandeFormType extends AbstractType
         foreach ($options['doa_values'] as $index => $value) {
             $builder->add('doa_' . $index, TextType::class, [
                 'label' => $value , 
-                //'data' => null, 
+              
                 'mapped' => false,
                 
             ]);

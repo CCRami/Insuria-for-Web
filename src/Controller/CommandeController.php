@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CommandeRepository;
+use App\Repository\AssuranceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CommandeFormType; 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -45,12 +46,31 @@ class CommandeController extends AbstractController
 
 
     #[Route('/displayComB', name: 'display_comb')]
-    public function displayIns(CommandeRepository $commandeRepository): Response
+    public function displayIns(CommandeRepository $commandeRepository,AssuranceRepository $assuranceRepository): Response
 {
+    $assurances = $assuranceRepository->findAll();
     $commande = $commandeRepository->findAll();
+
+    // Initialize an array to hold command counts for each assurance
+    $assurancesCommandsCounts = [];
+
+    // Loop through each assurance and get command counts
+    foreach ($assurances as $assurance) {
+        $commandCount = $commandeRepository->getCommandChartData($assurance->getId());
+        $assurancesCommandsCounts[] = [
+            'assurance' => $assurance,
+            'commandCount' => count($commandCount), // Assuming getCommandChartData returns an array of commands
+        ];
+    }
+
+    // Total number of assurances and commands for a visualization
+    $totalAssurances = count($assurances);
+    $totalCommands = count($commande);
 
     return $this->render('back/CommandeBack.html.twig', [
         'command' => $commande,
+        'totalCommands' => $totalCommands,
+        'assurancesCommandsCounts' => $assurancesCommandsCounts,
     ]);
 }
     
@@ -199,5 +219,12 @@ foreach ($data as $index => $value) {
         $em->flush();
         return $this->redirectToRoute('display_comb');
     }
+    
 
+    
+    
+
+
+
+    
 }

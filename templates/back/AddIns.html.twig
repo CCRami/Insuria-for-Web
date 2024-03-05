@@ -78,7 +78,7 @@
         <!-- End container-fluid -->
     </div><!-- End content-wrapper -->
 
-   <script>
+  <script>
     var fieldCounter = 0;
 
     function addField() {
@@ -117,7 +117,7 @@
         }
 
         if (combinedValue.length > 0) {
-            combinedValue = combinedValue.slice(0, -2);
+            combinedValue = combinedValue.slice(0, -2); // Remove the last "; "
         }
 
         // Set the combined value to the hidden input field

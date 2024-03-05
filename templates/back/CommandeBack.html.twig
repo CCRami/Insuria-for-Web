@@ -6,31 +6,31 @@
         <div class="container-fluid">
             <div class="row justify-content-center mb-4">
                 <div class="col-12 col-lg-8">
-                    
+                    <!-- Orders Table -->
                     <div class="card">
                         <div class="card-header">Orders Table</div>
                         <div class="table-responsive text-center">
                             <table class="table align-items-center table-flush table-borderless table-sm">
+                                <!-- Table Header -->
                                 <thead>
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Full Premium</th>
                                         <th>Effective Date</th>
                                         <th>Expiration Date</th>
-                                        
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
+                                <!-- Table Body -->
                                 <tbody>
-                                    {% for command in command %}
+                                    {% for cmd in command %}
                                         <tr>
-                                            <td>{{ command.id }}</td>
-                                            <td>{{ command.montant }}</td>
-                                            <td>{{ command.dateEffet ? command.dateEffet|date('Y-m-d') : 'N/A' }}</td>
-                                            <td>{{ command.dateExp ? command.dateExp|date('Y-m-d') : 'N/A' }}</td>
-                                         
+                                            <td>{{ cmd.id }}</td>
+                                            <td>{{ cmd.montant }}</td>
+                                            <td>{{ cmd.dateEffet ? cmd.dateEffet|date('Y-m-d') : 'N/A' }}</td>
+                                            <td>{{ cmd.dateExp ? cmd.dateExp|date('Y-m-d') : 'N/A' }}</td>
                                             <td>
-                                               <a href="{{ path('delete_com', {'id': command.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
+                                               <a href="{{ path('delete_com', {'id': cmd.id}) }}" class="btn btn-light btn-round px-5">Delete</a>
                                             </td>
                                         </tr>
                                     {% else %}
@@ -42,8 +42,45 @@
                             </table>
                         </div>
                     </div>
+                    <!-- Chart Section -->
+                    <div id="chart_div"></div>
                 </div>
             </div>
         </div>
     </div>
+    <input type="hidden" id="totalCommands" value="{{ totalCommands }}" />
+{% for item in assurancesCommandsCounts %}
+    <input type="hidden" id="assurance{{ loop.index }}" value="{{ item.commandCount }}" data-assurance-name="{{ item.assurance.nameins }}" />
+{% endfor %}
+
+<!-- Include Google Charts Library -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Assurances');
+        data.addColumn('number', 'Count');
+
+        // Dynamically populate data from hidden inputs
+        {% for item in assurancesCommandsCounts %}
+            var assuranceName{{ loop.index }} = document.getElementById('assurance{{ loop.index }}').getAttribute('data-assurance-name');
+            var assuranceCount{{ loop.index }} = parseInt(document.getElementById('assurance{{ loop.index }}').value);
+            data.addRow([assuranceName{{ loop.index }}, assuranceCount{{ loop.index }}]);
+        {% endfor %}
+
+        var options = {
+            title: 'Assurances Bought',
+            is3D: true
+            // Customize options as needed
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+
+
 {% endblock %}

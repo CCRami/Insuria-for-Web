@@ -34,7 +34,8 @@ class AssuranceFormType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-           
+            'by_reference' => false, // Required to modify the original data
+            'required' => false,
             'label' => false, 
         ])
          

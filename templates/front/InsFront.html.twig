@@ -24,22 +24,47 @@
         </section>
 
         <div class="tp-case-area pt-130 pb-90">
+        <div class="container">
+         <div class="row align-items-end service-bottom-space">
+            <div class="col-xl-6 col-lg-6 col-12">
+               <div class="sercviceinsurance__title service-border-right service-details-border">
+                  <h3 class="tp-section-title">Revolutionizing <br> the insurance</h3>
+               </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-12">
+               <div class="tp-service-right-text">
+                  <p>
+Welcome to our comprehensive insurance coverage hub, where peace of mind meets protection. At Insuria, we understand that life is full of uncertainties, which is why we're dedicated to providing tailored insurance solutions to safeguard what matters most to you.</p>
+               </div>
+            </div>
+         </div>
+         </div>
             <div class="container">
                 <div class="row">
+                   <div class="sorting-buttons">
+    <button id="sortHighToLow" class="btn btn-primary btn-lg">
+        <i class="fas fa-arrow-up"></i> <!-- Up arrow icon -->
+    </button>
+    <button id="sortLowToHigh" class="btn btn-primary btn-lg">
+        <i class="fas fa-arrow-down"></i> <!-- Down arrow icon -->
+    </button>
+</div>
                     <div class="col-xl-12 text-center mb-50">
+                     
                         <div class="tp-case-tab-button masonary-menu">
                             <button class="active" data-filter="*"><span>All</span></button>
                             {% for category in categories %}
-                                <button data-filter=".cat{{ category.id }}"><span>{{ category.namecatins }}</span></button>
+                                <button data-filter="{{ category.id }}"><span>{{ category.namecatins }}</span></button>
                             {% endfor %}
                         </div>
-                    </div>
+    
                 </div>
-
-                <div class="row">
+                </div>
+                    
+                <div class="row" id="assuranceContainer">
                     {% if assurances is not empty %}
                         {% for assurance in assurances %}
-                            <div class="col-xl-4 col-lg-6 assurance-item cat{{ assurance.catA.id }}">
+                           <div class="col-xl-4 col-lg-6 assurance-item" data-category="{{ assurance.catA.id }}">
                                 <div class="tpcaseitem mb-30">
                                     <div class="tpcaseitem__thumb fix">
                                         {% if assurance.insImage %}
@@ -48,7 +73,7 @@
                                             </a>
                                         {% else %}
                                             <a href="{{ path('add_com', {'id': assurance.id}) }}">
-                                                <img src="{{ asset('path/to/placeholder/image.jpg') }}" alt="No Image">
+                                                <img src="/path/to/placeholder/image.jpg" alt="No Image">
                                             </a>
                                         {% endif %}
                                     </div>
@@ -57,11 +82,8 @@
                                             <!-- Insurance name wrapped in its own HTML element -->
                                             <h3 class="tp-case-title">
                                                 <a href="{{ path('add_com', {'id': assurance.id}) }}">{{ assurance.nameins }}</a>
-                                               
                                             </h3>
-                                             <h4 class="tp-case-title">Starting Price:
-                                             <a href="{{ path('add_com', {'id': assurance.id}) }}">{{ assurance.montant }}</a> DT
-                                             </h4>
+                                            <h4 class="tp-case-title">Starting Price: {{ assurance.montant }} DT</h4>
                                             <div class="tp-case-icon">
                                                 <a href="#"><i class="fal fa-arrow-right"></i></a>
                                             </div>
@@ -76,51 +98,137 @@
                 </div>
             </div>
         </div>
-    </main>
+       
 
-   <script>
-   document.addEventListener('DOMContentLoaded', function() {
+
+    </main>
+  
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
     const categoryButtons = document.querySelectorAll('.tp-case-tab-button button');
-    const assuranceItems = document.querySelectorAll('.assurance-item');
+    const assuranceContainer = document.getElementById('assuranceContainer');
+    const sortHighToLowButton = document.getElementById('sortHighToLow');
+    const sortLowToHighButton = document.getElementById('sortLowToHigh');
 
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const category = this.dataset.filter;
+            const category = this.getAttribute('data-filter');
+            
             filterAssurances(category);
         });
     });
 
-    function filterAssurances(category) {
-        const url = '/filter-assurances'; // Replace with your Symfony route for filtering assurances
-        const formData = new FormData();
-        formData.append('catA', category.replace('.', '')); // Adjust the key to match the one in your controller
+    sortHighToLowButton.addEventListener('click', function() {
+        filterPrices('high_to_low');
+    });
 
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
+    sortLowToHighButton.addEventListener('click', function() {
+        filterPrices('low_to_high');
+    });
+    
+
+
+
+
+    function filterAssurances(category) {
+        console.log(category);
+        fetch('/filter-assurances/' + encodeURIComponent(category), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
         .then(response => response.json())
         .then(data => {
-            // Hide all assurance items
-            assuranceItems.forEach(item => {
-                item.style.display = 'none';
-            });
+          
+            assuranceContainer.innerHTML = ''; // Clear previous content
 
-            // Show filtered assurance items
-            data.forEach(id => {
-                const assuranceItem = document.querySelector(`.assurance-item.cat${id}`);
-                if (assuranceItem) {
-                    assuranceItem.style.display = 'block';
-                }
+            data.forEach(data => { // Change 'assurance' to 'data'
+                const assuranceItem = document.createElement('div');
+                assuranceItem.classList.add('col-xl-4', 'col-lg-6', 'assurance-item');
+                assuranceItem.setAttribute('data-category', data.catA); // Change 'assurance' to 'data'
+                const assetPath = "{{ asset('uploads/images/' ~ 'dummy') }}".replace('dummy', `${data.insImage}`);
+              
+                assuranceItem.innerHTML = `
+                    <div class="tpcaseitem mb-30">
+                        <div class="tpcaseitem__thumb fix">
+                            <a href="#">
+                                <img src="${assetPath}" alt="" style="width: 482px; height: 388px;">
+                            </a>
+                        </div>
+                        <div class="tpcaseitem__content">
+                            <div class="tpcase-info p-relative">
+                                <h3 class="tp-case-title">
+                                    <a href="#">`+ data.nameins +`</a>
+                                </h3>
+                                <h4 class="tp-case-title">Starting Price: `+ data.montant +` DT</h4>
+                                <div class="tp-case-icon">
+                                    <a href="#"><i class="fal fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                assuranceContainer.appendChild(assuranceItem);
             });
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        .catch(error => console.error('Error:', error));
+    }
+
+
+
+
+
+    function filterPrices(sortingOption) {
+    console.log('Filtering prices with sorting option:', sortingOption);
+    fetch('{{ path('filter_prices') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ sortingOption: sortingOption }) // Ensure sortingOption is included in the JSON body
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Sorted assurance data:', data);
+            assuranceContainer.innerHTML = ''; // Clear previous content
+
+            data.forEach(data => { // Change 'assurance' to 'data'
+            
+                const assuranceItem = document.createElement('div');
+                console.log(assuranceItem);
+                assuranceItem.classList.add('col-xl-4', 'col-lg-6', 'assurance-item');
+                assuranceItem.setAttribute('data-category', data.catA); // Change 'assurance' to 'data'
+
+                const assetPath = "{{ asset('uploads/images/' ~ 'dummy') }}".replace('dummy', `${data.insImage}`);
+               
+                assuranceItem.innerHTML = `
+                    <div class="tpcaseitem mb-30">
+                        <div class="tpcaseitem__thumb fix">
+                            <a href="#">
+                                <img src="${assetPath}" alt="" style="width: 482px; height: 388px;">
+                            </a>
+                        </div>
+                        <div class="tpcaseitem__content">
+                            <div class="tpcase-info p-relative">
+                                <h3 class="tp-case-title">
+                                    <a href="#">`+ data.nameins +`</a>
+                                </h3>
+                                <h4 class="tp-case-title">Starting Price: `+ data.montant +` DT</h4>
+                                <div class="tp-case-icon">
+                                    <a href="#"><i class="fal fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                assuranceContainer.appendChild(assuranceItem);
+            });
+        })
+        .catch(error => console.error('Error:', error));
     }
 });
 
-
 </script>
 
-{% endblock %}
+  {% endblock %}

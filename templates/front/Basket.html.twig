@@ -61,7 +61,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-right">
-                        <a class="tp-btn-white" href="checkout.html">Checkout <i class="far fa-arrow-right"></i></a>
+                   <form action="{{ path('checkout') }}" method="POST">
+    
+    <button type="submit" class="tp-btn-white">Checkout<i class="far fa-arrow-right"></i></button>
+</form>
+
+
+                       
                     </div>
                 </div>
             </div>

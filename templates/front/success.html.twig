@@ -1,11 +1,8 @@
-{# templates/assurance/recommendation.html.twig #}
 {% extends 'front_base.html.twig' %}
-{% block style %}
 
-{% endblock %}
 {% block main %}
-<main>
-    <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
+    <main>
+        <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix"
                  data-background="assets/img/breadcurmb/breadcurmb.jpg">
             <div class="tp-breadcrmb-circle-one"></div>
             <div class="tp-breadcrmb-circle-two"></div>
@@ -25,13 +22,5 @@
                 </div>
             </div>
         </section>
-        <div >
-        <h2>You Top 5 Recommended Insurances</h2>
-  <ul class="recommendations">
-    {% for rec in recommendation %}
-      <li style="text-align: center; font-size: 20px;">{{ rec }}</li>
-    {% endfor %}
-</ul>
-</div>
-</main>
-{% endblock  %}
+
+        {% endblock %}

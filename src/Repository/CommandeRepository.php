@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\Assurance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -45,4 +46,14 @@ class CommandeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function getCommandChartData($doacom)
+{
+    return $this->createQueryBuilder('c') // 'c' is an alias for Command
+            ->where('c.doaCom = :doacom')
+            ->setParameter('doacom', $doacom)
+            ->getQuery()
+            ->getResult();
+}
+
 }

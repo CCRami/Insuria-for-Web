@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use Stripe\Checkout\Session;
-use Stripe\Stripe;
+use App\Service\PaymentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Repository\CommandeRepository;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class PaymentController extends AbstractController
 {
-
     #[Route('/payment', name: 'payment')]
     public function index(): Response
     {
@@ -20,41 +21,31 @@ class PaymentController extends AbstractController
         ]);
     }
 
-
     #[Route('/checkout', name: 'checkout')]
-    public function checkout($stripeSK): Response
+    public function checkout(PaymentService $paymentService, UrlGeneratorInterface $urlGenerator, CommandeRepository $commandeRepository, Request $request): Response
     {
-        Stripe::setApiKey($stripeSK);
-
-        $session = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items'           => [
-                [
-                    'price_data' => [
-                        'currency'     => 'usd',
-                        'product_data' => [
-                            'name' => 'T-shirt',
-                        ],
-                        'unit_amount'  => 2000,
-                    ],
-                    'quantity'   => 1,
-                ]
-            ],
-            'mode'                 => 'payment',
-            'success_url'          => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url'           => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
-
+        // Retrieve basket items from the database
+        $commands = $commandeRepository->findAll();
+    
+        // Calculate total price
+        $totalPrice = 0;
+        foreach ($commands as $command) {
+            $totalPrice += $command->getMontant();
+        }
+    
+        // Create the checkout session using the PaymentService
+        $session = $paymentService->createCheckoutSession($urlGenerator, $totalPrice);
+    
+        // Redirect the user to the payment page
         return $this->redirect($session->url, 303);
     }
 
-
+    
     #[Route('/success-url', name: 'success_url')]
     public function successUrl(): Response
     {
-        return $this->render('payment/success.html.twig', []);
+        return $this->render('front/success.html.twig', []);
     }
-
 
     #[Route('/cancel-url', name: 'cancel_url')]
     public function cancelUrl(): Response
