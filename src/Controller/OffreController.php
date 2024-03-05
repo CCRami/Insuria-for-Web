@@ -10,6 +10,13 @@ use App\Form\OffreformType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\OffreRepository;
+use Knp\Component\Pager\PaginatorInterface;
+//use App\Controller\FlashyNotifier;
+use App\Controller\FlashyNotifier as ControllerFlashyNotifier;
+use MercurySeries\FlashyBundle\FlashyNotifier;
+
+
+
 
 class OffreController extends AbstractController
 {
@@ -32,7 +39,7 @@ class OffreController extends AbstractController
     }
 
     #[Route('/addof', name: 'add_offre')]
-    public function addOffre(Request $request, EntityManagerInterface $em): Response
+    public function addOffre(Request $request,EntityManagerInterface $em): Response
     {
         $offre = new Offre();
         $form = $this->createForm(OffreformType::class, $offre);
@@ -64,6 +71,7 @@ class OffreController extends AbstractController
            
             $em->persist($offre);
             $em->flush();
+            
             
             return $this->redirectToRoute('display_offre');
         }
@@ -117,11 +125,12 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
 
 
     #[Route('/deleteof/{id}', name: 'delete_offre')]
-    public function deleteOffre(OffreRepository $rep, $id, EntityManagerInterface $em): Response
+    public function deleteOffre(OffreRepository $rep, $id, EntityManagerInterface $em,FlashyNotifier $flashy): Response
     {
         $offre = $rep->find($id);
         $em->remove($offre);
         $em->flush();
+        $flashy->success('Offer deleted', 'http://your-awesome-link.com');
         return $this->redirectToRoute('display_offre');
     }
 
@@ -135,7 +144,7 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
             'offres' => $offres,
         ]);
     }
-    #[Route('/displayoffbycat/{id}', name: 'display_offrefbycat')]
+    /*#[Route('/displayoffbycat/{id}', name: 'display_offrefbycat')]
     public function displayOffrefbycat(OffreRepository $offreRepository, $id): Response
     {
         $offres = $offreRepository->findBy(['categorie' => $id]);
@@ -152,16 +161,33 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         $flashy->primaryDark('Offer added!', 'front/offre.html.twig');
     
         return $this->redirectToRoute('front/offre.html.twig');
-    }
+    }*/
+
+    #[Route('/displayoffbycat/{id}', name: 'display_offrefbycat', methods: ['GET', 'POST'])]
+    public function displayOffrefbycat(OffreRepository $offreRepository, PaginatorInterface $paginator, Request $request, $id): Response
+    {
+        $offres = $offreRepository->findBy(['categorie' => $id]);
+    
+        $pagination = $paginator->paginate(
+            $offres,
+            $request->query->getInt('page', 1), // Get the current page from the request
+            2 // Number of items per page
+        );
+    
+        return $this->render('front/offre.html.twig', [
+            'pagination' => $pagination
+        ]);
+}  
 
 
+
+
+public function create(FlashyNotifier $flashy)
+{
     
 
+    $this->flashy->success('Event created!', 'http://your-awesome-link.com');
 
-
-
-
-
-
-
+    return $this->redirectToRoute('home');
+}
 }

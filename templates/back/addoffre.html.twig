@@ -15,6 +15,18 @@
             <div class="card">
               <div class="card-body">
                 <div class="card-title"> Add offer</div>
+                {% for message in app.flashes('mercuryseries_flashy_notification') %}
+    <script id="flashy-template" type="text/template">
+        <div class="flashy flashy--{{ message.type }}">
+            <i class="material-icons">speaker_notes</i>
+            <a class="flashy__body" href="#" target="_blank"></a>
+        </div>
+    </script>
+
+    <script>
+        flashy("{{ message.message }}", "{{ message.link }}");
+    </script>
+{% endfor %}
                 <hr>
                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form', 'enctype': 'multipart/form-data', 'novalidate':'novalidate'}}) }}
                 <div class="form-group">

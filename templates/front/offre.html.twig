@@ -78,68 +78,47 @@
     {% endblock %}
     <hr>
     <hr>
+    
     <div class="postbox__area pt-120 pb-120">
         <div class="container">
-            {% for offre_row in offres|batch(3) %}
-                <div class="row">
-                    {% for offre in offre_row %}
-                        <div class="col-xxl-4 col-xl-4 col-lg-4">
-                            <div class="postbox__wrapper pr-20">
-                                <article class="postbox__item format-image mb-50 transition-3">
-                                    <div class="postbox__thumb w-img">
-                                        <a href="{{ path('display_offref', {'id': offre.id}) }}">
-                                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
-                                        </a>
-                                    </div>
-                                    <div class="postbox__content">
-                                        <div class="postbox__meta">
-                                            <!-- Add other meta information here -->
-                                        </div>
-                                        <h3 class="postbox__title">
-                                            <a href="{{ path('display_offref', {'id': offre.id}) }}">{{ offre.advantage }}</a>
-                                        </h3>
-                                        <div class="intro-text">
-                                            <p>Conditions: <span class="offre-conditions">{{ offre.conditions }}</span></p>
-                                        </div>
-                                        <div class="intro-text">
-                                            <p>Duration: <span class="offre-duration">{{ offre.duration }}</span> Days</p>
-                                        </div>
-                                        <div class="intro-text">
-                                            <p>Discount: <span class="offre-discount">{{ offre.discount }}</span> %</p>
-                                        </div>
-                                       {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
-{% endblock %}
-
-{% block javascript %}
-    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-    <script src="//code.jquery.com/jquery.js"></script>
-{% endblock %}
-
-{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-
-<form id="flashyForm" action="{{ path('display_offref', {'id': offre.id}) }}" method="post">
-    <div class="post__button">
-        <a class="tp-btn" href="javascript:void(0);" onclick="submitForm()">Choose</a>
-    </div>
-</form>
-
-<script>
-    function submitForm() {
-        $('#flashyForm').submit();
-    }
-</script>
-
-
-                                    </div>
-                                </article>
-                            </div>
+           <div class="row">
+           
+    {% for offre in pagination %}
+        <div class="col-xxl-4 col-xl-4 col-lg-4">
+            <div class="postbox__wrapper pr-20">
+                <article class="postbox__item format-image mb-50 transition-3">
+                    <div class="postbox__thumb w-img">
+                        <a href="{{ path('display_offref', {'id': offre.id}) }}">
+                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
+                        </a>
+                    </div>
+                    <div class="postbox__content">
+                        <div class="postbox__meta">
+                            <!-- Add other meta information here -->
                         </div>
-
-                    {% endfor %}
-                </div>
-            {% endfor %}
+                        <h3 class="postbox__title">
+                            <a href="{{ path('display_offref', {'id': offre.id}) }}">{{ offre.advantage }}</a>
+                        </h3>
+                        <div class="intro-text">
+                            <p>Conditions: <span class="offre-conditions">{{ offre.conditions }}</span></p>
+                        </div>
+                        <div class="intro-text">
+                            <p>Duration: <span class="offre-duration">{{ offre.duration }}</span> Days</p>
+                        </div>
+                        <div class="intro-text">
+                            <p>Discount: <span class="offre-discount">{{ offre.discount }}</span> %</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </div>
+    {% endfor %}
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
     </div>
+</div>
+
+    
+
 </main>
 {% endblock %}

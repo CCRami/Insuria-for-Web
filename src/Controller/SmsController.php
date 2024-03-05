@@ -12,14 +12,14 @@ class SmsController extends AbstractController
 {
    
     //La vue du formulaire d'envoie du sms
-    #[Route('/', name: 'app_home')]
+    #[Route('/sms', name: 'app_home')]
     public function index(): Response
     {
         return $this->render('sms/base.html.twig',['smsSent'=>false]);
     }
 
     //Gestion de l'envoie du sms
-    #[Route('/sendSms', name: 'send_sms', methods:'POST')]
+    #[Route('/sendSms', name: 'send_sms', methods: ['POST'])]
     public function sendSms(Request $request, SmsGenerator $smsGenerator): Response
     {
        

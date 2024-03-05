@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div class="clearfix"></div>
 
 <div class="content-wrapper">
@@ -10,12 +11,22 @@
         <div class="row justify-content-center mb-4">
             <div class="col-12 col-lg-8">
                 <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offer</a>
+                <div>
+                <!-- Flashy depends on jQuery -->
+                <script src="//code.jquery.com/jquery.js"></script>
+                <!-- Load Flashy default JavaScript -->
+                <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+                <!-- Include Flashy default partial -->
+                {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+              </div>
                 <div class="card">
                 <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
                 <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>    
                     <div class="card-header">List of offer categories </div>
                     <div class="table-responsive text-center">
                         <table class="table table-bordered table-hover">
+                         
+                        
                             <thead>
                                 <tr>
                                     <th>Image</th>
@@ -53,6 +64,7 @@
                                     <td colspan="6">No Records Found</td>
                                 </tr>
                                 {% endfor %}
+                                
                             </tbody>
                         </table>
                     </div>
