@@ -20,6 +20,14 @@ class SinistreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sinistre::class);
     }
+    public function findByTerm(string $term)
+{
+    $qb = $this->createQueryBuilder('s');
+    $qb->where('s.name LIKE :term')
+       ->setParameter('term', '%' . $term . '%');
+    return $qb->getQuery()->getResult();
+}
+
 
 //    /**
 //     * @return Sinistre[] Returns an array of Sinistre objects

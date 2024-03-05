@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Sinistre;
 use App\Form\SinistreType;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 
@@ -18,13 +20,21 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class SinistreController extends AbstractController
 {
     #[Route('/sinistre', name: 'app_sinistre')]
-    public function index(SinistreRepository $rep ): Response
+    public function index(SinistreRepository $rep, PaginatorInterface $paginator, Request $request): Response
     {
-        $list=$rep->findAll(); 
-        return $this->render('back/sinistre.html.twig', 
-        ['list' => $list, ]
+        $query = $rep->createQueryBuilder('u')->getQuery(); // Adjust 'u' as needed or customize the query
+    
+        $pagination = $paginator->paginate(
+            $query, // Use query, not result
+            $request->query->getInt('page', 1),
+            2 // Number of results per page
         );
+    
+        return $this->render('back/sinistre.html.twig', [
+            'pagination' => $pagination,
+        ]);
     }
+    
     #[Route('/sinistrefront', name: 'front_sinistres')]
     public function listSinistres(SinistreRepository $sinistreRepository): Response
     {
@@ -125,6 +135,18 @@ public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityMana
 
     return $this->redirectToRoute('app_sinistre');
 }
+#[Route('/sinistre/search', name: 'sinistre_search')]
+    public function search(Request $request, SinistreRepository $sinistreRepository): Response
+    {
+        // Récupérer le terme de recherche depuis la requête
+        $term = $request->query->get('term');
 
+        // Utiliser le repository pour chercher les sinistres qui correspondent au terme de recherche
+        $sinistres = $sinistreRepository->findByTerm($term);
 
+        // Préparer les données pour la réponse JSON
+        return $this->json([
+            'data' => $sinistres
+        ]);
+    }
 }

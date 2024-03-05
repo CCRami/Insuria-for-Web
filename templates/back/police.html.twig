@@ -9,6 +9,34 @@
         white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
         word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
     }
+    .pagination {
+    display: flex;
+    justify-content: center; /* Centrer la pagination horizontalement */
+    list-style: none; /* Supprimer les puces */
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px; /* Espacement entre les éléments */
+}
+
+.pagination li a {
+    border: 1px solid #007bff; /* Bordure des cadres */
+    padding: 5px 10px; /* Espacement à l'intérieur des cadres */
+    text-decoration: none; /* Supprimer le soulignement des liens */
+    color: #007bff; /* Couleur du texte */
+    border-radius: 5px; /* Bordures arrondies */
+}
+
+.pagination li.active a {
+    background-color: #007bff; /* Arrière-plan pour l'élément actif */
+    color: white; /* Couleur du texte pour l'élément actif */
+}
+
+.pagination li.disabled a {
+    color: grey; /* Couleur du texte pour les éléments désactivés */
+    cursor: not-allowed; /* Curseur pour indiquer l'état non cliquable */}
+
 </style>
 
 <div class="container">
@@ -36,15 +64,16 @@
                                 <table class="table align-items-center table-flush table-borderless">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Police Name</th>
-                                            <th>Description</th>
-                                            <th>Associated Claim</th>
+                                        <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Police Name', 'u.policeName') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionPolice') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Associated Claim', 'u.SinName') }}</th>
+                                            
                                             <th>Edit/Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for rec in list %}
+                                        {% for rec in pagination %}
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
                                                 <td>{{ rec.getPoliceName }}</td>
@@ -65,6 +94,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="navigation pagination-container">
+    {{ knp_pagination_render(pagination) }}
+</div>
                         </div>
                     </div>
                 </div>

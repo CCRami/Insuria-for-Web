@@ -9,7 +9,36 @@
         white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
         word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
     }
+    
+.pagination {
+    display: flex;
+    justify-content: center; /* Centrer la pagination horizontalement */
+    list-style: none; /* Supprimer les puces */
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px; /* Espacement entre les éléments */
+}
+
+.pagination li a {
+    border: 1px solid #007bff; /* Bordure des cadres */
+    padding: 5px 10px; /* Espacement à l'intérieur des cadres */
+    text-decoration: none; /* Supprimer le soulignement des liens */
+    color: #007bff; /* Couleur du texte */
+    border-radius: 5px; /* Bordures arrondies */
+}
+
+.pagination li.active a {
+    background-color: #007bff; /* Arrière-plan pour l'élément actif */
+    color: white; /* Couleur du texte pour l'élément actif */
+}
+
+.pagination li.disabled a {
+    color: grey; /* Couleur du texte pour les éléments désactivés */
+    cursor: not-allowed; /* Curseur pour indiquer l'état non cliquable */}
 </style>
+
 
 <div class="container">
     <div class="row justify-content-center align-items-center custom-margin-top">
@@ -34,37 +63,44 @@
                             <div class="card-header">Claim Table</div>
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Claim Name</th>
-                                            <th>Description</th>
-                                            <th>Photo Path</th>
-                                            <th>Edit/Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for rec in list %}
-                                            <tr class="table-row">
-                                                <td>{{ rec.id }}</td>
-                                                <td>{{ rec.getSinName }}</td>
-                                                <td>
-                                                <div class="description">{{ rec.getDescriptionSin }}</div></td>
-                                                <td>{{ rec.getImagePath }}</td>
-                                                <td>
-                                                    <a href="{{ path('sinistre_edit', {'id': rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i>Edit</button>
-                                                    </a>
-                                                    <a href="{{ path('sinistre_delete', {'id': rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-trash"></i>Delete</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+    <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Claim Name', 'u.sinName') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionSin') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Photo Path', 'u.imagePath') }}</th>
+            <th>Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in pagination %}
+            <tr class="table-row">
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.sinName }}</td>
+                <td><div class="description">{{ rec.descriptionSin }}</div></td>
+                <td>{{ rec.imagePath }}</td>
+                <td>
+                    <a href="{{ path('sinistre_edit', {'id': rec.id}) }}">
+                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i>Edit</button>
+                    </a>
+                    <a href="{{ path('sinistre_delete', {'id': rec.id}) }}">
+                        <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-trash"></i>Delete</button>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
                         </div>
+                        <div class="navigation pagination-container">
+    {{ knp_pagination_render(pagination) }}
+</div>
                     </div>
                 </div>
             </div>

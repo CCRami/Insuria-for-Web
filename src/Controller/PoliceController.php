@@ -10,16 +10,22 @@ use App\Entity\Police;
 use App\Form\PoliceType;
 use App\Repository\PoliceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PoliceController extends AbstractController
 {
     #[Route('/police', name: 'app_police')]
-    public function index(PoliceRepository $rep ): Response
+    public function index(PoliceRepository $rep,PaginatorInterface $paginator, Request $request ): Response
     {
-        $list=$rep->findAll(); 
-        return $this->render('back/police.html.twig', 
-        ['list' => $list, ]
-    );
+        $query = $rep->createQueryBuilder('u')->getQuery();
+        $pagination = $paginator->paginate(
+            $query, // Use query, not result
+            $request->query->getInt('page', 1),
+            2 // Number of results per page
+        );
+        return $this->render('back/police.html.twig', [
+        'pagination' => $pagination,
+    ]);
     }
     #[Route('/policesfront', name: 'front_polices')]
     public function listPolices(PoliceRepository $policeRepository): Response
