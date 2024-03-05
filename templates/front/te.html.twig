@@ -1,0 +1,34 @@
+document.querySelectorAll('.filter-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const sinistreId = this.getAttribute('data-sinistre-id');
+        fetch(`/filter-polices/${sinistreId}`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('polices-container');
+                container.innerHTML = ''; // Vide le contenu actuel
+                data.polices.forEach(police => {
+    // Créez le même type de div que votre structure HTML initiale.
+    const policeCard = document.createElement('div');
+    policeCard.className = 'col-xl-4 col-lg-6 mb-4'; // Réutilisez les classes de votre structure HTML initiale.
+    
+    // Utilisez les mêmes classes pour le style de la police card.
+    const policeCardInnerHtml = `
+        <div class="tpservice mb-20 tp-sv-color-1">
+            <div class="tpservice__icon">
+                <a href="#"><i class="fas fa-file-contract"></i></a>
+            </div>
+            <div class="tpservice__title">
+                <h4 class="tp-sv-title">${police.policeName}</h4>
+                <div class="description"><p>${police.descriptionPolice}</p></div>
+                <!-- Plus d'éléments peuvent être ajoutés ici si nécessaire -->
+            </div>
+        </div>
+    `;
+
+    policeCard.innerHTML = policeCardInnerHtml;
+    container.appendChild(policeCard);
+});
+            })
+            .catch(error => console.error('Erreur :', error));
+    });
+});

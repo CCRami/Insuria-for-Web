@@ -109,8 +109,15 @@
         </div>
     </div>
 </div>
-    <div class="row gx-20">
+<div class="sinistre-filters">
+<button class="filter-btn" id="show-all-polices">Show All</button>
+    {% for sinistre in sinistres %}
+        <button class="filter-btn" data-sinistre-id="{{ sinistre.id }}">{{ sinistre.sinName }}</button>
+    {% endfor %}
+</div>
+    <div id="polices-container" class="row gx-20">
         {% for police in polices %}
+        
         <div class="col-xl-4 col-lg-6 mb-4">
             <div class="tpservice mb-20 tp-sv-color-1">
 <div class="tpservice__icon">
@@ -141,9 +148,78 @@
 
 {% endblock %}
 
+
 {% block javascripts %}
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des clics sur les boutons de filtre
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const sinistreId = this.getAttribute('data-sinistre-id');
+            fetch(`/filter-polices/${sinistreId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('polices-container');
+                    container.innerHTML = ''; // Vide le contenu actuel
+                    data.polices.forEach(police => {
+                        // Créez le même type de div que votre structure HTML initiale.
+                        const policeCard = document.createElement('div');
+                        policeCard.className = 'col-xl-4 col-lg-6 mb-4'; // Réutilisez les classes de votre structure HTML initiale.
+                        
+                        // Utilisez les mêmes classes pour le style de la police card.
+                        const policeCardInnerHtml = `
+                            <div class="tpservice mb-20 tp-sv-color-1">
+                                <div class="tpservice__icon">
+                                    <a href="#"><i class="fas fa-file-contract"></i></a>
+                                </div>
+                                <div class="tpservice__title">
+                                    <h4 class="tp-sv-title">${police.policeName}</h4>
+                                    <div class="description"><p>${police.descriptionPolice}</p></div>
+                                    <!-- Plus d'éléments peuvent être ajoutés ici si nécessaire -->
+                                </div>
+                            </div>
+                        `;
+
+                        policeCard.innerHTML = policeCardInnerHtml;
+                        container.appendChild(policeCard);
+                    });
+                })
+                .catch(error => console.error('Erreur :', error));
+        });
+    });
+
+    // Gestion du bouton 'Show All'
+    document.getElementById('show-all-polices').addEventListener('click', function() {
+        fetch(`/all-polices`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('polices-container');
+                container.innerHTML = '';
+                data.polices.forEach(police => {
+                    const element = document.createElement('div');
+                    element.className = 'col-xl-4 col-lg-6 mb-4';
+                    element.innerHTML = `
+                        <div class="tpservice mb-20 tp-sv-color-1">
+                            <div class="tpservice__icon">
+                                <a href="#"><i class="fas fa-file-contract"></i></a>
+                            </div>
+                            <div class="tpservice__title">
+                                <h4 class="tp-sv-title">${police.policeName}</h4>
+                                <div class="description"><p>${police.descriptionPolice}</p></div>
+                                
+                                    <a href="/police/${police.id}/pdf" class="btn btn-info" style="margin-top: 10px;">Generate PDF</a>
+
+                                    
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(element);
+                });
+            })
+            .catch(error => console.error('Erreur :', error));
+    });
+
+    // Gestion des boutons pour basculer les détails
     $('.toggle-details-btn').on('click', function() {
         var detailsId = $(this).data('bs-target');
         $(detailsId).collapse('toggle');

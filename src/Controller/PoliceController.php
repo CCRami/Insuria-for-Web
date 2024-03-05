@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Police;
 use App\Form\PoliceType;
 use App\Repository\PoliceRepository;
+use App\Repository\SinistreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PoliceController extends AbstractController
 {
@@ -28,11 +30,13 @@ class PoliceController extends AbstractController
     ]);
     }
     #[Route('/policesfront', name: 'front_polices')]
-    public function listPolices(PoliceRepository $policeRepository): Response
+    public function listPolices(PoliceRepository $policeRepository,SinistreRepository $sinistreRepository): Response
     {
         $polices = $policeRepository->findAll();
+        $sinistres = $sinistreRepository->findAll();
 
         return $this->render('front/police.html.twig', [
+            'sinistres' => $sinistres,
             'polices' => $polices,
         ]);
     }
@@ -109,6 +113,45 @@ public function pdf(Pdf $snappy, $id,Request $req, PoliceRepository $rep): Respo
             'Content-Disposition' => 'attachment; filename="' . $police->getPoliceName() . '.pdf"',
         ]);
     }
+    // src/Controller/PoliceController.php
+
+    #[Route('/filter-polices/{sinistreId}', name: 'filter_polices')]
+    public function filterPolices(PoliceRepository $policeRepository, $sinistreId): JsonResponse
+    {
+        $polices = $policeRepository->findBy(['sinistre' => $sinistreId]);
+        $data = [];
+    
+        foreach ($polices as $police) {
+            $data[] = [
+                'id' => $police->getId(),
+                'policeName' => $police->getPoliceName(),
+                'descriptionPolice' => $police->getDescriptionPolice(),
+                // Vous pouvez ajouter d'autres champs selon les besoins
+            ];
+        }
+    
+        return new JsonResponse(['polices' => $data]);
+    }
+    // src/Controller/PoliceController.php
+
+#[Route('/all-polices', name: 'all_polices')]
+public function allPolices(PoliceRepository $policeRepository): JsonResponse
+{
+    $polices = $policeRepository->findAll();
+    $data = [];
+
+    foreach ($polices as $police) {
+        $data[] = [
+            'id' => $police->getId(),
+            'policeName' => $police->getPoliceName(),
+            'descriptionPolice' => $police->getDescriptionPolice(),
+            // Ajoutez d'autres champs si nécessaire
+        ];
+    }
+
+    return new JsonResponse(['polices' => $data]);
+}
+
 
    
     
