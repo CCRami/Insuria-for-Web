@@ -71,8 +71,6 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     $reclamationRepository = $this->managerRegistry->getRepository(Reclamation::class);
     $reclamation = $reclamationRepository->find($reclamationId);
 
-    $commande=$reclamation->getCommand();
-    $montant=$commande->getInsvalue();
     $indemnissation = $reclamation->getIndemnissation();
 
     if (!$indemnissation) {
@@ -97,7 +95,7 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     }
 
     return $this->render('indemnissation/addIndemnissationAccept.html.twig', [
-        'form' => $form->createView(),'montant'=>$montant,
+        'form' => $form->createView(),
         'reclamation' => $reclamation
     ]);
 }

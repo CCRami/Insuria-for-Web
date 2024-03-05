@@ -156,7 +156,7 @@ if ($form->isSubmitted() && $form->isValid()) {
     $entityManager->persist($rec);
     $entityManager->flush();
     $this->mailerService->sendEmail(
-        "ramitoubib@hotmail.com",
+        "farah.adad2001@gmail.com",
         'Reclamation added',
         $this->renderView('email/rec_email.html.twig', [
             'rec' => $rec
