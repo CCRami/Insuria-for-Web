@@ -13,7 +13,7 @@
         <div class="form-group row">
             <div class="nav-item">
                 <form class="search-bar">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search Claim with Id.... ">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search Compensation with Id.... ">
                     <a href="javascript:void();"><i class="icon-magnifier"></i></a>
                 </form>
             </div>
@@ -36,34 +36,31 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Date</th>
-                                            <th>Beneficitaire</th>
-                                            <th>Montant</th>
-                                            <th>Contenue</th>
-                                   
-                                              <th>Edit/Delete</th>
+                                            
+                                            <th>Amount(in dinars)</th>
+                                              <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for rec in list %}
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
-                                                 {% if rec.getDate() is not null %}
-                                                <td>{{ rec.getDate() ? rec.getDate().format('Y-m-d H:i:s') : '' }}</td>
-                                                {% else %}<td></td> {% endif %}
-                                                <td>{{ rec.beneficitaire }}</td>
-                                            {% if rec.getMontant() is not null %}
-                                                <td>{{ rec.getMontant() }}</td>{% else %}<td>0</td>
-                                        
-                                                    {% endif %}
-                                                    <td></td>
-                                                <td>
-                                                    <a href="{{ path('ind_edit',{'id':rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Edit</button>
-                                                    </a>
+                                                 {% if rec.getMontant() ==0 %}<td> ----</td>{% else %}
+                                                <td>{{ rec.getDate() ? rec.getDate().format('Y-m-d ') : '' }}</td>
+                                                
+                                                {% endif%}
+                                                
+                                                     {% if rec.getMontant() is not null %}
+                                                <td>{{ rec.getMontant()}}</td>
+                                                {% else %}<td>0</td> {% endif %}
+                                                
+                                                   
+                                                   <td>
+                                            
+                                                    
                                                     <a href="{{ path('ind_delete', {'id': rec.id}) }}">
                                                         <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Delete</button>
-                                                    </a>
-                                                </td>
+                                              </a><td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>

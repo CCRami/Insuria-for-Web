@@ -20,8 +20,10 @@
               <div class="card-title">Edit Claim</div>
               <hr>
              
-              {{ form_start(form, {'attr': { 'novalidate': 'novalidate'}}) }}
-              
+               <form method="post" novalidate  enctype="multipart/form-data"> 
+                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+                      
               
               <div class="form-group row">
     <label for="libel" class="col-sm-2 col-form-label">{{ form_label(form.libelle, 'Label', {'label_attr': {'class': 'control-label'}}) }}</label>
@@ -42,13 +44,28 @@
               </div>
               <br>
               <div class="form-group row">
-                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenu_rec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenuRec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
                 <div class="col-sm-7">
-                {{ form_widget(form.contenu_rec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec'}}) }}
-             {{ form_errors(form.contenu_rec) }}   </div></div>
+              <p>  {{ form_widget(form.contenuRec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec', 'rows': '4'}}) }}</p>
+             {{ form_errors(form.contenuRec) }}   </div></div>
                  <br>
 
 
+
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.latitude, 'latitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter latitude'}}) }}
+                                         
+                            </div>
+                        </div>
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.longitude, 'longitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter longitude'}}) }}
+                                  <span class="form-error-message">{{ form_errors(form.longitude) }}</span>           
+                            </div>
+                        </div>
               <div class="form-group row">
                <label for="Reponse" class="col-sm-2 col-form-label">  {{ form_label(form.reponse, 'Reponse', {'label_attr': {'class': 'control-label'}}) }}</label>
                 
@@ -82,23 +99,21 @@
         " class="btn btn-light btn-round px-5">Cancel</a>
 </div>
 
-            {{ form_end(form) }}
+            {{ form_end(form) }}</form>
         </div>
     </div>
 </div>
 
             
       
-  <!--End Dashboard Content-->
-  
-  <!--start overlay-->
+
     <div class="overlay toggle-menu"></div>
-  <!--end overlay-->
+ 
   
     </div>
-    <!-- End container-fluid-->
+
     
-  </div><!--End content-wrapper-->
+  </div>
    <style>
              .btn:hover {
                         background-color: #f8f9fa;

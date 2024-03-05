@@ -36,8 +36,7 @@
                                         <li><a href="portfolio-details.html">Reviews</a></li>
                                     </ul>
                                 </li>
-                                <li ><a href="blog-details.html">Offers</a> 
-                                </li>
+                                <li><a href="blog-details.html">Offers</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -47,7 +46,7 @@
                     <div class="tp-header-right d-flex align-items-center justify-content-end">
                         <div class="tp-header-info d-none d-xxl-block">
                             <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
-                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053</span></a>
                             <div class="tpoffcanvas__social" style="text-align: right;">
                                 <div class="social-icon">
                                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -65,107 +64,71 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
-   <!-- tp-header-area-end -->
-   </header>
 {% endblock %}
 
 {% block main %}
 <main>
-    <br><br>
     <style>
         .espacement-superieur {
-            padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+            padding-top: 100px; 
         }
         .contenu-centre {
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centrage vertical */
-            min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+            justify-content: center;
+            min-height: 100vh; 
         }
         .couleur-carte {
-            background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+            background-color: #f0f0f0; 
         }
+        .form-group.row {
+            margin-bottom: 20px; 
+        }
+       
     </style>
 
     <div class="contenu-centre">
-        <div class="container espacement-superieur">
+        <div class="container">
             {% block service %}
-            <div class="tp-service-shape-1">
-                <img src="front_assets/img/slider/02_Shape.png" alt="">
-            </div>
-            <div class="tp-service-shape-2">
-                <img src="front_assets/img/slider/03_Shape.png" alt="">
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="tp-service-section text-center mb-60">
-                        <h4 class="tp-section-subtitle">My Claims</h4>
-                      
-    
-                    </div>
-                </div>
-            </div>
-            {% endblock %}
-
-            <div class="content-wrapper">
-                <div class="container-fluid">
-                    <div class="card-content">
-                        <div class="row">
-                            {% for rec in  pagination %}
-                            <div class="col-xxl-4 col-xl-4 col-lg-4">
-                                <div class="postbox__wrapper pr-20">
-                                    <article class="postbox__item format-image mb-50 transition-3">
-                                        <div class="postbox__thumb w-img">
-                                            <a href="{{ path('rec_affichUser', {'id': rec.id}) }}">
-                                                <img src="{{ asset('uploads/' ~ rec.fileName) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
-                                            </a>
+            
+                <div class="content-wrapper">
+                    <div class="container-fluid"> 
+                        {% if ind.montant == 0 %}
+                            <div class="text-center mt-3">
+                                <p>We regret to inform you that your compensation request has been <span style="color: red;">refused</span>. If you have any questions or need further assistance, please feel free to contact us.</p>
+                            </div>
+                        {% else %}
+                            <div class="text-center mt-3">
+                                <p>We are pleased to inform you that your compensation request has been <span style="color: green;">accepted</span>. Our team will proceed with the necessary arrangements. If you have any questions or need further assistance, please feel free to contact us.</p>
+                            </div>
+                        {% endif %}
+             
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-7">
+                                <div class="card">
+                                    <div class="tp-service-section text-center mb-40">
+                                        <h4 class="tp-section-subtitle">Compensation Details</h4>
+                                    </div>
+                                     <div style="margin-left: 20px;"> 
+                                    <p><strong style="width: 200px; display: inline-block;">Id:</strong> {{ ind.id }}</p>
+                                    <p><strong style="width: 200px; display: inline-block;">Date:</strong> {% if ind.date %} {{ ind.date|date('Y-m-d') }} {% else %} ---- {% endif %}</p>
+                                    <p><strong style="width: 200px; display: inline-block;">Amount (in dinars):</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="{{ path('app_reclamation_user') }}" class="btn btn-primary">Back</a>
                                         </div>
-                                        <div class="postbox__content">
-                                            <div class="postbox__meta">
-                                                <!-- Add other meta information here -->
-                                            </div>
-                                            <h3 class="postbox__title">
-                                                <a href="{{ path('rec_affichUser', {'id': rec.id}) }}">{{ rec.libelle }}</a>
-                                            </h3>
-                                            <div class="intro-text">
-                                                <p>Conditions: <span class="rec_date">{{ rec.getDateDecl()? rec.getDateDecl().format('Y-m-d H:i:s') : '' }}</span></p>
-                                            </div>
-                                            <div class="intro-text">
-                                                <p>Duration: <span class="rec-reponse">{{ rec.reponse }}</span> Days</p>
-                                            </div>
-                                           
-                                        </div>
-                                    </article>
+                                    </div></div>
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
-                           <div class="container">
-            <div class="row">
-                {% if pagination.getTotalItemCount() > 0 %}
-                    <div class="pagination">
-                        {{ knp_pagination_render(pagination) }}
-                    </div>
-                {% else %}
-                    <p>Aucun événement trouvé.</p>
-                {% endif %}
-                    <div class="container">
-            <div class="row">
-           
                 </div>
-                <div class="clearfix"></div>
-            </div>
+            {% endblock %}
         </div>
     </div>
-
-    <style>
-      
-    </style>
 </main>
 {% endblock %}
-
-

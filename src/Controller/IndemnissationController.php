@@ -38,37 +38,25 @@ class IndemnissationController extends AbstractController
             $entityManager = $this->managerRegistry->getManager();
     $reclamationRepository = $this->managerRegistry->getRepository(Reclamation::class);
     $reclamation = $reclamationRepository->find($reclamationId);
-
-    // Vérifiez si une indemnisation existe déjà pour cette réclamation
     $indemnissation = $reclamation->getIndemnissation();
 
     if (!$indemnissation) {
         $indemnissation = new Indemnissation();
+       
+       
+       
+        $reclamation->setIndemnissation($indemnissation);
+        $entityManager->persist($reclamation);
+    } else {
+     
         $indemnissation->setMontant(0);
     }
 
-    $form = $this->createForm(IndemnissationRefuseType::class, $indemnissation);
-    $form->handleRequest($request);
+   
+    $entityManager->flush();
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Associez l'indemnisation à la réclamation
-        $reclamation->setIndemnissation($indemnissation);
-        
-        // Persistez la réclamation, car elle a été modifiée
-        $entityManager->persist($reclamation);
-        
-        // Flush pour enregistrer les modifications
-        $entityManager->flush();
-
-        // Redirection après l'ajout
-        return $this->redirectToRoute('app_reclamation_admin');
-    }
-
-    return $this->render('indemnissation/addIndemnissationRefuse.html.twig', [
-        'form' => $form->createView(),
-        'reclamation' => $reclamation
-    ]);
-        }
+    return $this->redirectToRoute('app_reclamation_admin');
+}
         
     
         
@@ -83,7 +71,8 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     $reclamationRepository = $this->managerRegistry->getRepository(Reclamation::class);
     $reclamation = $reclamationRepository->find($reclamationId);
 
-    // Vérifiez si une indemnisation existe déjà pour cette réclamation
+    $commande=$reclamation->getCommand();
+    $montant=$commande->getInsvalue();
     $indemnissation = $reclamation->getIndemnissation();
 
     if (!$indemnissation) {
@@ -94,41 +83,25 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Associez l'indemnisation à la réclamation
+      
         $reclamation->setIndemnissation($indemnissation);
         
-        // Persistez la réclamation, car elle a été modifiée
+       
         $entityManager->persist($reclamation);
         
-        // Flush pour enregistrer les modifications
+    
         $entityManager->flush();
 
-        // Redirection après l'ajout
+     
         return $this->redirectToRoute('app_reclamation_admin');
     }
 
     return $this->render('indemnissation/addIndemnissationAccept.html.twig', [
-        'form' => $form->createView(),
+        'form' => $form->createView(),'montant'=>$montant,
         'reclamation' => $reclamation
     ]);
 }
 
-#[Route('listind/edit/{id}', name: 'ind_edit')]
-    public function editAuthor(Request $request,EntityManagerInterface $em,IndemnissationRepository $rep,int $id):Response
-    {
-        $ind=new Indemnissation();
-        $ind=$rep->find($id);
-        $form=$this->createForm(IndemnissationAcceptType::class,$ind);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        { 
-            $em->persist($ind);
-            $em->flush();
-            return $this->redirectToRoute('app_indemnissation_admin');
-        }
-        return $this->render('indemnissation/addIndemnissationAccept.html.twig',['form'=>$form->createView()]);
-
-    }
 #[Route('listn/delete/{id}', name: 'ind_delete')]
 public function deleteInd(Request $req, IndemnissationRepository $indemnissationRepository, ReclamationRepository $reclamationRepository, $id, EntityManagerInterface $em): Response
 {
@@ -140,6 +113,7 @@ public function deleteInd(Request $req, IndemnissationRepository $indemnissation
         if ($reclamation) {
             
             $reclamation->setIndemnissation(null);
+            $reclamation->setReponse("Currently being processed");
             $em->persist($reclamation);
         }
 
@@ -147,7 +121,7 @@ public function deleteInd(Request $req, IndemnissationRepository $indemnissation
         $em->flush();
     }
 
-    return $this->redirectToRoute('app_reclamation_admin');
+    return $this->redirectToRoute('app_indemnissation_admin');
 }
 #[Route('indemnisation_show/{id}', name: 'indemnisation_show')]
 public function showRec(Request $request, IndemnissationRepository $repository, $id): Response
@@ -155,6 +129,23 @@ public function showRec(Request $request, IndemnissationRepository $repository, 
     
         
     return $this->render('indemnissation/show.html.twig', [
+        'ind' => $ind,
+    ]);
+}
+
+
+
+
+
+
+//User view: 
+
+#[Route('indemnisationUser_show/{id}', name: 'indemnisationUser_show')]
+public function showCOM(Request $request, IndemnissationRepository $repository, $id): Response
+{  $ind = $repository->find($id);
+    
+        
+    return $this->render('indemnissation/showIndsmnissationUser.html.twig', [
         'ind' => $ind,
     ]);
 }

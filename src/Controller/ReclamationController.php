@@ -1,20 +1,31 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Reclamation;
+use App\Entity\Commande;
 use App\Form\ReclamationType;
 use App\Repository\ReclamationRepository;
 use App\Form\ReclamationEditType;
+use App\Repository\CommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\FileUploader;
+use Doctrine\Persistence\ManagerRegistry;
+    use App\Service\MyGmailMailerService;
 class ReclamationController extends AbstractController
-{
+{  
+
+
+    private MyGmailMailerService $mailerService;
+
+    public function __construct(MyGmailMailerService $mailerService)
+    {
+        $this->mailerService = $mailerService;
+    }
     #[Route('/reclamation', name: 'app_reclamation')]
     public function index(): Response
     {
@@ -40,13 +51,13 @@ class ReclamationController extends AbstractController
             $em->flush();
     
             if ($rec->isReponse() === 'refused') {
-                // Redirection vers l'action reclamation_refuse en passant l'ID de la réclamation
+                
                 return $this->redirectToRoute('reclamation_refuse', ['reclamationId' => $rec->getId()]);
             } elseif ($rec->isReponse() === 'accepted') {
-                // Redirection vers l'action reclamation_accepte en passant l'ID de la réclamation
+                
                 return $this->redirectToRoute('reclamation_accepte', ['reclamationId' => $rec->getId()]);
             } else {
-                // Redirection par défaut si la réponse n'est ni acceptée ni refusée
+                
                 return $this->redirectToRoute('app_reclamation_admin');
             }
         }
@@ -74,7 +85,7 @@ class ReclamationController extends AbstractController
         
     }  
     #[Route('Reclamation/detail/{id}', name: 'reclamationAdmin_show')]
-    public function showRec(Request $request, ReclamationRepository $repository, $id): Response
+    public function showRec( ReclamationRepository $repository, $id): Response
     {
        
         $reclamation = $repository->find($id);
@@ -101,7 +112,7 @@ class ReclamationController extends AbstractController
                 $this->getParameter('upload_directory'),
                 $fileName
             );
-            // Enregistrez le nom du fichier dans l'entité Reclamation si nécessaire
+           
             $rec->setFileName($fileName);}
         
         $entityManager->persist($rec);
@@ -116,16 +127,20 @@ class ReclamationController extends AbstractController
     ]);
 }
 
-//User
-#[Route('user/newReclamation', name: 'reclamationUser_new')]
-public function newReclamation(Request $request, EntityManagerInterface $entityManager): Response
-{ $label = $request->query->get('label');
-$rec = new Reclamation();
-$label = $request->query->get('label');
+//User :
+//creer une reclamation:
 
-$form = $this->createForm(ReclamationType::class, $rec, ['label' => $label]);
+
+
+#[Route('user/newReclamation', name: 'reclamationUser_new')]
+public function newReclamation(Request $request, EntityManagerInterface $entityManager): Response {
+   
+        $rec = new Reclamation();
+
+
+$form = $this->createForm(ReclamationType::class, $rec);
 $form->handleRequest($request);
-$success = false;
+
 if ($form->isSubmitted() && $form->isValid()) {
     $file = $form->get('file')->getData();
     if ($file) {
@@ -135,35 +150,96 @@ if ($form->isSubmitted() && $form->isValid()) {
             $this->getParameter('upload_directory'),
             $fileName
         );
-      
+
         $rec->setFileName($fileName);}
     
     $entityManager->persist($rec);
     $entityManager->flush();
+    $this->mailerService->sendEmail(
+        "ramitoubib@hotmail.com",
+        'Reclamation added',
+        $this->renderView('email/rec_email.html.twig', [
+            'rec' => $rec
+        ])
+    );
 
-    $success = true;
+        
+     
+    return $this->redirectToRoute('app_reclamation_user');
     
 }
 
-return $this->render('reclamation/ReclamationAdd.html.twig', [
-    'form' => $form->createView(),'reclamation' => $rec,'success' => $success,
+return $this->render('reclamation/ReclamationsUser.html.twig', [
+    'form' => $form->createView(),'reclamation' => $rec
 ]);
 }
 
+//afficher mes reclamation :
 
-
-#[Route('user/typeReclamations', name: 'app_reclamation_user')]
-    public function index_reclamation_user(ReclamationRepository $rep): Response
+#[Route('user/Reclamations', name: 'app_reclamation_user')]
+    public function index_reclamation_user(ReclamationRepository $rep,PaginatorInterface $paginator, Request $request): Response
     {$list=$rep->findAll();
-        return $this->render('reclamation\ReclamationFront.html.twig', 
-          ['list' => $list, ]
+        $pagination = $paginator->paginate(
+            $list,
+            $request->query->getInt('page', 1), 
+            3 
         );
-    }
-    #[Route('user/reponse', name: 'showRep')]
-    public function reponse_user(ReclamationRepository $rep): Response
-    {
-    } 
+
+        return $this->render('reclamation\ReclamationFront.html.twig', 
+        ['pagination' => $pagination]
+        );
+  
+      
+}
+//affiche une reclamation:
+#[Route('affiche/{id}', name: 'rec_affichUser', methods: ['GET'])]
+public function afficheRecUser( ReclamationRepository $repository, $id):Response
+{$reclamation = $repository->find($id);
+    return $this->render('reclamation\afficherClaim.html.twig',['rec'=>$reclamation,]);
+}
+
+//supprimer :
+#[Route('delete/{id}', name: 'rec_deleteUser')]
+public function deleteRecUser(Request $req,ReclamationRepository $rep,$id,EntityManagerInterface $em):Response
+{
+    $rec=new Reclamation();
+    $rec=$rep->find($id);
+    $indemnisation = $rec->getIndemnissation();
+    if ($indemnisation) {
+        $em->remove($indemnisation);}
+    $em->remove($rec);
+    $em->flush();
+    return $this->redirectToRoute('app_reclamation_user');
 
     
+}  
+//editer :
+#[Route('edit/{id}', name: 'rec_editUser')]
+public function editRecUser(Request $request, EntityManagerInterface $em, ReclamationRepository $rep, int $id): Response
+{
+    $rec = $rep->find($id);
+    $form = $this->createForm(ReclamationType::class, $rec);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush();
+
+      
+        return $this->redirectToRoute('app_reclamation_user');
+    }
+
+    return $this->render('reclamation/ReclamationsUser.html.twig', [
+        'form' => $form->createView(),
+        'reclamation' => $rec, 
+    ]);
+}
+
+
+
+
+
+
+
+
 
 }

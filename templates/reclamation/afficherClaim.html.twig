@@ -1,0 +1,225 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="service-details.html">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="service-details.html">Service</a></li>
+                                        <li><a href="service-details.html">Service Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="blog-details.html">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
+{% block main %}
+<main>
+{% block slider %}
+
+      
+        <br><br>
+<style>
+ .btn {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+    .btn:hover {
+    background-color: #fcaf3d; /* Couleur de fond jaune */
+    color: #f8f9fa; /* Couleur du texte noire */
+}
+.small-image {
+    max-width: 100px;
+    max-height: 100px;
+    transition: all 0.3s ease; /* Animation de transition pour un agrandissement en douceur */
+}
+
+.expanded-image {
+    max-width: none; /* Supprimez la limitation de la largeur */
+    max-height: none; /* Supprimez la limitation de la hauteur */
+    cursor: zoom-out; /* Changez le curseur pour indiquer qu'il est possible de cliquer à nouveau pour réduire l'image */
+}
+    .espacement-superieur {
+        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+    }
+    .contenu-centre {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centrage vertical */
+        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+    }
+    .couleur-carte {
+        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+    }
+</style>
+
+<div class="contenu-centre">
+    <div class="container espacement-superieur">
+        {% block service %}
+<style>
+    .custom-margin-top {
+        margin-top: 7rem; 
+    }
+</style>
+
+     <div class="tp-service-shape-1">
+                    <img src="front_assets/img/slider/02_Shape.png" alt="">
+                </div>
+                <div class="tp-service-shape-2">
+                    <img src="front_assets/img/slider/03_Shape.png" alt="">
+                </div>
+                <div class="container">
+                <div class="table-responsive">
+                    
+
+<table class="table">
+        <tbody>
+          
+         <tr>
+        <th style="color: purple;">map</th>
+          <td style="width:900px; height: 250px;">
+    <iframe src='https://www.google.com/maps?q={{ rec.latitude }},{{ rec.longitude }}&h1=es;z=14&output=embed' style="width: 100%; height: 100%; border: 0;"></iframe>
+</td>
+ </tr>
+         <tr>
+        <th style="color: purple;">image</th>
+          <td>
+        {% if rec.getFileName() is not null %}  <img src="{{ asset('uploads/' ~ rec.fileName) }}" alt="{{ rec.fileName }}"
+class="small-image" onclick="expandImage(this)">
+    {% else %} ------{% endif %}</p>
+
+    </td>
+        </tr>
+            <tr>
+                <th style="color: purple;">Id</th>
+                <td style="color: black;">{{ rec.id }}</td>
+            </tr>
+            <tr>
+                 <th style="color: purple;">Label</th>
+                <td style="color: black;">{{ rec.libelle }}</td>
+            </tr>
+            <tr>
+    <th style="color: purple;">Date Claim</th>
+    <td style="color: black;">{{ rec.dateDecl ? rec.dateDecl|date('Y-m-d H:i:s') : ''}}</td>
+</tr>
+<tr>
+    <th style="color: purple;">Date Sinistre</th>
+    <td style="color: black;">{{rec.dateSin ? rec.dateSin|date('Y-m-d H:i:s') : ''  }}</td>
+</tr>
+
+           <tr>
+    <th style="color: purple;">Content</th>
+    <td style="color: black;">
+        <p>{{ rec.contenuRec }}</p>
+    </td>
+</tr>
+                 <th style="color: purple;">Reponse</th>
+                <td style="color: black;">{{ rec.reponse }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    {% if rec.isReponse() == 'refused' or rec.isReponse() == 'accepted' %}
+     {% if rec.getIndemnissation() is not null %}
+        <a href="{{ path('indemnisationUser_show',{'id': rec.getIndemnissation().getId()}) }}"> {% endif %}
+            <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Show Compensation</button>
+        </a>{% else %}
+       <a href="{{ path('rec_editUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2">Edit</button></a>
+   <a href="{{ path('rec_deleteUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2">Delet</button></a>
+
+    {% endif %}
+                </div> <div class="clearfix"></div>
+    </div>
+</div>
+
+<style>
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+    .table-row:hover td {
+        color: #007bff;
+    }
+    .table-row:hover .btn {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+
+{% endblock %}
+
+{% endblock %}{% endblock %}
+{% block js %}
+<script>
+    function expandImage(image) {
+        // Vérifiez si l'image est déjà agrandie
+        if (image.classList.contains('expanded-image')) {
+            // Si oui, réduisez-la
+            image.classList.remove('expanded-image');
+        } else {
+            // Sinon, agrandissez-la
+            image.classList.add('expanded-image');
+        }
+    }
+</script>
+{% endblock %}

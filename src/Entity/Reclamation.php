@@ -16,10 +16,14 @@ class Reclamation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le libellé est obligatoire")]
+    #[Assert\NotBlank(message: "The label is required")]
     #[Assert\Length(
-        max: 15,
-        maxMessage: "Le libellé ne peut pas dépasser {{ limit }} caractères"
+        max: 30,
+        maxMessage: "The label cannot exceed {{ limit }} characters"
+    )]
+    #[Assert\Regex(
+        pattern: '/^[A-Z][a-zA-Z\s]/',
+        message: "The label must start with a capital letter ."
     )]
     
     private ?string $libelle = null;
@@ -30,17 +34,19 @@ class Reclamation
     public function __construct()
     {
         $this->date_decl = new \DateTime();
+        $this->date_sin = new \DateTime();
     }
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
-#[Assert\LessThanOrEqual("today", message:"La date ne peut pas être dans le futur.")]
-#[Assert\NotNull(message: "La date ne peut pas être nulle.")]
+#[Assert\LessThanOrEqual("today", message:"The date cannot be in the future.")]
+#[Assert\NotBlank(message: "La date ne peut pas être vide.")]
+
     private ?\DateTimeInterface $date_sin ;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le contenu est obligatoire")]
+    #[Assert\NotBlank(message: "The content is required")]
     #[Assert\Length(
-        min: 5,
-        minMessage: "Le contenu de la réclamation doit dépasser {{ limit }} caractères"
+        min: 10,
+        minMessage: "The content of the claim must exceed {{ limit }} characters."
     )]
     private ?string $contenu_rec = null;
 
@@ -57,6 +63,30 @@ class Reclamation
      #[ORM\Column(type:"string", length:255, nullable:true)]
    
    private $fileName;
+
+
+
+
+   #[Assert\NotBlank(message: "The latitude is required")]
+     #[ORM\Column(length: 50)]
+     private ?string $latitude = null;
+
+
+
+
+     
+     #[Assert\NotBlank(message: "The longitude is required")]
+     #[ORM\Column(length: 50)]
+
+
+
+     private ?string $longitude = null;
+
+     #[ORM\ManyToOne(inversedBy: 'reclamations')]
+     #[ORM\JoinColumn(nullable: false)]
+     private ?Commande $command = null;
+
+     
 
    public function getFileName(): ?string
    {
@@ -147,7 +177,47 @@ class Reclamation
 
         return $this;
     }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(string $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(string $longitude): static
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getCommand(): ?Commande
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?Commande $command): static
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
     
+ 
+
+   
   
   
 }

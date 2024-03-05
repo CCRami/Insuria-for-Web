@@ -5,10 +5,10 @@
 <br><br>
 <div class="content-wrapper">
     <div class="container-fluid">
-        <!-- Start Dashboard Content -->
+  
         
             <div class="card-content">
-                <!-- Symfony Form Start -->
+               
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
@@ -17,25 +17,18 @@
                             {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
                             <div class="form-group row">
-                                <label for="date" class="col-sm-2 col-form-label">Date</label>
+                                <label for="date" class="col-sm-4 col-form-label">Date</label>
                                 <div class="col-sm-7">
-                                    {{ form_widget(form.date, {'attr': {'class': 'form-control form-control-rounded'}}) }}
+                                   {{ form_widget(form.date, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Date Sinistre', 'id': 'date_sin'}}) }}
                                     {{ form_errors(form.date) }}
                                 </div>
                             </div>
 
+                            
                             <div class="form-group row">
-                                <label for="beneficitaire" class="col-sm-2 col-form-label">Beneficitaire</label>
+                                <label for="montant" class="col-sm-4 col-form-label">Amount(in dinars)</label>
                                 <div class="col-sm-7">
-                                    {{ form_widget(form.beneficitaire, {'attr': {'class': 'form-control form-control-rounded'}}) }}
-                                    {{ form_errors(form.beneficitaire) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="montant" class="col-sm-2 col-form-label">Montant</label>
-                                <div class="col-sm-7">
-                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded'}}) }}
+                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'value': montant}}) }}
                                     {{ form_errors(form.montant) }}
                                 </div>
                             </div>
@@ -45,7 +38,7 @@
                                     <div class="row">
                                         <div class="col-md-6 offset-md-6">  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
                                             
-                                            <a href="{{ path('reclamationAdmin_edit',{'id': reclamation.id})}}" class="btn btn-light btn-round px-5">Cancel</a>
+                                            <a href="{{ path('app_indemnissation_admin',{'id': reclamation.id})}}" class="btn btn-light btn-round px-5">Cancel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -56,14 +49,13 @@
                 </div>
             </div>
         </div>
-        <!-- End Dashboard Content -->
-        <!-- Start overlay -->
+      
         <div class="overlay toggle-menu"></div>
-        <!-- End overlay -->
+    
     </div>
-    <!-- End container-fluid -->
+  
 </div>
-<!-- End content-wrapper -->
+
 <style>
     .btn:hover {
         background-color: #f8f9fa;

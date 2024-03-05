@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +28,21 @@ class Commande
 
     #[ORM\Column(length: 255)]
     private ?string $full_doa = null;
+
+    #[ORM\Column]
+    private ?float $insvalue = null;
+
+    #[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'command')]
+    private Collection $reclamations;
+
+    public function __construct()
+    {
+        $this->reclamations = new ArrayCollection();
+    }
+
+   
+
+ 
 
     public function getId(): ?int
     {
@@ -75,6 +93,48 @@ class Commande
     public function setFullDoa(string $full_doa): static
     {
         $this->full_doa = $full_doa;
+
+        return $this;
+    }
+
+    public function getInsvalue(): ?float
+    {
+        return $this->insvalue;
+    }
+
+    public function setInsvalue(float $insvalue): static
+    {
+        $this->insvalue = $insvalue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): static
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations->add($reclamation);
+            $reclamation->setCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): static
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getCommand() === $this) {
+                $reclamation->setCommand(null);
+            }
+        }
 
         return $this;
     }

@@ -4,7 +4,9 @@
   
            <style>  .custom-file-label {
         border-radius: 0.25rem;
-    }</style> 
+    }
+    
+    </style> 
         
 
 <div class="clearfix"></div>
@@ -12,18 +14,19 @@
   <div class="content-wrapper">
     <div class="container-fluid">
 
-  <!--Start Dashboard Content-->
-
+  
   <div class="card mt-3">
     <div class="card-content">
-        <!-- Symfony Form Start -->
+    
         <div class="col-lg-8">
           <div class="card">
             <div class="card-body">
               <div class="card-title">Add New Claim</div>
               <hr>
-             {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+            <form method="post" novalidate enctype="multipart/form-data"> 
+                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
+                      
               
               <div class="form-group row">
     <label for="libel" class="col-sm-2 col-form-label">{{ form_label(form.libelle, 'Label', {'label_attr': {'class': 'control-label'}}) }}</label>
@@ -36,7 +39,7 @@
 
 
               <div class="form-group row">
-                <!-- Champ de Date Sinistre -->
+               
                 <label for="date_sin" class="col-sm-2 col-form-label">{{ form_label(form.date_sin, 'Date Sinistre', {'label_attr': {'class': 'control-label'}}) }}</label>
                 <div class="col-sm-7">
                     {{ form_widget(form.date_sin, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Date Sinistre', 'id': 'date_sin'}}) }}
@@ -45,21 +48,38 @@
               </div>
               <br>
               <div class="form-group row">
-                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenu_rec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenuRec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
                 <div class="col-sm-7">
-                {{ form_widget(form.contenu_rec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec'}}) }}
- {{ form_errors(form.contenu_rec) }}              
+                {{ form_widget(form.contenuRec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec'}}) }}
+ {{ form_errors(form.contenuRec) }}              
               </div></div><br>
-             <div class="form-group row">
+ <div class="form-group row">
     <label for="file" class="col-sm-2 col-form-label">{{ form_label(form.file, ' Import file', {'label_attr': {'class': 'control-label'}}) }}</label>
     <div class="col-sm-7">
-        <div class="custom-file">
-            {{ form_widget(form.file, {'attr': {'class': 'custom-file-input ', 'id': 'file'}}) }}
-             <label class="custom-file-label">Choose file</label>
-        </div>
+    {{ form_widget(form.file, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Fichier à importer', 'id': 'file'}}) }}
+
         {{ form_errors(form.file) }}
     </div>
 </div>
+
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.latitude, 'latitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter latitude'}}) }}
+                                         
+                            </div>
+                        </div>
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.longitude, 'longitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter longitude'}}) }}
+                                  <span class="form-error-message">{{ form_errors(form.longitude) }}</span>           
+                            </div>
+                        </div>
+
+
+
+
 
 
       <br>
@@ -78,7 +98,7 @@
           <div class="col-sm-1">
                  <a href="{{ path('app_reclamation_admin') }}"< class="btn btn-light btn-round px-5"> Cancel</button>
            </a> </div></div>
-            {{ form_end(form) }}
+            {{ form_end(form) }}</form>
         </div>
     </div>
 </div>
@@ -101,4 +121,31 @@
                         color: #007bff;
                     }
                 </style>
+                
+
+{% block js %}
+<script type="text/javascript">
+   function getLocation()
+   {
+   if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+  }
+}
+function showPosition(position){
+  document.querySelector('.myForm input[name="latitude"]').value = position.coords.latitude;
+document.querySelector('.myForm input[name="longitude"]').value = position.coords.longitude;
+}
+function showError(error){
+  switch(error.code){
+    case error.PERMISSION_DENIED:
+    alert("You Must Allow The Request for géolocalisation" );
+    location.reload;
+    break;
+  }
+}
+</script>
+
+{% endblock %}
+
+
 {% endblock %}

@@ -4,7 +4,12 @@ namespace App\Repository;
 
 use App\Entity\Reclamation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
+
 
 /**
  * @extends ServiceEntityRepository<Reclamation>
@@ -21,6 +26,19 @@ class ReclamationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reclamation::class);
     }
 
+    public function getPaginatedClaims($page, $pageSize): Paginator
+    {
+        $query = $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC')
+            ->getQuery();
+
+        $paginator = new Paginator($query);
+        $paginator->getQuery()
+            ->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize);
+
+        return $paginator;
+    }
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */
@@ -44,5 +62,4 @@ class ReclamationRepository extends ServiceEntityRepository
 //            ->getQuery()
 //            ->getOneOrNullResult()
 //        ;
-//    }
 }

@@ -70,7 +70,7 @@
         </div>
     </div>
 
-   <!-- tp-header-area-end -->
+ 
    </header>
 {% endblock %}
 {% block main %}
@@ -78,16 +78,26 @@
 
 <style>
     .espacement-superieur {
-        padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+        padding-top: 100px; 
     }
     .contenu-centre {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centrage vertical */
-        min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+        justify-content: center;
+        min-height: 100vh; 
     }
     .couleur-carte {
-        background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+        background-color: #f0f0f0; 
+    }
+   
+   
+        .form-group.row {
+            margin-bottom: 20px; 
+        }
+         .form-error-message {
+        color: red; 
+        font-size: 14px; 
+        margin-top: 5px;
     }
 </style>
 
@@ -98,34 +108,116 @@
                 
                 <div class="container">
                     <div class="row">
-                        <div class="col-12"><a href="{{ path('app_reclamation_user') }}" class="btn btn-primary btn-round px-5"> My Claim</a>
+                        <div class="col-12">
                             <div class="tp-service-section text-center mb-60">
-                                <h4 class="tp-section-subtitle">Our Services</h4>
-                                <h3 class="tp-section-title text-black">Types of instive <span>insurance</span></h3>
+                              
+                                <h4 class="tp-section-title text-black">CREATE<span> YOUR CLAIM</span></h4>
                             </div>
                         </div>
                     </div>
                     <div class="row gx-20">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="tpservice mb-20 tp-sv-color-1">
-                                <div class="tpservice__icon">
-                                    <a href="{{ path('reclamationUser_new', {'label': 'Car'}) }}"><i class="flaticon-protection"></i></a>
-                                </div>
-                                <div class="tpservice__title">
-                                    <h4 class="tp-sv-title"><a href="{{ path('reclamationUser_new', {'label': 'Car'}) }}">Car Insurance</a></h4>
-                                </div>
-                                <div class="tpservice__circle">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                       
+                       <form method="post" novalidate action="{{ path('reclamationUser_new')}}" enctype="multipart/form-data"> 
+                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+                      
+                        <div class="form-group row">
+                            <label for="libel" class="col-sm-2 col-form-label text-black">{{ form_label(form.libelle, 'Label', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.libelle, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Your Label'}}) }}
+                             <span class="form-error-message">{{ form_errors(form.libelle) }}</span> 
                             </div>
                         </div>
-                        <!-- Ajoutez d'autres services ici -->
+
+                       
+                        <div class="form-group row">
+                            <label for="date_sin" class="col-sm-2 col-form-label text-blcka">{{ form_label(form.date_sin, 'Date Sinistre', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.date_sin, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Date Sinistre', 'id': 'date_sin'}}) }}
+                               <span class="form-error-message">{{ form_errors(form.date_sin) }}</span> 
+                            </div>
+                        </div>
+
+                     
+                        <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.contenuRec, 'Content', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.contenuRec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Content'}}) }}
+                                  <span class="form-error-message">{{ form_errors(form.contenuRec) }}</span>           
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group row">
+                            <label for="file" class="col-sm-2 col-form-label text-black">{{ form_label(form.file, ' Import file', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-5">
+                                <div class="custom-file">
+                                    {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'id': 'file'}}) }}
+                                    <label class="custom-file-label text-black">Choose file</label>
+                                </div>
+                                {{ form_errors(form.file) }}
+                            </div>
+                           
+                        </div>
+
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.latitude, 'latitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter latitude'}}) }}
+                                         
+                            </div>
+                        </div>
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.longitude, 'longitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter longitude'}}) }}
+                                  <span class="form-error-message">{{ form_errors(form.longitude) }}</span>           
+                            </div>
+                        </div>
+
+                  
+
+
+                       <div class="form-group row">
+    <div class="col-md-6 offset-md-6">
+  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+        <a href="{{ path('app_reclamation') }}" class="btn btn-light btn-round px-5">Cancel</a>
+    </div>
+</div>
+
+
+                        {{ form_end(form) }}</form>
                     </div>
                 </div>
             </div>
-        {% endblock %}
+        
     </div>
 </div>
+   
+
+
+{% block js %}
+<script type="text/javascript">
+   function getLocation()
+   {
+   if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+  }
+}
+function showPosition(position){
+  document.querySelector('.myForm input[name="latitude"]').value = position.coords.latitude;
+document.querySelector('.myForm input[name="longitude"]').value = position.coords.longitude;
+}
+function showError(error){
+  switch(error.code){
+    case error.PERMISSION_DENIED:
+    alert("You Must Allow The Request for géolocalisation" );
+    location.reload;
+    break;
+  }
+}
+</script>
+
+{% endblock %}{% endblock %}
+
 {% endblock %}

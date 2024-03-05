@@ -29,13 +29,12 @@
             <div class="row justify-content-center mt-5 mb-5">
                 <div class="col-12 col-lg-6">
                     <div class="card">
-                        <h3 class="center">Indemnisation Details</h3>
+                        <h3 class="center"> Compensation Details</h3>
                         <br>
-                        <!-- Les détails de l'indemnisation -->
-                        <p><strong class="label-value">Id:</strong> {{ ind.id }}</p>
-                        <p><strong class="label-value">Date:</strong> {% if ind.date %} {{ ind.date.format('Y-m-d') }} {% else %} null {% endif %}</p>
-                        <p><strong class="label-value">Beneficiary:</strong> {{ ind.beneficitaire }}</p>
-                        <p><strong class="label-value">Amount:</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
+                      <p><strong class="label-value">Id:</strong> {{ ind.id }}</p>
+                        <p><strong class="label-value">Date:</strong> {% if ind.date %} {{ ind.date.format('Y-m-d ')}} {% else %} null {% endif %}</p>
+                     
+                        <p><strong class="label-value">Amount(in dinars):</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">

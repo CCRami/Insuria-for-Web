@@ -15,7 +15,7 @@ class Indemnissation
     #[ORM\Column]
     private ?int $id = null;
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
-    #[Assert\GreaterThan("today", message: "La date doit être dans le futur.")]
+    #[Assert\GreaterThan("today", message: "The date must be in the future")]
    
     private ?\DateTimeInterface $date = null;
     public function __construct()
@@ -28,11 +28,11 @@ class Indemnissation
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $beneficitaire ;
-
+#[Assert\NotBlank(message: "The Amount is required")]
     #[ORM\Column(type:"float", nullable:true)]
     #[Assert\GreaterThanOrEqual(
      value:0,
-     message:"Le montant doit être supérieur>0")]
+     message:"The amount must be greater than 0")]
         private ?float $montant =null;
 
         public function getId(): ?int

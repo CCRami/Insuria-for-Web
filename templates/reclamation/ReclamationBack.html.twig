@@ -43,7 +43,7 @@
                                             
                                             <th>Reponse</th>
                 
-                                            <th>Indemnisation ID</th>
+                                            <th>Compensation ID</th>
                                               <th>Show/Edit/Delete</th>
                                         </tr>
                                     </thead>
@@ -56,7 +56,7 @@
                                                 {% if rec.getIndemnissation() is not null %}
                                                       <td>{{ rec.getIndemnissation().getId() }}</td>
                                                                      {% else %}
-                                                                           <td></td>
+                                                                           <td>-</td>
                                                                                       {% endif %}
                                                 <td>
                                                 <a href="{{ path('reclamationAdmin_show',{'id':rec.id}) }}">
