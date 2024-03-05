@@ -15,17 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\FileUploader;
 use Doctrine\Persistence\ManagerRegistry;
-    use App\Service\MyGmailMailerService;
+  
 class ReclamationController extends AbstractController
 {  
 
 
-    private MyGmailMailerService $mailerService;
-
-    public function __construct(MyGmailMailerService $mailerService)
-    {
-        $this->mailerService = $mailerService;
-    }
     #[Route('/reclamation', name: 'app_reclamation')]
     public function index(): Response
     {
@@ -155,13 +149,7 @@ if ($form->isSubmitted() && $form->isValid()) {
     
     $entityManager->persist($rec);
     $entityManager->flush();
-    $this->mailerService->sendEmail(
-        "farah.adad2001@gmail.com",
-        'Reclamation added',
-        $this->renderView('email/rec_email.html.twig', [
-            'rec' => $rec
-        ])
-    );
+    
 
         
      
@@ -228,7 +216,7 @@ public function editRecUser(Request $request, EntityManagerInterface $em, Reclam
         return $this->redirectToRoute('app_reclamation_user');
     }
 
-    return $this->render('reclamation/ReclamationsUser.html.twig', [
+    return $this->render('reclamation/upadateRec.html.twig', [
         'form' => $form->createView(),
         'reclamation' => $rec, 
     ]);

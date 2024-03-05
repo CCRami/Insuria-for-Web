@@ -131,10 +131,10 @@
                                                 <a href="{{ path('rec_affichUser', {'id': rec.id}) }}">{{ rec.libelle }}</a>
                                             </h3>
                                             <div class="intro-text">
-                                                <p>Conditions: <span class="rec_date">{{ rec.getDateDecl()? rec.getDateDecl().format('Y-m-d H:i:s') : '' }}</span></p>
+                                                <p>Claim Date: <span class="rec_date">{{ rec.getDateDecl()? rec.getDateDecl().format('Y-m-d H:i:s') : '' }}</span></p>
                                             </div>
                                             <div class="intro-text">
-                                                <p>Duration: <span class="rec-reponse">{{ rec.reponse }}</span> Days</p>
+                                                <p>Reponse: <span class="rec-reponse">{{ rec.reponse }}</span></p>
                                             </div>
                                            
                                         </div>

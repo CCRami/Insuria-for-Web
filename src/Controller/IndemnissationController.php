@@ -14,14 +14,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReclamationRepository;
 use App\Repository\IndemnissationRepository;
 use Symfony\Component\HttpFoundation\Request;
-
+use App\Service\MyGmailMailerService;
 class IndemnissationController extends AbstractController
 {
+    private MyGmailMailerService $mailerService;
     private $managerRegistry;
 
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(ManagerRegistry $managerRegistry, MyGmailMailerService $mailerService)
     {
         $this->managerRegistry = $managerRegistry;
+        $this->mailerService = $mailerService;
     }
 
     #[Route('/tableIndelnissations', name: 'app_indemnissation_admin')]
@@ -54,7 +56,13 @@ class IndemnissationController extends AbstractController
 
    
     $entityManager->flush();
-
+    $this->mailerService->sendEmail(
+        "farah.adad2001@gmail.com",
+        'New Compensation Added to Your Reclamation',
+        $this->renderView('email/rec_email.html.twig', [
+            'ind' => $indemnissation,'reclamation'=>$reclamation
+        ])
+    );
     return $this->redirectToRoute('app_reclamation_admin');
 }
         
@@ -89,7 +97,13 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
         
     
         $entityManager->flush();
-
+        $this->mailerService->sendEmail(
+            "farah.adad2001@gmail.com",
+            'compensation added',
+            $this->renderView('email/rec_email.html.twig', [
+                'ind' => $indemnissation,'reclamation'=>$reclamation
+            ])
+        );
      
         return $this->redirectToRoute('app_reclamation_admin');
     }

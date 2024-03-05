@@ -26,7 +26,7 @@ class ReclamationType extends AbstractType
             'widget' => 'single_text',
             'html5' => true,
             
-            'data' => new \DateTime(), 
+            
         ])
         ->add('contenuRec', TextareaType::class, [
             'label' => 'Contenu',
