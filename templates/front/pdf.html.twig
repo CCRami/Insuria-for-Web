@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Industrial Natural Disaster</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: left;
+            padding: 20px;
+        }
+        .header img {
+            margin-bottom: 10px;
+        }
+        .header-address {
+            margin-bottom: 20px;
+        }
+        .content {
+            text-align: center;
+            margin: 20px;
+            padding-bottom: 100px; /* Espace pour s'assurer que le contenu ne chevauche pas le footer */
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+        }
+        .footer .date {
+            text-align: left;
+            float: left; /* Alignement à gauche */
+        }
+        .footer .signature {
+            text-align: right;
+            float: right; /* Alignement à droite */
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ absolute_url(asset('front_assets/log.png')) }}" alt="Logo">
+        <div class="header-address">
+            The consulting insurer<br>Bizerte 7000 Tunis
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>{{ police.policeName }}</h1>
+        <p>{{ police.descriptionPolice }}</p>
+    </div>
+
+    <div class="footer clearfix">
+        <div class="date">Date de génération : {{ "now"|date("d/m/Y") }}</div>
+        <div class="signature">
+            Signature:<br>
+            <div>_________________________________</div>
+        </div>
+    </div>
+</body>
+</html>

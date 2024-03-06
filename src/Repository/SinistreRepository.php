@@ -21,6 +21,33 @@ class SinistreRepository extends ServiceEntityRepository
         parent::__construct($registry, Sinistre::class);
     }
 
+    public function findAllSins()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function findSinById($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+public function findEntitiesByString($sinname)
+    {
+    return $this->createQueryBuilder('u')
+        ->where('u.sin_name LIKE :sinname')
+        ->setParameter('sinname', '%' . $sinname . '%')
+        ->getQuery()
+        ->getResult();
+    }
+
+
 //    /**
 //     * @return Sinistre[] Returns an array of Sinistre objects
 //     */

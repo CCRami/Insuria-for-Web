@@ -25,4 +25,11 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    #[Route('/sinistre', name: 'app_sinistre')]
+    public function index_sinistre(): Response
+    {
+        return $this->render('/front/sinistre.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }

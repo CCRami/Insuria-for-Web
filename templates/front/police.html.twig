@@ -1,0 +1,241 @@
+{% extends 'front_base.html.twig' %}
+
+{% block header %}
+<link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+<script src="{{ asset('front_assets/js/jquery.min.js') }}"></script>
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                                               <li class="hasdropdown"><a href="#">Policies</a>
+    <ul class="submenu">
+        <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
+        <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
+    </ul>
+</li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="blog-details.html">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
+{% block main %}
+<style>
+.espacement-superieur {
+    padding-top: 100px; /* Ajustez selon vos besoins pour espacer du haut */
+}
+.contenu-centre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrage vertical */
+    min-height: 100vh; /* Hauteur de vue minimale pour prendre toute la hauteur de l'écran */
+}
+.couleur-carte {
+    background-color: #f0f0f0; /* Couleur de fond des cartes, ajustez à votre préférence */
+}
+.espacement-inferieur {
+    padding-bottom: 150px; /* Ajustez cette valeur pour augmenter l'espace sous le contenu principal */
+}
+ .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
+    .cov {
+    display: flex;
+    justify-content: center; /* Centrer les éléments horizontalement */
+    align-items: center; /* Centrer les éléments verticalement */
+    flex-direction: column; /* Empiler les boutons verticalement. Utilisez 'row' pour un alignement horizontal */
+    min-height: 10vh; /* S'assurer que le conteneur prend au moins toute la hauteur de la fenêtre */}
+    
+</style>
+<div class="container-centre espacement-inferieur">
+<div class="container espacement-superieur">
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="tp-service-section text-center mb-60">
+            <h4 class="tp-section-subtitle">Our Policies</h4>
+            <h3 class="tp-section-title text"><span>Our Policies</span></h3>
+        </div>
+    </div>
+</div>
+<div class="cov">
+<div class="sinistre-filters-center">
+
+<button class="filter-btn btn btn-primary " id="show-all-polices">Show All</button>
+    {% for sinistre in sinistres %}
+        <button class="filter-btn btn btn-primary " data-sinistre-id="{{ sinistre.id }}">{{ sinistre.sinName }}</button>
+    {% endfor %}
+</div>
+</div>
+    <div id="polices-container" class="row gx-20">
+        {% for police in polices %}
+        
+        <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="tpservice mb-20 tp-sv-color-1">
+<div class="tpservice__icon">
+                    <a href="#"><i class="fas fa-file-contract"></i></a>
+                </div>
+                <div class="tpservice__title">
+                    <h4 class="tp-sv-title">{{ police.policeName }}</h4>
+                    <div class="description"><p> {{ police.descriptionPolice }}</p></div><!-- Assurez-vous que c'est le champ correct pour la description -->
+<a href="javascript:void(0);" class="btn btn-primary toggle-details-btn" data-bs-toggle="collapse" data-bs-target="#details-{{ police.id }}">View Details</a>
+                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class=" btn btn-primary" style="margin-top: 10px;">Generate PDF</a>
+                    <div id="details-{{ police.id }}" class="collapse mt-3" style="color: white;">
+    <strong>Associated Claim:</strong> {{ police.sinistre.sinName }}<br>
+    <strong>Description:</strong> {{ police.sinistre.descriptionSin }}
+     
+</div>
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <p class="text-center">No policies found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des clics sur les boutons de filtre
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const sinistreId = this.getAttribute('data-sinistre-id');
+            fetch(`/filter-polices/${sinistreId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('polices-container');
+                    container.innerHTML = ''; // Vide le contenu actuel
+                    data.polices.forEach(police => {
+                        // Créez le même type de div que votre structure HTML initiale.
+                        const policeCard = document.createElement('div');
+                        policeCard.className = 'col-xl-4 col-lg-6 mb-4'; // Réutilisez les classes de votre structure HTML initiale.
+                        
+                        // Utilisez les mêmes classes pour le style de la police card.
+                        const policeCardInnerHtml = `
+                            <div class="tpservice mb-20 tp-sv-color-1">
+                                <div class="tpservice__icon">
+                                    <a href="#"><i class="fas fa-file-contract"></i></a>
+                                </div>
+                                <div class="tpservice__title">
+                                    <h4 class="tp-sv-title">${police.policeName}</h4>
+                                    <div class="description"><p>${police.descriptionPolice}</p></div>
+                                    <!-- Plus d'éléments peuvent être ajoutés ici si nécessaire -->
+                                </div>
+                            </div>
+                        `;
+
+                        policeCard.innerHTML = policeCardInnerHtml;
+                        container.appendChild(policeCard);
+                    });
+                })
+                .catch(error => console.error('Erreur :', error));
+        });
+    });
+
+    // Gestion du bouton 'Show All'
+    document.getElementById('show-all-polices').addEventListener('click', function() {
+        fetch(`/all-polices`)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('polices-container');
+                container.innerHTML = '';
+                data.polices.forEach(police => {
+                    const element = document.createElement('div');
+                    element.className = 'col-xl-4 col-lg-6 mb-4';
+                    element.innerHTML = `
+                        <div class="tpservice mb-20 tp-sv-color-1">
+                            <div class="tpservice__icon">
+                                <a href="#"><i class="fas fa-file-contract"></i></a>
+                            </div>
+                            <div class="tpservice__title">
+                                <h4 class="tp-sv-title">${police.policeName}</h4>
+                                <div class="description"><p>${police.descriptionPolice}</p></div>
+                                
+                                    <a href="/police/${police.id}/pdf" class="btn btn-info" style="margin-top: 10px;">Generate PDF</a>
+
+                                    
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(element);
+                });
+            })
+            .catch(error => console.error('Erreur :', error));
+    });
+
+    // Gestion des boutons pour basculer les détails
+    $('.toggle-details-btn').on('click', function() {
+        var detailsId = $(this).data('bs-target');
+        $(detailsId).collapse('toggle');
+
+        var buttonText = $(this).text() == 'View Details' ? 'Hide Details' : 'View Details';
+        $(this).text(buttonText);
+    });
+});
+</script>
+{% endblock %}
