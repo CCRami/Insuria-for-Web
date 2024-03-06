@@ -93,13 +93,13 @@ class ReclamationController extends AbstractController
         ]);
     }
     
-    #[Route('Reclamation/new', name: 'reclamationAdmin_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('Reclamation/new/{id}', name: 'reclamationAdmin_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager, $id,CommandeRepository $rep): Response
 {
     $rec = new Reclamation();
     $form = $this->createForm(ReclamationType::class, $rec);
     $form->handleRequest($request);
-
+    $com=$rep->find($id);
     if ($form->isSubmitted() && $form->isValid()) {
         $file = $form->get('file')->getData();
         if ($file) {
@@ -110,7 +110,9 @@ class ReclamationController extends AbstractController
                 $fileName
             );
            
-            $rec->setFileName($fileName);}
+            $rec->setFileName($fileName);
+            $rec->setCommand($com);
+        }
         
         $entityManager->persist($rec);
         $entityManager->flush();
@@ -129,15 +131,15 @@ class ReclamationController extends AbstractController
 
 
 
-#[Route('user/newReclamation', name: 'reclamationUser_new')]
-public function newReclamation(Request $request, EntityManagerInterface $entityManager): Response {
+#[Route('user/newReclamation/{id}', name: 'reclamationUser_new')]
+public function newReclamation(Request $request, EntityManagerInterface $entityManager, $id,CommandeRepository $rep): Response {
    
         $rec = new Reclamation();
 
 
 $form = $this->createForm(ReclamationType::class, $rec);
 $form->handleRequest($request);
-
+$com=$rep->find($id);
 if ($form->isSubmitted() && $form->isValid()) {
     $file = $form->get('file')->getData();
     if ($file) {
@@ -148,7 +150,9 @@ if ($form->isSubmitted() && $form->isValid()) {
             $fileName
         );
 
-        $rec->setFileName($fileName);}
+        $rec->setFileName($fileName);
+        $rec->setCommand($com);
+    }
     
     $entityManager->persist($rec);
     $entityManager->flush();
@@ -168,10 +172,19 @@ return $this->render('reclamation/ReclamationsUser.html.twig', [
 //afficher mes reclamation :
 
 #[Route('user/Reclamations', name: 'app_reclamation_user')]
-    public function index_reclamation_user(ReclamationRepository $rep,PaginatorInterface $paginator, Request $request): Response
-    {$list=$rep->findAll();
+    public function index_reclamation_user(ReclamationRepository $rep,PaginatorInterface $paginator, Request $request,CommandeRepository $repe): Response
+    {   $id=$this->getUser();
+        $commands=$repe->findBy(['user' => $id]);
+        $reclamations = [];
+        foreach ($commands as $command) {
+            $reclamationsForCommand = $rep->findBy(['command' => $command]);
+        
+            // Append the reclamations to the overall list
+            $reclamations = array_merge($reclamations, $reclamationsForCommand);
+        }
+        
         $pagination = $paginator->paginate(
-            $list,
+            $reclamations,
             $request->query->getInt('page', 1), 
             3 
         );

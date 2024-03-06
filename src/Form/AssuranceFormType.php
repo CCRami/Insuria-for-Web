@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Assurance;
 use App\Entity\CategorieAssurance;
+use App\Entity\Police;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,7 +29,12 @@ class AssuranceFormType extends AbstractType
             'placeholder' => 'Choose a category',
             'required' => true,
         ])
-
+        ->add('pol', EntityType::class, [
+            'class' => Police::class,
+            'choice_label' => 'policename',
+            'placeholder' => 'Choose a policy',
+            'required' => true,
+        ])
         ->add('doa', CollectionType::class, [
             'entry_type' => TextType::class,
             'allow_add' => true,

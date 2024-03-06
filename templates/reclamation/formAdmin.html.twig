@@ -7,7 +7,7 @@
 
 <div class="clearfix"></div>
   
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="margin-right:-100px;">
     <div class="container-fluid">
 
   <!--Start Dashboard Content-->
@@ -86,10 +86,10 @@
                 
             </div>
             <div class="form-group row">
-                <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Add</button>
           <div class="col-sm-1">
              
-    <a href="{% if reclamation.reponse == 'refusé' %}
+    <a  href="{% if reclamation.reponse == 'refusé' %}
                 {{ path('reclamation_refuse') }}
             {% elseif reclamation.reponse == 'accepté' %}
                 {{ path('reclamation_accepte') }}

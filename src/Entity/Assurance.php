@@ -37,8 +37,11 @@ class Assurance
     private ?CategorieAssurance $catA = null;
 
     #[ORM\Column(length: 255)]
-    
+
     private ?string $insImage = null;
+
+    #[ORM\ManyToOne(inversedBy: 'assurance')]
+    private ?Police $pol = null;
 
     public function getId(): ?int
     {
@@ -101,6 +104,18 @@ class Assurance
     public function setInsImage(string $insImage): static
     {
         $this->insImage = $insImage;
+
+        return $this;
+    }
+
+    public function getPol(): ?Police
+    {
+        return $this->pol;
+    }
+
+    public function setPol(?Police $pol): static
+    {
+        $this->pol = $pol;
 
         return $this;
     }

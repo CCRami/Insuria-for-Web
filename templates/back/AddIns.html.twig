@@ -32,7 +32,10 @@
                                     {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
                                     {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
                                 </div>
-                                
+                                <div class="form-group">
+                                    {{ form_label(form.pol, 'Assurance Policy', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.pol, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Policy', 'id': 'assurancePolicy'}}) }}
+                                </div>
                                 <div class="form-group">
                                     <label for="insimage" class="control-label">Insurance Image</label>
                                     <div class="custom-file">
@@ -59,7 +62,7 @@
                                 </div>
                                 
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                                    <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Submit</button>
                                 </div>
 
                                 {{ form_end(form) }}
