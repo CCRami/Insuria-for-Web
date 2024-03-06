@@ -81,7 +81,7 @@ public function addIns(Request $request, EntityManagerInterface $em): Response
             $assurance->setInsImage($newFilename);
         }
 
-        $doaData = $form->get('doa')->getData();
+       // $doaData = $form->get('doa')->getData();
 
 
        

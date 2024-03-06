@@ -87,6 +87,16 @@ class CommandeController extends AbstractController
         ]);
     }
     
+    #[Route('/displayComD/{idc}', name: 'display_comD')]
+    public function CommandDetailsF(EntityManagerInterface $em, int $idc): Response
+    {
+        $command = $em->getRepository(Commande::class)->find($idc);
+    
+        return $this->render('front/CommandDetails.html.twig', [
+            'command' => $command,
+            'idc' => $idc,
+        ]);
+    }
 
 
 
@@ -221,7 +231,24 @@ foreach ($data as $index => $value) {
     }
     
 
-    
+    #[Route('/userInsurances', name: 'user_insurances')]
+    public function userInsurances(CommandeRepository $commandeRepository): Response
+    {
+        // Get the user with ID 1 from the database
+        $userId = 1;
+        $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Fetch insurances associated with the user
+        $insurances = $commandeRepository->findBy(['user' => $user]);
+
+        return $this->render('front/userCommand.html.twig', [
+            'insurances' => $insurances,
+        ]);
+    } 
     
 
 

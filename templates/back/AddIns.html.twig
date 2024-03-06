@@ -39,16 +39,11 @@
                                         {{ form_widget(form.insimage, {'attr': {'class': 'custom-file-input form-control form-control-rounded', 'id': 'insimage'}}) }}
                                         <label class="custom-file-label" for="insimage">Choose file</label>
                                     </div>
+                                    {{ form_errors(form.insimage) }}
                                 </div>
 
                                 <div id="fieldsContainer">
-                                    {% for field in form.doa %}
-                                        <div class="form-group">
-                                            {{ form_label(field, {'label_attr': {'class': 'control-label'}}) }}
-                                            {{ form_widget(field, {'attr': {'class': 'form-control form-control-rounded doa-field'}}) }}
-                                            {{ form_errors(field) }}
-                                        </div>
-                                    {% endfor %}
+                                    {{ form_row(form.doa) }}
                                 </div>
 
                                 <input type="hidden" id="combinedValue" name="combinedValue">
@@ -78,57 +73,55 @@
         <!-- End container-fluid -->
     </div><!-- End content-wrapper -->
 
-  <script>
-    var fieldCounter = 0;
+    <script>
+        var fieldCounter = 0;
 
-    function addField() {
-        fieldCounter++;
-        var newFieldHtml = `
-            <div class="form-group">
-                <label for="doaField${fieldCounter}" class="control-label"> Field ${fieldCounter}</label>
-                <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
-            </div>
-        `;
-        document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var addFieldButton = document.getElementById('addFieldButton');
-        if (addFieldButton) {
-            addFieldButton.addEventListener('click', addField);
+        function addField() {
+            fieldCounter++;
+            var newFieldHtml = `
+                <div class="form-group">
+                    <label for="doaField${fieldCounter}" class="control-label"> Field ${fieldCounter}</label>
+                    <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
+                </div>
+            `;
+            document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
         }
-        
-        var form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', combineFields);
-        }
-    });
 
-    function combineFields(event) {
-        event.preventDefault(); // Prevent form submission
-        
-        var combinedValue = "";
-
-        for (var i = 1; i <= fieldCounter; i++) {
-            var fieldValue = document.getElementById('doaField' + i)?.value.trim();
-            if (fieldValue) {
-                combinedValue += fieldValue + "; ";
+        document.addEventListener('DOMContentLoaded', function() {
+            var addFieldButton = document.getElementById('addFieldButton');
+            if (addFieldButton) {
+                addFieldButton.addEventListener('click', addField);
             }
+            
+            var form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', combineFields);
+            }
+        });
+
+        function combineFields(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            var combinedValue = "";
+
+            for (var i = 1; i <= fieldCounter; i++) {
+                var fieldValue = document.getElementById('doaField' + i)?.value.trim();
+                if (fieldValue) {
+                    combinedValue += fieldValue + "; ";
+                }
+            }
+
+            if (combinedValue.length > 0) {
+                combinedValue = combinedValue.slice(0, -2); // Remove the last "; "
+            }
+
+            // Set the combined value to the hidden input field
+            document.getElementById('combinedValue').value = combinedValue;
+
+            console.log("Combined value:", combinedValue);
+            
+            // Optionally, submit the form programmatically if needed
+            // event.currentTarget.submit();
         }
-
-        if (combinedValue.length > 0) {
-            combinedValue = combinedValue.slice(0, -2); // Remove the last "; "
-        }
-
-        // Set the combined value to the hidden input field
-        document.getElementById('combinedValue').value = combinedValue;
-
-        console.log("Combined value:", combinedValue);
-        
-        // Optionally, submit the form programmatically if needed
-        // event.currentTarget.submit();
-    }
-</script>
-
-
+    </script>
 {% endblock %}
