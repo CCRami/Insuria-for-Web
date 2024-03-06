@@ -76,17 +76,18 @@
    </header>
 
     {% endblock %}
+   
     <hr>
     <hr>
     
+    
     <div class="postbox__area pt-120 pb-120">
-        <div class="container">
+        <div class="container" id"offer-container">
            <div class="row">
-           
     {% for offre in pagination %}
         <div class="col-xxl-4 col-xl-4 col-lg-4">
             <div class="postbox__wrapper pr-20">
-                <article class="postbox__item format-image mb-50 transition-3">
+                <article class="postbox__item format-image mb-50 transition-3" class="card">
                     <div class="postbox__thumb w-img">
                         <a href="{{ path('display_offref', {'id': offre.id}) }}">
                             <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
@@ -97,16 +98,16 @@
                             <!-- Add other meta information here -->
                         </div>
                         <h3 class="postbox__title">
-                            <a href="{{ path('display_offref', {'id': offre.id}) }}">{{ offre.advantage }}</a>
+                            <a href="{{ path('display_offref', {'id': offre.id}) }}"><p class="card-title">{{ offre.advantage }}</a>
                         </h3>
                         <div class="intro-text">
-                            <p>Conditions: <span class="offre-conditions">{{ offre.conditions }}</span></p>
+                            <p  class="card-title">Conditions: <span class="offre-conditions">{{ offre.conditions }}</span></p>
                         </div>
                         <div class="intro-text">
-                            <p>Duration: <span class="offre-duration">{{ offre.duration }}</span> Days</p>
+                            <p  class="card-title">Duration: <span class="offre-duration" >{{ offre.duration }}</span> Days</p>
                         </div>
                         <div class="intro-text">
-                            <p>Discount: <span class="offre-discount">{{ offre.discount }}</span> %</p>
+                            <p  class="card-title">Discount: <span class="offre-discount" >{{ offre.discount }}</span> %</p>
                         </div>
                     </div>
                 </article>

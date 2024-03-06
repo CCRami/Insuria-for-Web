@@ -1039,6 +1039,35 @@
     <script src="{{ asset('front_assets/js/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('front_assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('front_assets/js/main.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+
+    $('#searchInput').on('input', function(){
+
+    var query = $(this).val().toLowerCase();
+
+    $('#offer-container .card').each(function(){
+
+        var advantage = $(this).find('.card-title').text().toLowerCase();
+
+       // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
+
+
+        if(advantage.includes(query)){ // Modification pour inclure la recherche par adresse
+
+            $(this).show();
+
+        } else {
+
+            $(this).hide();
+
+        }
+
+    });
+
+});
+
+</script>
 {% endblock %}
 
 

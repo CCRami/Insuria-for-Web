@@ -29,17 +29,22 @@ class OffreController extends AbstractController
     }
 
     #[Route('/displayof', name: 'display_offre')]
-    public function displayOffre(OffreRepository $offreRepository): Response
+    public function displayOffre(OffreRepository $offreRepository, Request $request): Response
     {
-        $offres = $offreRepository->findAll();
+        $sortField = $request->query->get('sortField', 'id'); // Default sort field is 'id'
+        $sortOrder = $request->query->get('sortOrder', 'asc'); // Default sort order is 'asc'
+        $offres = $offreRepository->findBy([], [$sortField => $sortOrder]);
 
         return $this->render('back/afficheroffre.html.twig', [
             'offres' => $offres,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
+            
         ]);
     }
 
     #[Route('/addof', name: 'add_offre')]
-    public function addOffre(Request $request,EntityManagerInterface $em): Response
+    public function addOffre(Request $request,EntityManagerInterface $em,FlashyNotifier $flashy): Response
     {
         $offre = new Offre();
         $form = $this->createForm(OffreformType::class, $offre);
@@ -71,6 +76,7 @@ class OffreController extends AbstractController
            
             $em->persist($offre);
             $em->flush();
+            $flashy->success('Offer added', 'http://your-awesome-link.com');
             
             
             return $this->redirectToRoute('display_offre');
@@ -83,7 +89,7 @@ class OffreController extends AbstractController
     
 
     #[Route('/editof/{id}', name: 'edit_offre')]
-public function editOffre(Request $request, EntityManagerInterface $em, OffreRepository $rep, int $id): Response
+public function editOffre(Request $request, EntityManagerInterface $em, OffreRepository $rep,FlashyNotifier $flashy, int $id): Response
 {
     $offre = $rep->find($id);
     $form = $this->createForm(OffreformType::class, $offre);
@@ -114,6 +120,7 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         
        
         $em->flush();
+        $flashy->success('Offer edited', 'http://your-awesome-link.com');
         
         return $this->redirectToRoute('display_offre');
     }
@@ -144,24 +151,6 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
             'offres' => $offres,
         ]);
     }
-    /*#[Route('/displayoffbycat/{id}', name: 'display_offrefbycat')]
-    public function displayOffrefbycat(OffreRepository $offreRepository, $id): Response
-    {
-        $offres = $offreRepository->findBy(['categorie' => $id]);
-
-        return $this->render('front/offre.html.twig', [
-            'offres' => $offres,
-        ]);
-    }
-
-    public function create(FlashyNotifier $flashy)
-    {
-        
-    
-        $flashy->primaryDark('Offer added!', 'front/offre.html.twig');
-    
-        return $this->redirectToRoute('front/offre.html.twig');
-    }*/
 
     #[Route('/displayoffbycat/{id}', name: 'display_offrefbycat', methods: ['GET', 'POST'])]
     public function displayOffrefbycat(OffreRepository $offreRepository, PaginatorInterface $paginator, Request $request, $id): Response
@@ -171,7 +160,7 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         $pagination = $paginator->paginate(
             $offres,
             $request->query->getInt('page', 1), // Get the current page from the request
-            2 // Number of items per page
+            3 // Number of items per page
         );
     
         return $this->render('front/offre.html.twig', [
@@ -190,4 +179,9 @@ public function create(FlashyNotifier $flashy)
 
     return $this->redirectToRoute('home');
 }
+
+
+
+
+
 }
