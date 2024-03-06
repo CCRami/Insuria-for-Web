@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use Symfony\Component\Form\FormError;
-
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class CommandeController extends AbstractController
 {
     #[Route('/commande', name: 'app_commande')]
@@ -30,11 +30,7 @@ class CommandeController extends AbstractController
     #[Route('/basket', name: 'basket')]
     public function viewBasket(CommandeRepository $commandeRepository): Response
     {
-        // Get the user with ID 1 from the database
-        $userId = 1;
-        $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
-
-        // Retrieve commands associated with the user from the database
+        $user = $this->getUser();
         $commands = $commandeRepository->findBy(['user' => $user]);
 
         return $this->render('front/Basket.html.twig', [
@@ -94,8 +90,8 @@ class CommandeController extends AbstractController
 #[Route('/addcom/{id}', name: 'add_com')]
 public function addCom(Request $request, EntityManagerInterface $em, int $id): Response
 {
+    $user = $this->getUser();
     $assurance = $em->getRepository(Assurance::class)->find($id);
-    $user = $em->getRepository(User::class)->find('1');
     $doaValues = $assurance->getDoa();
     
    

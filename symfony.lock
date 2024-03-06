@@ -65,6 +65,15 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
+    "knplabs/knp-snappy-bundle": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
+        }
+    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.18",
         "recipe": {
@@ -76,15 +85,6 @@
         "files": [
             "./config/packages/knpu_oauth2_client.yaml"
         ]
-    },
-    "knplabs/knp-snappy-bundle": {
-        "version": "1.10",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.5",
-            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
-        }
     },
     "php-http/discovery": {
         "version": "1.19",
@@ -352,6 +352,9 @@
         "files": [
             "./config/packages/messenger.yaml"
         ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.11.0"
     },
     "twig/extra-bundle": {
         "version": "v3.8.0"

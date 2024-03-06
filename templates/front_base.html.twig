@@ -52,11 +52,11 @@
                                     
                                 </li>
                                                                <li class="hasdropdown"><a href="#">Policies</a>
-    <ul class="submenu">
-        <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
-        <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
-    </ul>
-</li>
+                                 <ul class="submenu">
+                                    <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
+                                    <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
+                                 </ul>
+                              </li>
                                 </li>
                                 <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
                                     <ul class="submenu">
@@ -104,7 +104,6 @@
    </header>
    
 {% endblock %}
-{% block main %}
 {% block main %}
    <main>
    
@@ -899,6 +898,7 @@
 {% endblock %}
 
    </main>
+   {% endblock %}
 {% block footer %}
    <footer>
       <!-- tp-footer-area-start -->
