@@ -10,11 +10,13 @@ use App\Form\OffreformType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\OffreRepository;
+use App\Repository\AssuranceRepository;
 use Knp\Component\Pager\PaginatorInterface;
 //use App\Controller\FlashyNotifier;
 use App\Controller\FlashyNotifier as ControllerFlashyNotifier;
 use MercurySeries\FlashyBundle\FlashyNotifier;
-
+use App\Repository\CommandeRepository;
+use App\Entity\User;
 
 
 
@@ -153,18 +155,26 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
     }
 
     #[Route('/displayoffbycat/{id}', name: 'display_offrefbycat', methods: ['GET', 'POST'])]
-    public function displayOffrefbycat(OffreRepository $offreRepository, PaginatorInterface $paginator, Request $request, $id): Response
+    public function displayOffrefbycat(AssuranceRepository $rep,CommandeRepository $repe,OffreRepository $offreRepository, PaginatorInterface $paginator, Request $request, $id): Response
     {
         $offres = $offreRepository->findBy(['categorie' => $id]);
-    
+        $id=$this->getUser();
+        $commands=$repe->findBy(['user' => $id]);
+        $assurances = [];
+        foreach ($commands as $command) {
+            $assurancesForCommand = $rep->findBy(['id' => $command->getDoaCom()]);
+            $assurances = array_merge($assurances, $assurancesForCommand);
+        }
         $pagination = $paginator->paginate(
             $offres,
             $request->query->getInt('page', 1), // Get the current page from the request
-            3 // Number of items per page
+            5 // Number of items per page
         );
     
         return $this->render('front/offre.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'commandes' => $commands,
+            'assurances' => $assurances,
         ]);
 }  
 

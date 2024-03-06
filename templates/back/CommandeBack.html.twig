@@ -72,10 +72,12 @@
         {% endfor %}
 
         var options = {
-            title: 'Assurances Bought',
-            is3D: true
-            // Customize options as needed
-        };
+    title: 'Insurances Bought',
+    is3D: true,
+    backgroundColor: 'transparent', // Make the chart background fully transparent
+    // Add any other customizations as needed
+    
+};
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);

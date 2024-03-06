@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\User;
+use App\Entity\Offre;
 use App\Entity\Assurance;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -248,6 +249,15 @@ foreach ($data as $index => $value) {
             'idc' => $idc,
         ]);
     }
-
+    #[Route('/addofftocom/{idc}/{ido}', name: 'addofftocom')]
+    public function CommandOff(EntityManagerInterface $em, int $ido,int $idc): Response
+    {
+        $command = $em->getRepository(Commande::class)->find($idc);
+        $offre = $em->getRepository(Offre::class)->find($ido);
+        $command->setOff($offre);
+        $em->persist($command);
+        $em->flush();
+        return $this->redirectToRoute('basket');
+    }
     
 }

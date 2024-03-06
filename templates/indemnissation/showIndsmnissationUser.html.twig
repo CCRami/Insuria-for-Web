@@ -1,7 +1,7 @@
 {% extends 'front_base.html.twig' %}
 
 {% block header %}
-    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+     <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
         <div class="container-fluid">
             <div class="row g-0 align-items-center">
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
@@ -28,7 +28,7 @@
                                         <li><a href="portfolio-details.html">Reviews</a></li>
                                     </ul>
                                 </li>
-                                <li ><a href="blog-details.html">Offers</a> 
+                                    <li><a href="{{path('displayCategorieOffref')}}">Offers</a> </li>
                                 </li>
                             </ul>
                         </nav>
@@ -81,6 +81,7 @@
 
    <!-- tp-header-area-end -->
    </header>
+
 {% endblock %}
 
 {% block main %}

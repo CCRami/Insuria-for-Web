@@ -38,6 +38,9 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?Offre $off = null;
+
     #[ORM\Column]
     #[Assert\Positive(message:"The Value Must Be Positive!")]
     private ?float $InsValue = null;
@@ -133,6 +136,16 @@ class Commande
         return $this;
     }
 
-   
-    
+    public function getOff(): ?Offre
+    {
+        return $this->off;
+    }
+
+    public function setOff(?Offre $off): static
+    {
+        $this->off = $off;
+
+        return $this;
+    }
+
 }
