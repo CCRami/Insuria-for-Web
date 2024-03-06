@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\PdfService;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;

@@ -76,11 +76,12 @@
 {% block main %} 
    <!-- tp-testimonial-area-start -->
     
-   <div class="tp-testimonial-area  pt-200 pb-200 p-relative">
-   <form  style="margin-left:8%" >
+   <div class="tp-testimonial-area  pt-150 pb-200 p-relative">
+    <div class="tp-footer-widget__input p-relative">
+   <form  style="margin-left:8%;width:30%"  >
         <input type="text" name="search" id="searchInput" placeholder="Rechercher des avis">
         
-    </form>
+    </form></div>
       <div class="tp-service-section text-center mb-10">
          <div class="tp-testimonial-area ">
           
@@ -98,6 +99,7 @@
                   {% for avis in listX %}
                      <div class="col-md-4" style='width: 430px; margin-right: 10px;margin-top:40px;'  >
                     <div  class="card">
+                    
                         {% if avis.note == 1 %}
                         
 

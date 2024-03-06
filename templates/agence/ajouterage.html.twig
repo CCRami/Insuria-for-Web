@@ -3,6 +3,10 @@
 {% extends 'back_base.html.twig' %}
 
 {% block content %}
+ {# Add this block to render Symfony Flash messages #}
+    {% for flashMessage in app.flashes('success') %}
+        <div class="hidden-flash-message" data-message="{{ flashMessage }}"></div>
+    {% endfor %}
     <div class="clearfix"></div>
       
     <div class="content-wrapper">
@@ -43,7 +47,7 @@
 
                             
                                
-                                <div class="form-group text-center">
+                                <div class="form-group text-center" >
                                      {{ form_end(form,{'attr': {'class': 'form-control form-control-rounded','type':'button' },'style' :{'color': 'red'}}) }}
                                      
                                 </div>
@@ -114,5 +118,23 @@
     }
 </script>
 
+{% block JSA %}
+    {{ parent() }}
 
+    <script src="https://cdn.jsdelivr.net/npm/noty@3.1.4/dist/noty.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Display Symfony Flash messages as Snackbars using Noty
+            const flashMessages = document.querySelectorAll('.hidden-flash-message');
+            flashMessages.forEach(function (flashMessage) {
+                const message = flashMessage.dataset.message;
+                new Noty({
+                    text: message,
+                    type: 'success',
+                    timeout: 3000, // Adjust timeout as needed
+                }).show();
+            });
+        });
+    </script>
+{% endblock %}
 {% endblock %}

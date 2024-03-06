@@ -51,7 +51,7 @@ function findavisbyclient($Avis){
     
     return 
     $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.Avis z WHERE  
-    z.id=:id')
+    z.id=:id AND  b.etat=true')
     ->setParameter('id',$Avis)
     ->getResult();
 }
@@ -62,18 +62,36 @@ function findavisbyagence($id){
     
     return 
     $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.agenceav z WHERE  
-    z.id=:id')
+    z.id=:id AND b.etat=true')
     ->setParameter('id',$id)
     ->getResult();
 }
+public function findAverageRatingByAgence($id)
+{
+    $em = $this->getEntityManager();
 
+    $result = $em->createQuery('
+        SELECT AVG(b.note) as averageRating
+        FROM App\Entity\Avis b
+        JOIN b.agenceav z
+        WHERE z.id = :id AND b.etat=true
+    ')
+    ->setParameter('id', $id)
+    ->getSingleScalarResult();
+
+    // If there are no reviews, return 0
+    $averageRating = $result ? $result : 0;
+    $averageRatingAsInteger = round($averageRating, 2);
+    return $averageRatingAsInteger;
+
+}
 function findavisbyid($id){
     
     $em=$this->getEntityManager();
     
     return 
     $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.Avis z WHERE  
-    z.id=:id')
+    z.id=:id AND b.etat=true')
     ->setParameter('id',$id)
     ->getResult();
 }

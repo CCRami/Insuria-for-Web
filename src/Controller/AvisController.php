@@ -116,16 +116,17 @@ class AvisController extends AbstractController
        function Rechercheavisbyag(AvisRepository $repo, $id){
            
            $x=$repo->findavisbyagence($id);
-           
-           return $this->render('avis/avisbackbyag.html.twig',['listX' => $x, ]);
+           $averageRating = $repo->findAverageRatingByAgence($id);
+           return $this->render('avis/avisbackbyag.html.twig',['listX' => $x,'averageRating' => $averageRating, ]);
           }
 
           #[Route('/avisbyagencec/{id}', name:'SearchfrontByagence')]
           function Rechercheavisbyagfront(AvisRepository $repo, $id){
-            
+           
+            $averageRating = $repo->findAverageRatingByAgence($id);
               $x=$repo->findavisbyagence($id);
-              
-              return $this->render('avis/avisbyagence.html.twig',['listX' => $x, ]);
+              $averageRating = $repo->findAverageRatingByAgence($id);
+              return $this->render('avis/avisbyagence.html.twig',['listX' => $x, 'averageRating' => $averageRating, ]);
              }
 
           #[Route('/mesavis/{id}', name:'Searchmesavis')]

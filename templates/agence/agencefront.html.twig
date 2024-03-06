@@ -1,4 +1,7 @@
 {% extends 'front_base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+{% endblock %}
 {% block header %}
     <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
         <div class="container-fluid">
@@ -142,11 +145,11 @@ button:hover {
     
 </form>
 
-      <div class="tp-service-section text-center mb-10" style="margin-bottom:30px">
-    <form  style="margin-left:-30%" >
+      <div class="tp-footer-widget__input"  style="margin-bottom:30px">
+    <form  style="margin-left:8%;width:30%"  >
         <input type="text" name="search" id="searchInput" placeholder="Rechercher des agences">
-        <h3 class="tp-section-title text-black" 
-        style="margin-left:15%">Our agencies</h3>  
+        <h4 
+        style="margin-left:15%">agencies</h4>  
     </form>
     
     {#<div class="dropdown" style="margin-top: 20px;">
@@ -163,12 +166,13 @@ button:hover {
 
         
       <div class="container" id="agence-conatiner">
+      
        
          <div class="row" >
             {% for agence in listX  %}
                <div class="col-md-4" style="margin-bottom: 40px;" >
-                  <div style="width: 400px;" class="card">
-                     <div class="tptestimonial">
+                  <div style="width: 440px;" class="card">
+                     <div class="tptestimonial" >
                         <div class="tptestimonial__rating">
                            <h5 style="color: white;" class="card-title">Name: {{ agence.nomage }}</h5>
                            <h5 style="color: white;" class="card-title">Address: {{ agence.addresse }}</h5>
@@ -194,8 +198,40 @@ button:hover {
             {% endfor %}
          </div>
       </div>
-   </div>{% block JSA %}
-   <script>
+   </div>
+   {% block JSA %}<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<script>
+const agencies = {{ listX|json_encode|raw }};
+
+   // Iterate through each agency and create a dataset for Chart.js
+   const datasets = agencies.map((agence, index) => {
+      return {
+         label: `Agency ${index + 1}`,
+         data: agence.avis.note,
+         borderWidth: 1,
+      };
+   });
+
+   const ctx = document.getElementById('myChart').getContext('2d');
+
+   new Chart(ctx, {
+      type: 'bar',
+      data: {
+         labels: ['1', ' 2', ' 3', ' 4', ' 5'],
+         datasets: datasets,
+      },
+      options: {
+         scales: {
+            y: {
+               beginAtZero: true,
+            },
+         },
+      },
+   });
+   
+   
     $('#searchInput').on('input', function(){
     var query = $(this).val().toLowerCase();
     $('#agence-conatiner .card').each(function(){

@@ -93,37 +93,45 @@
    </script>
    <!-- tp-testimonial-area-start -->
    <div class="tp-testimonial-area  pt-200 pb-200 p-relative">
-   <form  style="margin-left:8%" >
+     <div class="tp-footer-widget__input p-relative" style="margin-bottom:30px">
+   <form  style="margin-left:-70%" >
         <input type="text" name="search" id="searchInput" placeholder="Rechercher des avis">
        
-    </form>
+    </form></div>
+     
+
+
+
+
       <div class="tp-service-section text-center mb-10">
          <div class="tp-testimonial-area  ">
             <div class="container" id="avis-conatiner">
                <div class="row" >
                   <div class="col-xl-12"  >
-                     <div class="tp-testimonial-section-box text-center mb-30">
-                        <h4 class="tp-section-subtitle">reviews</h4>
+                     <div class="tp-testimonial-section-box text-center">
+                        <h4 class="tp-section-subtitle">reviews </h4>
                      </div>
                   </div>
                </div>
-               <div class="row">
+               <div class="row">    <div><h4 >{{ averageRating}} <span><i class="fas fa-star"></i></span></h4>   </div>{#<canvas id="myChart"></canvas>#}
                   {% for avis in listX %}
                      <div class="col-md-6" style='width: 400px; margin-right: 10px;margin-top:40px;'  class="card">
-                         <div class="card">
+                         <div class="card">                           
+
+                    
                         {% if avis.note == 1 %}
-                        
+                       
                            <div class="tptestimonial" class="card">
                               <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <div style="width: 100%;height:50%;word-wrap: break-word;" > <p class="card-title">{{ avis.commentaire }}</p> </div>
                                   <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                   <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
-                                  
+                                                             
+
                               </div>
                            </div>
                         {% elseif avis.note == 2 %}                        
-
                            <div class="tptestimonial" >
                               <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
@@ -131,10 +139,10 @@
                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title" class="col-md-6">{{ avis.commentaire }}</p> </div>
                                 <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                  <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
-                              </div>
+                                                    
+ </div>
                            </div>
                         {% elseif avis.note == 3 %}                       
-
                            <div class="tptestimonial">
                               <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
@@ -142,9 +150,10 @@
                                  <span><i class="fas fa-star"></i></span>
                                  <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5> <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
-                              </div>
+                                                          
+</div>
                            </div>
-                        {% elseif avis.note == 4 %}                     
+                        {% elseif avis.note == 4 %}                    
                            <div class="tptestimonial">
                               <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title" >{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
@@ -154,10 +163,10 @@
                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
                                 <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                  <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
-                              </div>
+                                                        
+ </div>
                            </div>
                         {% elseif avis.note == 5 %}                       
-
                            <div class="tptestimonial">
                               <div class="tptestimonial__rating" ><h3 style="color: white;" class="card-title" >{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
@@ -168,7 +177,8 @@
                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
                                 <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                  <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
-                              </div>
+                                                        
+</div>
                            </div>
                         {% endif %}   </div>
                      </div>
@@ -178,20 +188,89 @@
          </div>
       </div>
    </div>{% block JSA %}    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
 
-   <script>
+    <script>
     $('#searchInput').on('input', function(){
     var query = $(this).val().toLowerCase();
     $('#avis-conatiner .card').each(function(){
-        var nomage = $(this).find('.card-title').text().toLowerCase();
+        var note = $(this).find('.card-title').text().toLowerCase();
        // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
 
-        if(nomage.includes(query)){ // Modification pour inclure la recherche par adresse
+        if(note.includes(query)){ // Modification pour inclure la recherche par adresse
             $(this).show();
         } else {
             $(this).hide();
         }
     });
 });
+</script>
+   {#
+   const agencies = {{ listX|json_encode|raw }};
+
+   // Assuming there's only one canvas for the overall chart
+   const overallChartCtx = document.getElementById('myChart').getContext('2d');
+
+   agencies.forEach((agence, index) => {
+      // Calculate the average rating for each agency
+      const averageRating = agence.reviews.reduce((sum, review) => sum + review.note, 0) / agence.reviews.length;
+
+      // Update the chart datasets with individual reviews and average rating
+      const datasets = [
+         {
+            label: `Agency ${index + 1} - Individual Reviews`,
+            data: agence.reviews.map(review => review.note),
+            borderWidth: 1,
+         },
+         {
+            label: `Agency ${index + 1} - Average Rating`,
+            data: [averageRating],
+            borderWidth: 1,
+         },
+      ];
+
+      // Create a separate chart for each agency
+      new Chart(overallChartCtx.cloneNode(true), {
+         type: 'bar',
+         data: {
+            labels: ['Review 1', 'Review 2', 'Review 3', 'Review 4', 'Review 5', 'Average Rating'],
+            datasets: datasets,
+         },
+         options: {
+            scales: {
+               y: {
+                  beginAtZero: true,
+                  max: 5, // Assuming ratings are out of 5
+               },
+            },
+         },
+      });
+   });
+#}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['1', '2', '3', '4', '5'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
 </script>{% endblock %}
 {% endblock %}
