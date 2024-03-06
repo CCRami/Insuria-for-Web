@@ -73,6 +73,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $hostedDomain;
 
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'Avis')]
+    private Collection $client;
+
+    public function __construct()
+    {
+        $this->client = new ArrayCollection();
+    }
+
     public function getGoogleId(): ?string
     {
         return $this->googleId;
@@ -128,7 +136,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getfirst_name(): ?string
     {
         return $this->first_name;
     }
@@ -140,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getlast_name(): ?string
     {
         return $this->last_name;
     }
@@ -263,6 +271,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commande->getUser() === $this) {
                 $commande->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getClient(): Collection
+    {
+        return $this->client;
+    }
+
+    public function addClient(Avis $client): static
+    {
+        if (!$this->client->contains($client)) {
+            $this->client->add($client);
+            $client->setAvis($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Avis $client): static
+    {
+        if ($this->client->removeElement($client)) {
+            // set the owning side to null (unless already changed)
+            if ($client->getAvis() === $this) {
+                $client->setAvis(null);
             }
         }
 

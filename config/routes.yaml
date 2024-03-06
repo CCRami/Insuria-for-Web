@@ -1,5 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-
-    
+app_search:
+    path: /Agence/search
+    controller: App\Controller\AgenceController::search

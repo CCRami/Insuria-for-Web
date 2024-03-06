@@ -1,0 +1,194 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="../front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="service-details.html">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="service-details.html">Service</a></li>
+                                        <li><a href="service-details.html">Service Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="{{path('app_afficheragencesc')}}">Agencies Details</a></li>
+                                        <li><a href="{{path('app_afficheravisc')}}">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="blog-details.html">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
+{% block main %} 
+   <!-- tp-testimonial-area-start -->
+    
+   <div class="tp-testimonial-area  pt-150 pb-200 p-relative">
+    <div class="tp-footer-widget__input p-relative">
+   <form  style="margin-left:8%;width:30%"  >
+        <input type="text" name="search" id="searchInput" placeholder="Rechercher des avis">
+        
+    </form></div>
+      <div class="tp-service-section text-center mb-10">
+         <div class="tp-testimonial-area ">
+          
+           
+         
+            <div class="container" id="avis-conatiner">
+               <div class="row">
+                  <div class="col-xl-12">
+                     <div class="tp-testimonial-section-box text-center mb-20">
+                        <h5 class="tp-section-subtitle" > reviews</h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  {% for avis in listX %}
+                     <div class="col-md-4" style='width: 430px; margin-right: 10px;margin-top:40px;'  >
+                    <div  class="card">
+                    
+                        {% if avis.note == 1 %}
+                        
+
+                        
+
+
+<div  class="card">
+                           <div class="tptestimonial" class="card">
+                              <div class="tptestimonial__rating" ><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                  <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
+                                  
+                              </div> </div>
+                           </div>
+                        {% elseif avis.note == 2 %}                        
+
+       <div class="tptestimonial" class="card">
+    <div class="tptestimonial__rating" >
+        <h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
+        <span><i class="fas fa-star"></i></span>
+        <span><i class="fas fa-star"></i></span>
+        <div style="width: 100%;height:50%;word-wrap: break-word;">
+            <p  class="card-title">{{ avis.commentaire }}</p>
+        </div>
+        <h5 style="color: white; " class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+        <p style="color: white;" class="card-title">{{ avis.date_avis|date('d/m/Y') }}</p>
+    </div>
+</div>
+                        {% elseif avis.note == 3 %}                       
+<div  class="card">
+                           <div class="tptestimonial" >
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;" > <p class="card-title">{{ avis.commentaire }}</p> </div> 
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                   <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
+                              </div></div>
+                           </div>
+                        {% elseif avis.note == 4 %}                     
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;" class="card-title"> <p>{{ avis.commentaire }}</p> </div>  
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5><p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% elseif avis.note == 5 %}                       
+
+                           <div class="tptestimonial">
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                 <span><i class="fas fa-star"></i></span>
+                                <div style="width: 100%;height:50%;word-wrap: break-word;" > <p class="card-title"> {{ avis.commentaire }}</p> </div>
+                                <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
+                              </div>
+                           </div>
+                        {% endif %}
+                     </div>   </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>{% block JSA %}   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+   <script>
+    $('#searchInput').on('input', function(){
+    var query = $(this).val().toLowerCase();
+    $('#avis-conatiner .card').each(function(){
+        var note = $(this).find('.card-title').text().toLowerCase();
+       // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
+
+        if(note.includes(query)){ // Modification pour inclure la recherche par adresse
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+</script>{% endblock %}
+{% endblock %}

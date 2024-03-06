@@ -1,0 +1,72 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+	
+	  
+	<div class="row">
+     <div class="col-16 col-lg-12 col-xl-12">
+	   
+
+     
+	<div class="row">
+	 <div class="col-12 col-lg-12">
+	   <div class="card">
+	     <div class="card-header">Notes <a href="{{path('agence_add')}}" style="margin-left: 80%;">average ratings : {{ averageRating}}</a>   
+		  
+	       <div class="table-responsive">
+                 <table class="table align-items-center table-flush table-borderless">
+                  <thead>
+                   <tr>
+                     <th>Name of agence</th>
+                     <th>Note</th>
+                     <th>Comment</th>
+                    <th>Client</th>
+                     <th>Note Date</th>
+                      <th>Action</th>
+                    
+                   </tr>
+                   </thead>
+                   {% for avis in listX %}
+                   <tbody><tr>
+                      <td>{{avis.agenceav.nomage}}</td>
+                    <td>{{avis.note}}</td>
+                    <td>{{avis.commentaire}}</td>
+                  
+                    <td>{{avis.avis.first_name}} {{avis.avis.last_name}}</td>
+<td>{{ avis.date_avis|date('d/m/Y') }}</td>
+
+                   
+                    <td><button  class="btn btn-light btn-round px-5;"><a href="{{path('deleteavis',{'id':avis.id})}}">Delete</a></button>
+                   </td>
+					<td><div class="" style="height: 3px;">
+                          <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div></td>
+                   </tr>
+                {% endfor %}
+                  
+
+                 </tbody></table>
+               </div>
+	   </div>
+	 </div>
+	</div><!--End Row-->
+
+      <!--End Dashboard Content-->
+	  
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+
+ {% endblock %}

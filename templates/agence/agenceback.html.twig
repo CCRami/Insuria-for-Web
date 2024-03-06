@@ -1,0 +1,232 @@
+{% extends 'back_base.html.twig' %}
+{% block topbar %}
+<!--Start topbar header-->
+<header class="topbar-nav">
+ <nav class="navbar navbar-expand fixed-top">
+  <ul class="navbar-nav mr-auto align-items-center">
+    <li class="nav-item">
+      <a class="nav-link toggle-menu" href="javascript:void();">
+       <i class="icon-menu menu-icon"></i>
+     </a>
+    </li>
+    <li class="nav-item">
+      <form class="search-bar">
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ..." class="form-control"
+                id="search-input">
+     
+      </form>
+    </li>
+  </ul>
+   
+  <ul class="navbar-nav align-items-center right-nav-link">
+    <li class="nav-item dropdown-lg">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+      <i class="fa fa-envelope-open-o"></i></a>
+    </li>
+    <li class="nav-item dropdown-lg">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+      <i class="fa fa-bell-o"></i></a>
+    </li>
+    <li class="nav-item language">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
+          <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
+        </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+        <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle" alt="user avatar"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+       <li class="dropdown-item user-details">
+        <a href="javaScript:void();">
+           <div class="media">
+             <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110" alt="user avatar"></div>
+            <div class="media-body">
+            <h6 class="mt-2 user-title">Sarajhon Mccoy</h6>
+            <p class="user-subtitle">mccoy@example.com</p>
+            </div>
+           </div>
+          </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+        <li class="dropdown-divider"></li>
+        <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</header>
+<!--End topbar header-->
+ {% endblock %}
+{% block content %}
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+       $(document).ready(function () {
+           $("#myInput").on("keyup", function () {
+               var value = $(this).val().toLowerCase();
+               $("#myTable tr").filter(function () {
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+           })
+       });
+      
+   
+    function reloadPage() {
+        // Recharge la page actuelle
+        location.reload();
+    }
+
+   </script>
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+	<div class="row">
+     <div class="col-16 col-lg-12 col-xl-12">
+	   
+
+     
+	<div class="row">
+	 <div class="col-12 col-lg-12">
+	   <div class="card">
+    
+	     <div class="card-header">Our Agences
+	<button  class="btn btn-light btn-round px-5;"  style="margin-left: 85%;"
+><a href="{{path('agence_add')}}">Ajouter agence</a></button>
+	       <div class="table-responsive">
+                 <table class="table align-items-center table-flush table-borderless" id="myTable">
+                  <thead>
+                   <tr>
+                     <th onclick="sortTable(3)">Name of agence</th>
+                     <th onclick="sortTable(3)" >Email</th>
+                     <th>Number</th>
+                    <th onclick="sortTable(3)">Address</th>
+                     <th onclick="sortTable(2)">CreationDate</th>
+                      <th>Action</th>
+                    
+                   </tr>
+                   </thead>
+                   {% for agence in pagination %}
+                   <tbody><tr>
+                    
+                    <td>{{agence.nomage}}</td>
+                    <td>{{agence.email}}</td>
+                    <td>{{agence.tel}}</td>
+                    <td>{{agence.addresse}}</td>
+<td>{{ agence.create_at|date('d/m/Y') }}</td>
+
+                   
+                    <td><button  class="btn btn-light btn-round px-5;"
+><a href="{{path('agence_delete',{'id':agence.id})}}">Delete</a></button>
+
+
+
+                    <button class="btn btn-light btn-round px-5;"><a href="{{path('agence_edit',{'id':agence.id})}}">Edit</a></button>
+                    <button class="btn btn-light btn-round px-5;"><a href="{{path('SearchByagence',{'id':agence.id})}}">Show Notes</button>
+                   </td>
+					<td><div class="" style="height: 3px;">
+                          <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div></td>
+                   </tr>
+                {% endfor %}
+                  
+
+                 </tbody></table>
+               </div>
+	   </div>
+	 </div>
+	</div><!--End Row-->
+
+      <!--End Dashboard Content-->
+	  
+	<!--start overlay-->
+		  <div class="overlay toggle-menu"></div>
+		<!--end overlay-->
+		
+    </div>
+    <!-- End container-fluid-->
+    
+    </div><!--End content-wrapper-->
+<div class="pagination-container">
+    <ul class="pagination">
+        {% if pagination.currentPageNumber > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path('app_afficheragences', {'page': pagination.currentPageNumber - 1}) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for page in range(1, pagination.pageCount) %}
+            <li class="page-item {% if page == pagination.currentPageNumber %}active{% endif %}">
+                <a class="page-link" href="{{ path('app_afficheragences', {'page': page}) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if pagination.currentPageNumber < pagination.pageCount %}
+            <li class="page-item">
+                <a class="page-link" href="{{ path('app_afficheragences', {'page': pagination.currentPageNumber + 1}) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+ {% endblock %}
+{% block JSA %}  <script>
+
+   function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+    dir = "asc";
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            // Check the data type of the cells
+            var xValue = isNaN(parseFloat(x.innerHTML)) ? x.innerHTML.toLowerCase() : parseFloat(x.innerHTML);
+            var yValue = isNaN(parseFloat(y.innerHTML)) ? y.innerHTML.toLowerCase() : parseFloat(y.innerHTML);
+            if (dir == "asc") {
+                if (xValue > yValue) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                if (xValue < yValue) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+} 
+   </script>{% endblock %}
