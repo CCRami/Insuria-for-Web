@@ -16,13 +16,6 @@ class avisType extends AbstractType
         $builder
         ->add('note')
         ->add('commentaire')
-        ->add('avis', EntityType::class, [
-            'class' => 'App\Entity\User', 
-            'choice_label' => 'email', 
-            'placeholder' => 'Select a client', 
-            'required' => true, 
-
-        ])
             ->add('save',SubmitType::class);
         ;
     }

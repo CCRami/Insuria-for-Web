@@ -96,6 +96,8 @@ class AvisController extends AbstractController
             $content = $avis->getCommentaire();
             $cleanedContenu = \ConsoleTVs\Profanity\Builder::blocker($content)->filter();
             $avis->setCommentaire($cleanedContenu);
+            $user=$this->getUser();
+            $avis->setAvis($user);
             $em->persist($avis);
             $em->flush();
             return $this->redirectToRoute('app_afficheravisc');
@@ -129,10 +131,10 @@ class AvisController extends AbstractController
               return $this->render('avis/avisbyagence.html.twig',['listX' => $x, 'averageRating' => $averageRating, ]);
              }
 
-          #[Route('/mesavis/{id}', name:'Searchmesavis')]
-          function Recherchmesavis(AvisRepository $repo, $id){
-             
-              $x=$repo->findavisbyid($id);
+          #[Route('/mesavis', name:'Searchmesavis')]
+          function Recherchmesavis(AvisRepository $repo){
+             $user=$this->getUser();
+              $x=$repo->findavisbyid($user->getId());
               
               return $this->render('avis/mesavis.html.twig',['listX' => $x, ]);
              }

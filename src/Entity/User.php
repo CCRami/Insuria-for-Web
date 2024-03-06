@@ -75,9 +75,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'Avis')]
     private Collection $client;
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user')]
+    private Collection $commandes;
 
     public function __construct()
     {
+        $this->commandes = new ArrayCollection();
         $this->client = new ArrayCollection();
     }
 
@@ -123,20 +126,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user')]
-    private Collection $commandes;
-
-    public function __construct()
-    {
-        $this->commandes = new ArrayCollection();
-    }
+    
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getfirst_name(): ?string
+    public function getFirstName(): ?string
     {
         return $this->first_name;
     }
@@ -148,7 +145,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getlast_name(): ?string
+    public function getLastName(): ?string
     {
         return $this->last_name;
     }

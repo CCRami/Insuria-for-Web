@@ -1,6 +1,6 @@
 {% extends 'front_base.html.twig' %}
 {% block header %}
- <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+<div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
         <div class="container-fluid">
             <div class="row g-0 align-items-center">
                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
@@ -21,10 +21,13 @@
                                         <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
                                     <ul class="submenu">
-                                        <li><a href="portfolio.html">Agencies Details</a></li>
-                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                                        <li><a href="{{path('app_afficheravis')}}">Reviews</a></li>
+                                    {% else %}
+                                        <li><a href="{{path('app_afficheravisc')}}">review</a></li>
+                                    {% endif %}
                                     </ul>
                                 </li>
                                     <li><a href="{{path('displayCategorieOffref')}}">Offers</a> </li>
@@ -51,7 +54,7 @@
                         <div class="tp-main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="hasdropdown"><a href="portfolio-details.html">{{ app.user.username }}</a>
+                                    <li class="hasdropdown"><a href="{{path('app_home_manage', {'id': app.user.id})}}">{{ app.user.username }}</a>
                                     <ul class="submenu">
                                             <li><a href="{{path('app_home_manage', {'id': app.user.id})}}">Manage account</a></li>
                                             <li><a href="{{ path('app_logout') }}">Logout</a></li>
@@ -80,7 +83,6 @@
 
    <!-- tp-header-area-end -->
    </header>
-
 {% endblock %}
 {% block main %}
 <main>
