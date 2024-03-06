@@ -97,6 +97,12 @@
         white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
         word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
     }
+    .cov {
+    display: flex;
+    justify-content: center; /* Centrer les éléments horizontalement */
+    align-items: center; /* Centrer les éléments verticalement */
+    flex-direction: column; /* Empiler les boutons verticalement. Utilisez 'row' pour un alignement horizontal */
+    min-height: 10vh; /* S'assurer que le conteneur prend au moins toute la hauteur de la fenêtre */}
     
 </style>
 <div class="container-centre espacement-inferieur">
@@ -109,11 +115,14 @@
         </div>
     </div>
 </div>
-<div class="sinistre-filters">
-<button class="filter-btn" id="show-all-polices">Show All</button>
+<div class="cov">
+<div class="sinistre-filters-center">
+
+<button class="filter-btn btn btn-primary " id="show-all-polices">Show All</button>
     {% for sinistre in sinistres %}
-        <button class="filter-btn" data-sinistre-id="{{ sinistre.id }}">{{ sinistre.sinName }}</button>
+        <button class="filter-btn btn btn-primary " data-sinistre-id="{{ sinistre.id }}">{{ sinistre.sinName }}</button>
     {% endfor %}
+</div>
 </div>
     <div id="polices-container" class="row gx-20">
         {% for police in polices %}
@@ -127,7 +136,7 @@
                     <h4 class="tp-sv-title">{{ police.policeName }}</h4>
                     <div class="description"><p> {{ police.descriptionPolice }}</p></div><!-- Assurez-vous que c'est le champ correct pour la description -->
 <a href="javascript:void(0);" class="btn btn-primary toggle-details-btn" data-bs-toggle="collapse" data-bs-target="#details-{{ police.id }}">View Details</a>
-                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class="btn btn-info" style="margin-top: 10px;">Generate PDF</a>
+                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class=" btn btn-primary" style="margin-top: 10px;">Generate PDF</a>
                     <div id="details-{{ police.id }}" class="collapse mt-3" style="color: white;">
     <strong>Associated Claim:</strong> {{ police.sinistre.sinName }}<br>
     <strong>Description:</strong> {{ police.sinistre.descriptionSin }}
