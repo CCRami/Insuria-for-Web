@@ -1,0 +1,62 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<div class="clearfix"></div>
+<br><br>
+<div class="content-wrapper">
+    <div class="container-fluid">
+   
+    
+            <div class="card-content">
+           
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Refused</div>
+                            <hr>
+                            {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+                       
+
+                            
+
+                           
+
+                            <div class="form-group row">
+                                <label for="montant" class="col-sm-2 col-form-label">Amount(in dinars)</label>
+                                <div class="col-sm-7">
+                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'readonly': true}}) }}
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-6">  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                                            
+                                            <a href="{{ path('reclamationAdmin_edit',{'id': reclamation.id})}}" class="btn btn-light btn-round px-5">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="overlay toggle-menu"></div>
+   
+    </div>
+   
+</div>
+
+<style>
+    .btn:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<style>
+
+.small-image {
+    max-width: 100px;
+    max-height: 100px;
+    transition: all 0.3s ease; /* Animation de transition pour un agrandissement en douceur */
+}
+
+.expanded-image {
+    max-width: none; /* Supprimez la limitation de la largeur */
+    max-height: none; /* Supprimez la limitation de la hauteur */
+    cursor: zoom-out; /* Changez le curseur pour indiquer qu'il est possible de cliquer à nouveau pour réduire l'image */
+}
+    .custom-margin-top {
+        margin-top: 7rem; 
+    }
+    .center {
+        text-align: center;
+    }
+    .label-value {
+        margin-left:20px;
+        text-decoration: underline;
+        display: inline-block; 
+        width:200px; 
+    }
+    .btn-row {
+        margin-top: 10px;
+    }
+    .btn:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card-content">
+            <div class="row justify-content-center mt-5 mb-5">
+                <div class="col-12 col-lg-22">
+                    <div class="card"><br>
+                        <h3 class="center">Claim Details</h3>
+                        <br> <div class="table-responsive">
+                    
+
+<table class="table">
+        <tbody>
+          
+         <tr>
+        <th style="color: white;">map</th>
+          <td style="width:250px; height: 250px;">
+    <iframe src='https://www.google.com/maps?q={{ reclamation.latitude }},{{ reclamation.longitude }}&h1=es;z=14&output=embed' style="width: 100%; height: 100%; border: 0;"></iframe>
+</td>
+ </tr>
+         <tr>
+        <th style="color: white;">image</th>
+          <td>
+       {% if reclamation.getFileName() is not null %}  <img src="{{ asset('uploads/' ~ reclamation.fileName) }}" alt="{{ reclamation.fileName }}"
+class="small-image" onclick="expandImage(this)">
+    {% else %} ------{% endif %}</p>
+
+    </td>
+        </tr>
+    </td>
+        </tr>
+            <tr>
+                <th style="color: white;">Id</th>
+                <td style="color: white;">{{ reclamation.id }}</td>
+            </tr>
+            <tr>
+                 <th style="color: white;">Label</th>
+                <td style="color: white;">{{ reclamation.libelle }}</td>
+            </tr>
+            <tr>
+    <th style="color: white;">Date Claim</th>
+    <td style="color: white;">{{ reclamation.dateDecl ? reclamation.dateDecl|date('Y-m-d H:i:s') : ''}}</td>
+</tr>
+<tr>
+    <th style="color: white;">Date Sinistre</th>
+    <td style="color: white;">{{reclamation.dateSin ? reclamation.dateSin|date('Y-m-d H:i:s') : ''  }}</td>
+</tr>
+
+              <tr>
+    <th style="color: white;">Content</th>
+    <td style="color: white;">
+        <p>{{ reclamation.contenuRec }}</p>
+    </td>
+</tr>
+            <tr>
+                 <th style="color: whie;">Reponse</th>
+                <td style="color: white;">{{ reclamation.reponse }}</td>
+            </tr>
+              <tr>
+                 <th style="color: whie;">Compensation Id</th>
+                <td style="color: white;">
+            
+                       {% if reclamation.getIndemnissation() is not null %}
+                                {{ reclamation.getIndemnissation().getId() }}
+                            {% else %}
+                                -----
+                            {% endif %}
+                </td>
+            </tr>
+                       
+                   
+              </tbody></table>
+                <div class="col-12 col-lg-7">
+                    <br>
+                    
+                        <a href="{{ path('reclamationAdmin_edit',{'id':reclamation.id}) }}">
+                            <button type="button" class="btn btn-light btn-round px-4"><i class="icon-lock"></i>Edit</button>
+                        </a>
+              
+                    
+                        <a href="{{ path('rec_delete', {'id': reclamation.id}) }}">
+                            <button type="button" class="btn btn-light btn-round px-4"><i class="fas fa-trash"></i>Delete</button>
+                        </a>
+                   
+                    
+                        {% if reclamation.getIndemnissation() is not null %}
+                            <a href="{{ path('indemnisation_show', {'id': reclamation.getIndemnissation().getId()}) }}" class="btn btn-light btn-round px-4"></i>
+                                View Compensation</button>
+                            </a>
+                        {% endif %}
+                    
+                        <a href="{{ path('app_reclamation_admin') }}" class="btn btn-light btn-round px-4"> Cancel</a>
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function expandImage(image) {
+        if (image.classList.contains('expanded-image')) {
+            image.classList.remove('expanded-image');
+        } else {
+            image.classList.add('expanded-image');
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+  
+            
+        
+
+<div class="clearfix"></div>
+  
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+    <div class="card-content">
+        <!-- Symfony Form Start -->
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">Edit Claim</div>
+              <hr>
+             
+               <form method="post" novalidate  enctype="multipart/form-data"> 
+                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+                      
+              
+              <div class="form-group row">
+    <label for="libel" class="col-sm-2 col-form-label">{{ form_label(form.libelle, 'Label', {'label_attr': {'class': 'control-label'}}) }}</label>
+    <div class="col-sm-7">
+        {{ form_widget(form.libelle, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Your Libelle'}}) }}
+        {{ form_errors(form.libelle) }}
+    </div>
+</div>
+
+
+
+              <div class="form-group row">
+                <!-- Champ de Date Sinistre -->
+                <label for="date_sin" class="col-sm-2 col-form-label">{{ form_label(form.date_sin, 'Date Sinistre', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <div class="col-sm-7">
+                    {{ form_widget(form.date_sin, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Date Sinistre', 'id': 'date_sin'}}) }}
+                {{ form_errors(form.date_sin) }} </div>
+              </div>
+              <br>
+              <div class="form-group row">
+                <label for="Contenu" class="col-sm-2 col-form-label">{{ form_label(form.contenuRec, 'Contenu Rec', {'label_attr': {'class': 'control-label'}}) }}</label>
+                <div class="col-sm-7">
+              <p>  {{ form_widget(form.contenuRec, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Contenu Rec', 'rows': '4'}}) }}</p>
+             {{ form_errors(form.contenuRec) }}   </div></div>
+                 <br>
+
+
+
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.latitude, 'latitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.latitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter latitude'}}) }}
+                                         
+                            </div>
+                        </div>
+  <div class="form-group row">
+                            <label for="Contenu" class="col-sm-2 col-form-label text-black">{{ form_label(form.longitude, 'longitude', {'label_attr': {'class': 'control-label'}}) }}</label>
+                            <div class="col-sm-7">
+                                {{ form_widget(form.longitude, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter longitude'}}) }}
+                                  <span class="form-error-message">{{ form_errors(form.longitude) }}</span>           
+                            </div>
+                        </div>
+              <div class="form-group row">
+               <label for="Reponse" class="col-sm-2 col-form-label">  {{ form_label(form.reponse, 'Reponse', {'label_attr': {'class': 'control-label'}}) }}</label>
+                
+                 <div class="col-sm-7">
+                {{ form_widget(form.reponse, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Reponse'}}) }}
+              </div>
+              </div>
+              
+              <div class="row">
+   
+      <div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-6">
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+
+            <div class="form-group py-2">
+                
+            </div>
+            <div class="form-group row">
+                <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+          <div class="col-sm-1">
+             
+    <a href="{% if reclamation.reponse == 'refusé' %}
+                {{ path('reclamation_refuse') }}
+            {% elseif reclamation.reponse == 'accepté' %}
+                {{ path('reclamation_accepte') }}
+            {% else %}
+                {{ path('app_reclamation_admin') }}
+            {% endif %}
+        " class="btn btn-light btn-round px-5">Cancel</a>
+</div>
+
+            {{ form_end(form) }}</form>
+        </div>
+    </div>
+</div>
+
+            
+      
+
+    <div class="overlay toggle-menu"></div>
+ 
+  
+    </div>
+
+    
+  </div>
+   <style>
+             .btn:hover {
+                        background-color: #f8f9fa;
+                        color: #007bff;
+                    }
+                </style>
+{% endblock %}

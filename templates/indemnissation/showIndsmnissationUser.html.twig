@@ -1,0 +1,134 @@
+{% extends 'front_base.html.twig' %}
+
+{% block header %}
+    <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="service-details.html">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="service-details.html">Service</a></li>
+                                        <li><a href="service-details.html">Service Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog-details.html">Offers</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053</span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+<main>
+    <style>
+        .espacement-superieur {
+            padding-top: 100px; 
+        }
+        .contenu-centre {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh; 
+        }
+        .couleur-carte {
+            background-color: #f0f0f0; 
+        }
+        .form-group.row {
+            margin-bottom: 20px; 
+        }
+       
+    </style>
+
+    <div class="contenu-centre">
+        <div class="container">
+            {% block service %}
+            
+                <div class="content-wrapper">
+                    <div class="container-fluid"> 
+                        {% if ind.montant == 0 %}
+                            <div class="text-center mt-3">
+                                <p>We regret to inform you that your compensation request has been <span style="color: red;">refused</span>. If you have any questions or need further assistance, please feel free to contact us.</p>
+                            </div>
+                        {% else %}
+                            <div class="text-center mt-3">
+                                <p>We are pleased to inform you that your compensation request has been <span style="color: green;">accepted</span>. Our team will proceed with the necessary arrangements. If you have any questions or need further assistance, please feel free to contact us.</p>
+                            </div>
+                        {% endif %}
+             
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-7">
+                                <div class="card">
+                                    <div class="tp-service-section text-center mb-40">
+                                        <h4 class="tp-section-subtitle">Compensation Details</h4>
+                                    </div>
+                                     <div style="margin-left: 20px;"> 
+                                    <p><strong style="width: 200px; display: inline-block;">Id:</strong> {{ ind.id }}</p>
+                                    <p><strong style="width: 200px; display: inline-block;">Date:</strong> {% if ind.date %} {{ ind.date|date('Y-m-d') }} {% else %} ---- {% endif %}</p>
+                                    <p><strong style="width: 200px; display: inline-block;">Amount (in dinars):</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="{{ path('app_reclamation_user') }}" class="btn btn-primary">Back</a>
+                                        </div>
+                                    </div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+</main>
+{% endblock %}
