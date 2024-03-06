@@ -97,6 +97,10 @@
 <br>
 <div class="content-wrapper">
     <div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center">
+    <a class="btn btn-warning btn-sm me-3" href="{{ path('app_reclamation_admin', {'sortField': 'date_decl', 'sortOrder': (sortField == 'date_decl' and sortOrder == 'asc') ? 'desc' : 'asc'}) }}">Tri Date Claim</a>
+                     
+                    
 
             <div class="card-content">
                 <div class="row">
@@ -128,15 +132,20 @@
                                                                            <td>-</td>
                                                                                       {% endif %}
                                                 <td>
-                                                <a href="{{ path('reclamationAdmin_show',{'id':rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>details</button>
+                                                 {% if rec.getIndemnissation() is not null %}
+                                                <a href="{{ path('indemnisation_show', {'id': rec.getIndemnissation().getId()}) }}">
+                                                        <button type="button" class="btn btn-light btn-round px-2">Compensation</button>
+                                                    </a>  {% else %} 
+                                                    <a href="{{ path('reclamationAdmin_show',{'id':rec.id}) }}">
+                                                        <button type="button" class="btn btn-light btn-round px-2">details</button>
                                                     </a>
+                                                            
                                                     <a href="{{ path('reclamationAdmin_edit',{'id':rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Edit</button>
+                                                        <button type="button" class="btn btn-light btn-round px-2">Edit</button>
                                                     </a>
                                                     <a href="{{ path('rec_delete', {'id': rec.id}) }}">
-                                                        <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Delete</button>
-                                                    </a>
+                                                        <button type="button" class="btn btn-light btn-round px-2"> Delete</button>
+                                                    </a>    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}

@@ -32,7 +32,7 @@
                         <h3 class="center"> Compensation Details</h3>
                         <br>
                       <p><strong class="label-value">Id:</strong> {{ ind.id }}</p>
-                        <p><strong class="label-value">Date:</strong> {% if ind.date %} {{ ind.date.format('Y-m-d ')}} {% else %} null {% endif %}</p>
+                        <p><strong class="label-value">Date:</strong> {% if ind.date %} {{ ind.date.format('Y-m-d ')}} {% else %} ----- {% endif %}</p>
                      
                         <p><strong class="label-value">Amount(in dinars):</strong> {% if ind.montant is not null %} {{ ind.montant }} {% else %} 0 {% endif %}</p>
                     </div>

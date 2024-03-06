@@ -28,10 +28,13 @@ class ReclamationController extends AbstractController
         ]);
     }
     #[Route('/tableReclamations', name: 'app_reclamation_admin')]
-    public function index_reclamation_admin(ReclamationRepository $rep): Response
+    public function index_reclamation_admin(ReclamationRepository $rep,Request $request): Response
     {$list=$rep->findAll();
+        $sortField = $request->query->get('sortField', 'date_decl'); // Default sort field is 'id'
+        $sortOrder = $request->query->get('sortOrder', 'asc'); // Default sort order is 'asc'
         return $this->render('reclamation\ReclamationBack.html.twig', 
-          ['list' => $list, ]
+          ['list' => $list,'sortField' => $sortField,
+          'sortOrder' => $sortOrder, ]
         );
     }
     #[Route('listReclamation/edit/{id}', name: 'reclamationAdmin_edit')]

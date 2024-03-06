@@ -184,8 +184,11 @@ class="small-image" onclick="expandImage(this)">
         <a href="{{ path('indemnisationUser_show',{'id': rec.getIndemnissation().getId()}) }}"> {% endif %}
             <button type="button" class="btn btn-light btn-round px-2"><i class="icon-lock"></i>Show Compensation</button>
         </a>{% else %}
-       <a href="{{ path('rec_editUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2">Edit</button></a>
-   <a href="{{ path('rec_deleteUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2">Delet</button></a>
+       <a href="{{ path('rec_editUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2"><i class="fas fa-edit"></i> Edit</button></a>
+   <a href="{{ path('rec_deleteUser', {'id': rec.id}) }}"> <button type="button" class="btn btn-light btn-round px-2">
+   
+   <i class="fas fa-trash"></i>
+                                   delete</button></a>
 
     {% endif %}
                 </div> <div class="clearfix"></div>
