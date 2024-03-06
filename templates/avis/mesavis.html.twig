@@ -73,25 +73,46 @@
    <!-- tp-header-area-end -->
    </header>
 {% endblock %}
-{% block main %}
+{% block main %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+       $(document).ready(function () {
+           $("#myInput").on("keyup", function () {
+               var value = $(this).val().toLowerCase();
+               $("#myTable tr").filter(function () {
+                   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+               });
+           })
+       });
+      
+   
+    function reloadPage() {
+        // Recharge la page actuelle
+        location.reload();
+    }
+
+   </script>
    <!-- tp-testimonial-area-start -->
    <div class="tp-testimonial-area  pt-200 pb-200 p-relative">
+   <form  style="margin-left:8%" >
+        <input type="text" name="search" id="searchInput" placeholder="Rechercher des avis">
+        
+    </form>
       <div class="tp-service-section text-center mb-10">
          <div class="tp-testimonial-area ">
           
            
          
-            <div class="container">
+            <div class="container" id="avis-conatiner">
                <div class="row">
                   <div class="col-xl-12">
-                     <div class="tp-testimonial-section-box text-center mb-33">
+                     <div class="tp-testimonial-section-box text-center mb-20">
                         <h5 class="tp-section-subtitle"> my reviews</h5>
                      </div>
                   </div>
                </div>
                <div class="row">
                   {% for avis in listX %}
-                     <div class="col-md-4" style='width: 430px; margin-right: 10px;margin-top:40px;'>
+                     <div class="col-md-4" style='width: 430px; margin-right: 10px;margin-top:40px;'  class="card">
                     
                         {% if avis.note == 1 %}
                        
@@ -103,10 +124,10 @@
                            <div class="tptestimonial">   
                    
                      
-                              <div class="tptestimonial__rating" ><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating" ><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
-                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>
-                                  <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                   <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
                                    <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
@@ -122,14 +143,14 @@
 
        <div class="tptestimonial">
     <div class="tptestimonial__rating" >
-        <h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+        <h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
         <span><i class="fas fa-star"></i></span>
         <span><i class="fas fa-star"></i></span>
         <div style="width: 100%;height:50%;word-wrap: break-word;">
-            <p >{{ avis.commentaire }}</p>
+            <p class="card-title">{{ avis.commentaire }}</p>
         </div>
-        <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
-        <p style="color: white;">{{ avis.date_avis|date('d/m/Y') }}</p> <div class="tp-about-button-box d-flex">
+        <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+        <p style="color: white;" class="card-title">{{ avis.date_avis|date('d/m/Y') }}</p> <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
                               <a href="{{path('avis_edit',{'id':avis.id})}}">Update</a>
                            </button>
@@ -141,12 +162,12 @@
                         {% elseif avis.note == 3 %}                       
 
                            <div class="tptestimonial">  
-                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
-                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div> 
-                                  <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div> 
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
                                    <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
                                   <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
@@ -160,13 +181,13 @@
                            </div>
                         {% elseif avis.note == 4 %}                     
                            <div class="tptestimonial">
-                              <div class="tptestimonial__rating"><h3 style="color: white;" >{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title" >{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
-                                 <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>  
-                                  <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5><p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                                 <div style="width: 100%;height:50%;word-wrap: break-word;" > <p class="card-title">{{ avis.commentaire }}</p> </div>  
+                                  <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5><p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
                             <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
                               <a href="{{path('avis_edit',{'id':avis.id})}}">Update</a>
@@ -179,15 +200,15 @@
                         {% elseif avis.note == 5 %}                       
 
                            <div class="tptestimonial">
-                              <div class="tptestimonial__rating"><h3 style="color: white;">{{ avis.agenceav.nomage }}</h3>
+                              <div class="tptestimonial__rating"><h3 style="color: white;" class="card-title">{{ avis.agenceav.nomage }}</h3>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
                                  <span><i class="fas fa-star"></i></span>
-                                <div style="width: 100%;height:50%;word-wrap: break-word;"> <p>{{ avis.commentaire }}</p> </div>
-                                <h5 style="color: white;">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
-                                 <p style="color: white;">{{avis.date_avis|date('d/m/Y')}}</p>
+                                <div style="width: 100%;height:50%;word-wrap: break-word;"> <p class="card-title">{{ avis.commentaire }}</p> </div>
+                                <h5 style="color: white;" class="card-title">{{ avis.Avis.first_name }}{{ avis.Avis.last_name }}</h5>
+                                 <p style="color: white;" class="card-title">{{avis.date_avis|date('d/m/Y')}}</p>
                                    <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
                               <a href="{{path('avis_edit',{'id':avis.id})}}">Update</a>
@@ -205,5 +226,21 @@
             </div>
          </div>
       </div>
-   </div>
+   </div>{% block JSA %}    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+   <script>
+    $('#searchInput').on('input', function(){
+    var query = $(this).val().toLowerCase();
+    $('#avis-conatiner .card').each(function(){
+        var nomage = $(this).find('.card-title').text().toLowerCase();
+       // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
+
+        if(nomage.includes(query)){ // Modification pour inclure la recherche par adresse
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+</script>{% endblock %}
 {% endblock %}

@@ -77,5 +77,16 @@ function findavisbyid($id){
     ->setParameter('id',$id)
     ->getResult();
 }
+function findAllbyetat(){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b  WHERE  
+    b.etat=true')
+    
+    ->getResult();
+}
+
 
 }

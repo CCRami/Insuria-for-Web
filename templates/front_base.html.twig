@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="{{ asset('front_assets/css/magnific-popup.css') }}">
 <link rel="stylesheet" href="{{ asset('front_assets/css/spacing.css') }}">
 <link rel="stylesheet" href="{{ asset('front_assets/css/style.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.9.0/jquery.raty.min.js"></script>
+
 {% endblock %}
 
 </head>
@@ -1040,6 +1042,8 @@
     <script src="{{ asset('front_assets/js/imagesloaded-pkgd.js') }}"></script>
     <script src="{{ asset('front_assets/js/ajax-form.js') }}"></script>
     <script src="{{ asset('front_assets/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.9.0/jquery.raty.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
    <script>
        $(document).ready(function () {
@@ -1050,6 +1054,19 @@
                });
            })
        });
+        $('#searchInput').on('input', function(){
+    var query = $(this).val().toLowerCase();
+    $('#agence-conatiner .card').each(function(){
+        var nomage = $(this).find('.card-title').text().toLowerCase();
+       // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
+
+        if(nomage.includes(query)){ // Modification pour inclure la recherche par adresse
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
    </script>
 {% endblock %}
 

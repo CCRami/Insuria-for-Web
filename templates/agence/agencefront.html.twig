@@ -144,12 +144,12 @@ button:hover {
 
       <div class="tp-service-section text-center mb-10" style="margin-bottom:30px">
     <form  style="margin-left:-30%" >
-        <input type="text" name="search" placeholder="Rechercher des agences">
-        <button type="submit" class="button-animated">Rechercher</button><h3 class="tp-section-title text-black" 
-        style="margin-left:10%">Our agencies</h3>  
+        <input type="text" name="search" id="searchInput" placeholder="Rechercher des agences">
+        <h3 class="tp-section-title text-black" 
+        style="margin-left:15%">Our agencies</h3>  
     </form>
     
-    <div class="dropdown" style="margin-top: 20px;">
+    {#<div class="dropdown" style="margin-top: 20px;">
         <button >
           <a  class="dropdown-item"  href="{{ path('mailc') }}">order by email</a>
         </button>   <button >
@@ -157,24 +157,24 @@ button:hover {
         </button>
        
           
-		 </div>
+		 </div><<<<<<<<<<<<<<<<"<#}
   
 </div>
 
         
-      <div class="container">
+      <div class="container" id="agence-conatiner">
        
-         <div class="row" id="agencyList">
-            {% for agence in listX %}
-               <div class="col-md-4" style="margin-bottom: 40px;">
-                  <div style="width: 400px;">
+         <div class="row" >
+            {% for agence in listX  %}
+               <div class="col-md-4" style="margin-bottom: 40px;" >
+                  <div style="width: 400px;" class="card">
                      <div class="tptestimonial">
                         <div class="tptestimonial__rating">
-                           <h5 style="color: white;">Name: {{ agence.nomage }}</h5>
-                           <h5 style="color: white;">Address: {{ agence.addresse }}</h5>
-                           <h5 style="color: white;">Email: {{ agence.email }}</h5>
-                           <h5 style="color: white;">Number: {{ agence.tel }}</h5>
-                           <h5 style="color: white;">Creation Date: {{ agence.create_at|date('d/m/Y') }}</h5>
+                           <h5 style="color: white;" class="card-title">Name: {{ agence.nomage }}</h5>
+                           <h5 style="color: white;" class="card-title">Address: {{ agence.addresse }}</h5>
+                           <h5 style="color: white;" class="card-title">Email: {{ agence.email }}</h5>
+                           <h5 style="color: white;" class="card-title">Number: {{ agence.tel }}</h5>
+                           <h5 style="color: white;" >Creation Date: {{ agence.create_at|date('d/m/Y') }}</h5>
                            
                         </div>
                         <div class="tp-about-button-box d-flex">
@@ -194,15 +194,21 @@ button:hover {
             {% endfor %}
          </div>
       </div>
-   </div>
+   </div>{% block JSA %}
    <script>
-    $(document).ready(function () {
-        $("#searchInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $(".agency-item").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            });
-        });
+    $('#searchInput').on('input', function(){
+    var query = $(this).val().toLowerCase();
+    $('#agence-conatiner .card').each(function(){
+        var nomage = $(this).find('.card-title').text().toLowerCase();
+       // var restaurantAddress = $(this).find('.card-address').text().toLowerCase(); // Ajout pour rechercher par adresse
+
+        if(nomage.includes(query)){ // Modification pour inclure la recherche par adresse
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
     });
-</script>
+});
+</script>{% endblock %}
+
 {% endblock %}

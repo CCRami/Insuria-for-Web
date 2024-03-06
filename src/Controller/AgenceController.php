@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\PdfService;
+use Knp\Component\Pager\PaginatorInterface;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -20,17 +21,31 @@ class AgenceController extends AbstractController
 {
     #[Route('/agence', name: 'app_agence')]
     public function index(): Response
-    {
+    {  
         return $this->render('agence/index.html.twig', [
             'controller_name' => 'AgenceController',
+    
+        
+
         ]);
+       
+
     }
 
     #[Route('/afficheragences', name: 'app_afficheragences')]
-    public function listagence(AgenceRepository $repository)
+    public function listagence(AgenceRepository $repository,Request $request,PaginatorInterface $paginator)
     {
-        $list= $repository->findAll();
-        return $this->render('agence/agenceback.html.twig',['listX' => $list, ]);
+        $agenceQuery = $repository->createQueryBuilder('r')
+        ->orderBy('r.nomage', 'DESC')
+        ->getQuery();
+        $pagination = $paginator->paginate(
+            $agenceQuery, 
+            $request->query->getInt('page', 1), 
+            7
+        );
+        return $this->render('agence/agenceback.html.twig',['listX' =>  $repository->findAll(),
+        'pagination' => $pagination,
+     ]);
     }
     #[Route('/afficheragencesc', name: 'app_afficheragencesc')]
     public function listagencec(AgenceRepository $repository)
@@ -88,6 +103,7 @@ class AgenceController extends AbstractController
   #[Route("/users/download", name:"users_data_download")]
   public function pdf(AgenceRepository $repository): Response
   {
+    
       $list = $repository->findAll();
       $pdfoptions = new Options(); // Use 'Options' instead of 'options'
       $pdfoptions->set("defaultFont", "arial");

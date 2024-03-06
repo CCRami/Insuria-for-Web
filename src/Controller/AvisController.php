@@ -14,6 +14,7 @@ use App\Form\avisType;
 use App\Repository\AgenceRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 use Symfony\Component\HttpFoundation\Request;
@@ -29,15 +30,26 @@ class AvisController extends AbstractController
     }
 
     #[Route('/afficheravis', name: 'app_afficheravis')]
-    public function listavis(AvisRepository $repository)
-    {
-        $list= $repository->findAll();
-        return $this->render('avis/avisback.html.twig',['listX' => $list, ]);
+    public function listavis(Request $request,AvisRepository $repository ,PaginatorInterface $paginator)
+    {$avisQuery = $repository->createQueryBuilder('r')
+        ->orderBy('r.id', 'DESC')
+        ->getQuery();
+        $pagination = $paginator->paginate(
+            $avisQuery, 
+            $request->query->getInt('page', 1), 
+            7
+        ); return $this->render('avis/avisback.html.twig',['listX' =>  $repository->findAll(),
+        'pagination' => $pagination, ]);
+        
     }
+
+
+
+
     #[Route('/afficheravisc', name: 'app_afficheravisc')]
     public function listavisc(AvisRepository $repository)
     {
-        $list= $repository->findAll();
+        $list= $repository->findAllbyetat();
         return $this->render('avis/avisfront.html.twig',['listX' => $list, ]);
     }
     #[Route('/deleteavis/{id}', name: 'deleteavis')]
@@ -67,7 +79,7 @@ class AvisController extends AbstractController
     public function addAAvis(Request $request,EntityManagerInterface $em,$id):Response
     {
         $avis=new Avis();
-       $agence = $em->getRepository(Agence::class)->find($id);
+       $agence = $em->getRepository(Agence::class)->find($id); $avis->setEtat(false);
        $avis->setAgenceav($agence);
        $avis->setdate_avis(new \DateTime());
         $form=$this->createForm(avisadd::class,$avis);
@@ -75,6 +87,15 @@ class AvisController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         { 
+            /*
+            $dictionaryPath = '/path/to/dictionary/file.txt';
+
+            // Set the dictionary for the Builder class
+            Builder::setDictionary($dictionaryPath);
+            */
+            $content = $avis->getCommentaire();
+            $cleanedContenu = \ConsoleTVs\Profanity\Builder::blocker($content)->filter();
+            $avis->setCommentaire($cleanedContenu);
             $em->persist($avis);
             $em->flush();
             return $this->redirectToRoute('app_afficheravisc');
@@ -115,7 +136,7 @@ class AvisController extends AbstractController
               return $this->render('avis/mesavis.html.twig',['listX' => $x, ]);
              }
              #[Route('/editavis/{id}', name: 'avis_edit')]
-             public function editagence(Request $request,EntityManagerInterface $em,AvisRepository $rep,int $id):Response
+             public function editavis(Request $request,EntityManagerInterface $em,AvisRepository $rep,int $id):Response
              {
                  $avis=new Avis();
                  $avis=$rep->find($id);
@@ -129,6 +150,19 @@ class AvisController extends AbstractController
                      return $this->redirectToRoute('app_afficheravisc');
                  }
                  return $this->render('avis/ajouteravis.html.twig',['form'=>$form->createView()]);
+         
+             }
+
+             #[Route('/editetatavis/{id}', name: 'avis_etatedit')]
+             public function editavisetat(EntityManagerInterface $entityManager,AvisRepository $rep,int $id):Response
+             {
+                 $avis=new Avis();
+                 $avis=$rep->find($id);
+                 $avis->setEtat(true);$entityManager->flush();
+
+                     return $this->redirectToRoute('app_afficheravis');
+                 
+                 
          
              }
     

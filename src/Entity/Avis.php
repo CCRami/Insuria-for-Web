@@ -29,12 +29,16 @@ class Avis
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_avis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'client', cascade: ['remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'client')]
+    #[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?User $Avis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'agav', cascade: ['remove'])]
+    #[ORM\ManyToOne(inversedBy: 'agav')]
+    #[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?Agence $agenceav = null;
+
+    #[ORM\Column]
+    private ?bool $etat = null;
 
 
     
@@ -100,6 +104,18 @@ class Avis
     public function setAgenceav(?Agence $agenceav): static
     {
         $this->agenceav = $agenceav;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): static
+    {
+        $this->etat = $etat;
 
         return $this;
     }
