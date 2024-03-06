@@ -1,0 +1,58 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+<div class="clearfix"></div>
+  
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+  <!--Start Dashboard Content-->
+
+  <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card mt-3">
+          <div class="card-content">
+      <!-- Symfony Form Start -->
+      
+        
+          <div class="card-body text-center"> <!-- Updated: Added "text-center" class -->
+            <div class="card-title">Add An Insurance Category</div>
+            <hr>
+            {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
+            <div class="form-group">
+              {{ form_label(form.name_cat_ins, 'Category Name', {'label_attr': {'class': 'control-label'}}) }}
+              {{ form_widget(form.name_cat_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Category Name'}}) }}
+              {{ form_errors(form.name_cat_ins) }}
+            </div>
+            <div class="form-group">
+              {{ form_label(form.desc_cat_ins, 'Category Description', {'label_attr': {'class': 'control-label'}}) }}
+              {{ form_widget(form.desc_cat_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Category Description'}}) }}
+              {{ form_errors(form.desc_cat_ins) }}
+            </div>
+            
+            {{ form_rest(form) }}
+            <div class="form-group py-2">
+             
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+            </div>
+            {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+      <!-- Symfony Form End -->
+    </div>
+  </div>  
+      
+  <!--End Dashboard Content-->
+  
+  <!--start overlay-->
+  <div class="overlay toggle-menu"></div>
+  <!--end overlay-->
+  
+    </div>
+    <!-- End container-fluid-->
+    
+  </div><!--End content-wrapper-->
+{% endblock %}

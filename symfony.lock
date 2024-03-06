@@ -1,4 +1,7 @@
 {
+    "cmen/google-charts-bundle": {
+        "version": "6.0.0"
+    },
     "doctrine/annotations": {
         "version": "2.0",
         "recipe": {
@@ -82,6 +85,18 @@
             "version": "1.5",
             "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
         }
+    },
+    "php-http/discovery": {
+        "version": "1.19",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.18",
+            "ref": "f45b5dd173a27873ab19f5e3180b2f661c21de02"
+        },
+        "files": [
+            "./config/packages/http_discovery.yaml"
+        ]
     },
     "phpunit/phpunit": {
         "version": "9.6",
@@ -324,6 +339,18 @@
         "files": [
             "./config/packages/web_profiler.yaml",
             "./config/routes/web_profiler.yaml"
+        ]
+    },
+    "symfony/webapp-pack": {
+        "version": "1.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "aece95c8a188f6e6d04f01ccb8678d1764fd2642"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
         ]
     },
     "twig/extra-bundle": {

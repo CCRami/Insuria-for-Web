@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -24,7 +25,22 @@ class Commande
     private ?\DateTimeInterface $date_exp = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $full_doa = null;
+ 
+    private ?array $full_doa = null;
+
+    #[ORM\ManyToOne(targetEntity: Assurance::class)]
+    private ?Assurance $doaCom = null;
+
+
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    #[Assert\Positive(message:"The Value Must Be Positive!")]
+    private ?float $InsValue = null;
+
+   
+
 
     public function getId(): ?int
     {
@@ -67,15 +83,55 @@ class Commande
         return $this;
     }
 
-    public function getFullDoa(): ?string
+    public function getFullDoa(): ?array
     {
         return $this->full_doa;
     }
 
-    public function setFullDoa(string $full_doa): static
+    public function setFullDoa(array $full_doa): static
     {
         $this->full_doa = $full_doa;
 
         return $this;
     }
+
+    public function getDoaCom(): ?assurance
+    {
+        return $this->doaCom;
+    }
+
+    public function setDoaCom(?assurance $doaCom): static
+    {
+        $this->doaCom = $doaCom;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getInsValue(): ?float
+    {
+        return $this->InsValue;
+    }
+
+    public function setInsValue(float $InsValue): static
+    {
+        $this->InsValue = $InsValue;
+
+        return $this;
+    }
+
+   
+
+    
 }

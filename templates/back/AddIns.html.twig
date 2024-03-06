@@ -1,0 +1,134 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+    <div class="clearfix"></div>
+      
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <!-- Start Dashboard Content -->
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card mt-3">
+                        <div class="card-content">
+                            <!-- Symfony Form Start -->
+                            <div class="card-body">
+                                <div class="card-title">Add An Insurance</div>
+                                <hr>
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.name_ins, 'Insurance Name', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.name_ins, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Insurance Name'}}) }}
+                                    {{ form_errors(form.name_ins) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.montant, 'Base Price', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter The Base Price'}}) }}
+                                    {{ form_errors(form.montant) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="insimage" class="control-label">Insurance Image</label>
+                                    <div class="custom-file">
+                                        {{ form_widget(form.insimage, {'attr': {'class': 'custom-file-input form-control form-control-rounded', 'id': 'insimage'}}) }}
+                                        <label class="custom-file-label" for="insimage">Choose file</label>
+                                    </div>
+                                </div>
+
+                                <div id="fieldsContainer">
+                                    {% for field in form.doa %}
+                                        <div class="form-group">
+                                            {{ form_label(field, {'label_attr': {'class': 'control-label'}}) }}
+                                            {{ form_widget(field, {'attr': {'class': 'form-control form-control-rounded doa-field'}}) }}
+                                            {{ form_errors(field) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <input type="hidden" id="combinedValue" name="combinedValue">
+
+                                <!-- Button to add a new field -->
+                                <div class="form-group text-center">
+                                    <button type="button" id="addFieldButton" class="btn btn-light btn-round px-5" onclick="addField()">Add Field</button>
+                                </div>
+                                
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
+                                </div>
+
+                                {{ form_end(form) }}
+                            </div>
+                            <!-- Symfony Form End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Dashboard Content -->
+          
+            <!-- Start overlay -->
+            <div class="overlay toggle-menu"></div>
+            <!-- End overlay -->
+        </div>
+        <!-- End container-fluid -->
+    </div><!-- End content-wrapper -->
+
+  <script>
+    var fieldCounter = 0;
+
+    function addField() {
+        fieldCounter++;
+        var newFieldHtml = `
+            <div class="form-group">
+                <label for="doaField${fieldCounter}" class="control-label"> Field ${fieldCounter}</label>
+                <input type="text" id="doaField${fieldCounter}" name="assurance_form[doa][]" class="form-control form-control-rounded doa-field">
+            </div>
+        `;
+        document.getElementById("fieldsContainer").insertAdjacentHTML('beforeend', newFieldHtml);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var addFieldButton = document.getElementById('addFieldButton');
+        if (addFieldButton) {
+            addFieldButton.addEventListener('click', addField);
+        }
+        
+        var form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', combineFields);
+        }
+    });
+
+    function combineFields(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        var combinedValue = "";
+
+        for (var i = 1; i <= fieldCounter; i++) {
+            var fieldValue = document.getElementById('doaField' + i)?.value.trim();
+            if (fieldValue) {
+                combinedValue += fieldValue + "; ";
+            }
+        }
+
+        if (combinedValue.length > 0) {
+            combinedValue = combinedValue.slice(0, -2); // Remove the last "; "
+        }
+
+        // Set the combined value to the hidden input field
+        document.getElementById('combinedValue').value = combinedValue;
+
+        console.log("Combined value:", combinedValue);
+        
+        // Optionally, submit the form programmatically if needed
+        // event.currentTarget.submit();
+    }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+    <div class="clearfix"></div>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8">
+                    <a href="{{ path('add_assurance') }}" class="btn btn-primary mb-3">Add Insurance</a>
+                    <div class="card">
+                        <div class="card-header">Insurances Table</div>
+                        <div class="table-responsive text-center">
+                            <table class="table align-items-center table-flush table-borderless table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Insurance Name</th>
+                                        <th>Base Price</th>
+                                        <th>DOA</th>
+                                        <th>Insurance Category</th>
+                                        <th>Insurance Image</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for assurance in assurances %}
+                                        <tr>
+                                            <td>{{ assurance.nameins }}</td>
+                                            <td>{{ assurance.montant }}</td>
+                                            <td>
+                                                {% if assurance.doa is iterable %}
+                                                    {% for item in assurance.doa %}
+                                                        {{ item }}<br>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {{ assurance.doa }}
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ assurance.catA.namecatins }}</td>
+                                            <td>
+                                                {% if assurance.insimage %}
+                                                    <img src="{{ asset('uploads/images/' ~ assurance.insimage) }}" alt="Insurance Image" style="max-width: 65px; max-height: 65px;">
+                                                {% else %}
+                                                    No Image
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('edit_assurance', {'id': assurance.id}) }}" class="btn btn-light btn-round px-5">Edit</a>
+                                                <a href="{{ path('delete_assurance', {'id': assurance.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6">No Records Found</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

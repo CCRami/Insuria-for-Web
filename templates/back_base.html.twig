@@ -20,7 +20,7 @@
 <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
 <!-- Vector CSS -->
 <link href="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet"/>
-<!-- simplebar CSS-->
+
 <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet"/>
 <!-- Bootstrap core CSS-->
 <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -78,21 +78,20 @@
       </li>
 
       <li>
-        <a href="calendar.html">
-          <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-          <small class="badge float-right badge-light">New</small>
+        <a href="{{ path('display_catA') }}">
+          <i class="zmdi zmdi-invert-colors"></i> <span>Insurance Categoies</span>
         </a>
       </li>
 
       <li>
-        <a href="profile.html">
-          <i class="zmdi zmdi-face"></i> <span>Profile</span>
+        <a href="{{ path('display_assurance') }}">
+          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Insurances</span>
         </a>
       </li>
 
       <li>
-        <a href="login.html" target="_blank">
-          <i class="zmdi zmdi-lock"></i> <span>Login</span>
+        <a href="{{ path('display_comb') }}">
+          <i class="zmdi zmdi-grid"></i> <span>Orders</span>
         </a>
       </li>
 
@@ -512,6 +511,7 @@
 <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/index.js') }}"></script>
+
 {% endblock %}
 {% block redirect %}
 {% if app.user and 'ROLE_ADMIN' in app.user.roles %}

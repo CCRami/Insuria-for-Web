@@ -45,4 +45,15 @@ class AssuranceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByCategory(int $categoryId): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.catA = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    
 }

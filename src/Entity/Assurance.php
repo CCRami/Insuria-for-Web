@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\AssuranceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: AssuranceRepository::class)]
 class Assurance
 {
@@ -15,13 +15,30 @@ class Assurance
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 15,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters'
+    )]
+    #[Assert\NotBlank(message: 'Name cannot be blank')]
     private ?string $name_ins = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message: 'The Price Cannot Be Negative')]
+    #[Assert\NotBlank(message: 'Name cannot be blank')]
     private ?float $montant = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $doa = null;
+    private ?array $doa = null;
+
+    #[ORM\ManyToOne(inversedBy: 'assurance')]
+   
+    private ?CategorieAssurance $catA = null;
+
+    #[ORM\Column(length: 255)]
+    
+    private ?string $insImage = null;
 
     public function getId(): ?int
     {
@@ -52,14 +69,38 @@ class Assurance
         return $this;
     }
 
-    public function getDoa(): ?string
+    public function getDoa(): ?array
     {
         return $this->doa;
     }
 
-    public function setDoa(string $doa): static
+    public function setDoa(array $doa): static
     {
         $this->doa = $doa;
+
+        return $this;
+    }
+
+    public function getCatA(): ?CategorieAssurance
+    {
+        return $this->catA;
+    }
+
+    public function setCatA(?CategorieAssurance $catA): static
+    {
+        $this->catA = $catA;
+
+        return $this;
+    }
+
+    public function getInsImage(): ?string
+    {
+        return $this->insImage;
+    }
+
+    public function setInsImage(string $insImage): static
+    {
+        $this->insImage = $insImage;
 
         return $this;
     }

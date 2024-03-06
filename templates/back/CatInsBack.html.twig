@@ -1,0 +1,54 @@
+{% extends 'back_base.html.twig' %}
+
+{% block content %}
+
+<div class="clearfix"></div>
+	
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+
+
+<div class="row justify-content-center mb-4">
+    <div class="col-12 col-lg-114">
+        <a href="{{ path('add_catA') }}" class="btn btn-primary mb-3">Add An Insurance Category</a>
+        <div class="card">
+            <div class="card-header">Recent Insurance Tables</div>
+            <div class="table-responsive text-center">
+                <table class="table align-items-center table-flush table-borderless table-sm">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Category Description</th>
+                            
+                            <th>Actions</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for catA in catA %}
+                        <tr>
+                            <td>{{ catA.namecatins }}</td>
+                            <td>{{ catA.desccatins }}</td>
+                            
+                            <td>
+                                <a href="{{ path('edit_catA', {'id': catA.id}) }}"class="btn btn-light btn-round px-5">Edit</a>
+                                <a href="{{ path('delete_catA', {'id': catA.id}) }}"class="btn btn-light btn-round px-5">Delete</a>
+                            </td>
+                          
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4">No Records Found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+</div>
+{% endblock %}
