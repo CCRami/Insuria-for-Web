@@ -1,0 +1,132 @@
+{% block content %}
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">EcoPartage</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle" href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <!-- Votre code de notifications et de messages reste inchangé -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+     
+  </header><!-- End Header -->
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+  <div class="container">
+ 
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="/AfficheAdmin">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i><span>Dépôts</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="/listCategorie">
+                <i class="bi bi-circle"></i><span>List Categorie</span>
+              </a>
+            </li>
+            <li>
+              <a href="/listDepots">
+                <i class="bi bi-circle"></i><span> List Depots</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </aside><!-- End Sidebar-->
+
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+
+    <main class="col-md-9 ms-sm-auto col-lg-9 px-md-4">
+      <section class="section dashboard">
+        <div class="row">
+          <div class="card mb-3 custom-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-center align-items-center">
+                        <a class="btn btn-warning btn-sm me-3" href="{{ path('app_list_Depots', {'sortField': 'id', 'sortOrder': (sortField == 'id' and sortOrder == 'asc') ? 'desc' : 'asc'}) }}">Tri By ID</a>
+                        <a class="btn btn-warning btn-sm" href="{{ path('app_list_Depots', {'sortField': 'Nom', 'sortOrder': (sortField == 'Nom' and sortOrder == 'asc') ? 'desc' : 'asc'}) }}">Tri By Nom</a>
+                    </div>
+                    <h1 class="card-title">Liste des Depots</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Adresse</th>
+                                    <th>Etat</th>
+                                    <th>Image</th>
+                                    <th>Nom_Categorie</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for depots in listDepots %}
+                                    <tr>
+                                        <td>{{ depots.id }}</td>
+                                        <td>{{ depots.Nom }}</td>
+                                        <td>{{ depots.Adresse }}</td>
+                                        <td>{{ depots.Etat }}</td>
+                                        <td>{{ depots.Image }}</td>
+                                        <td>{{ depots.categorie ? depots.categorie.getNom }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ path('app_modifier_Depots', {'id': depots.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                                <a href="{{ path('app_supprimer_Depots', {'id': depots.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Il n'y a pas de dépôts disponibles</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+             <a href="{{ path('generate.pdf') }}" class="btn btn-success btn-sm mt-3">pdf</a>
+              <div>
+                <!-- Flashy depends on jQuery -->
+                <script src="//code.jquery.com/jquery.js"></script>
+                <!-- Load Flashy default JavaScript -->
+                <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+                <!-- Include Flashy default partial -->
+                {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>

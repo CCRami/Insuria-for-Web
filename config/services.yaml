@@ -8,6 +8,7 @@ parameters:
     stripeSK: "%env(STRIPE_SK)%"
     app.issuer: Insuria
     upload_directory: '%kernel.project_dir%/public/uploads'
+    offre_images_directory: '%kernel.project_dir%/public/uploads/offres'
 services:
  
     App\Entity\Reclamation:
@@ -38,7 +39,17 @@ services:
                 password: 'kngp embc okyp iodi'
                 encryption: 'tls' # adjust based on your SMTP configuration
                 fromAddress: 'rami.toubib2014@gmail.com'
-                fromName: 'Insuria'
+                fromName: 'Insuria'            
+    mercuryseries_flashy:
+        # The name to use as the flash message key in the session store
+        flash_message_name:   mercuryseries_flashy_notification
+
+        # The session store to use for storing flash messages
+        session_store: null            
+
+            
+            
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 

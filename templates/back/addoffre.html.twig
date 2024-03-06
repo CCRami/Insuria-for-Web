@@ -1,0 +1,88 @@
+{% extends 'back_base.html.twig' %}
+{% block content %}
+<div class="clearfix"></div>
+  
+<div class="content-wrapper">
+  <div class="container-fluid">
+
+    <!--Start Dashboard Content-->
+
+    <div class="card mt-3">
+      <div class="card-content">
+        <!-- Symfony Form Start -->
+        <div class="row justify-content-center"> {# Centering the content horizontally #}
+          <div class="col-lg-8 col-md-10 col-sm-12"> {# Adjust grid column width based on your layout needs #}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title"> Add offer</div>
+                {% for message in app.flashes('mercuryseries_flashy_notification') %}
+    <script id="flashy-template" type="text/template">
+        <div class="flashy flashy--{{ message.type }}">
+            <i class="material-icons">speaker_notes</i>
+            <a class="flashy__body" href="#" target="_blank"></a>
+        </div>
+    </script>
+
+    <script>
+        flashy("{{ message.message }}", "{{ message.link }}");
+    </script>
+{% endfor %}
+                <hr>
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form', 'enctype': 'multipart/form-data', 'novalidate':'novalidate'}}) }}
+                <div class="form-group">
+                  {{ form_label(form.advantage, 'Advantage', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.advantage, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Advantage'}}) }}
+                  <div style="color: white;">{{ form_errors(form.advantage) }}</div>
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.conditions, 'Conditions', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.conditions, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Conditions'}}) }}
+                  <div style="color: white;">{{ form_errors(form.conditions) }}</div>
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.duration, 'Duration(Days)', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.duration, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Duration'}}) }}
+                  <div style="color: white;">{{ form_errors(form.duration) }}</div>
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.discount, 'Discount(%)', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.discount, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter Discount'}}) }}
+                  <div style="color: white;">{{ form_errors(form.discount) }}</div>
+                </div>
+                <div class="form-group">
+                  {{ form_label(form.categorie, 'category Offer', {'label_attr': {'class': 'control-label'}}) }}
+                  {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-rounded'}}) }}
+                  <div style="color: white;">{{ form_errors(form.categorie) }}</div>
+                </div>
+                <div class="form-group">
+                {{ form_label(form.offreimg, 'Image', {'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.offreimg, {'attr': {'class': 'form-control form-control-rounded', 'accept': 'image/*'}}) }}
+                <div style="color: white;">{{ form_errors(form.offreimg) }}</div>
+                {% if form.offreimg.vars.value %}
+                    <img src="{{ asset('uploads/' ~ form.offreimg.vars.value) }}" alt="Offre Image">
+               {% endif %}
+            </div> 
+                {{ form_rest(form) }}
+                <div class="form-group">
+                  <button type="submit" class="btn btn-light btn-round px-5"></i> Add</button>
+                </div>
+                {{ form_end(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Symfony Form End -->
+      </div>
+    </div>  
+      
+    <!--End Dashboard Content-->
+  
+    <!--start overlay-->
+    <div class="overlay toggle-menu"></div>
+    <!--end overlay-->
+  
+  </div>
+  <!-- End container-fluid-->
+    
+</div><!--End content-wrapper-->
+{% endblock %}

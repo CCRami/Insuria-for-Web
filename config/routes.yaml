@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+app_admin:
+    path: /affichercatoffre
+    controller: C:\Insuria\Insuria\templates\back::afficherCatOffre
+    

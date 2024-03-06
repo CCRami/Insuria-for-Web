@@ -122,6 +122,12 @@
             "./config/packages/http_discovery.yaml"
         ]
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.9.0"
+    },
+    "mercuryseries/flashy-bundle": {
+        "version": "v5.1.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -336,6 +342,15 @@
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
         ]
+    },
+    "symfony/twilio-notifier": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.0",
+            "ref": "10af129fcac6d00ffc9bb23d039d997dee35e657"
+        }
     },
     "symfony/ux-turbo": {
         "version": "v2.14.2"

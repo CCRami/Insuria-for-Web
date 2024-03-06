@@ -1,0 +1,128 @@
+{% extends 'front_base.html.twig' %}
+{% block header %}
+ <div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="front_assets/img/logo/logo.png" alt=""></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-6 col-xl-7 col-lg-8 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 8%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li class="hasdropdown"><a href="#">Insurances</a>
+                                    <ul class="submenu">
+                                        <li><a href="about-us.html">Auto Insurance</a></li>
+                                        <li><a href="team.html">Home Insurance</a></li>
+                                        <li><a href="team-details.html">Health Insurance</a></li>
+                                        <li><a href="price.html">Travel Insurance</a></li>
+                                        <li><a href="faq.html">Pet Insurance</a></li>
+                                        <li><a href="contact.html">Business Insurance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="service-details.html">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="service-details.html">Service</a></li>
+                                        <li><a href="service-details.html">Service Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                    <ul class="submenu">
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li ><a href="{{path('displayCategorieOffref')}}">Offers</a> 
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            <a class="header-icon" href="#"><img src="front_assets/img/svg/header-icon.svg" alt=""></a>
+                            <a href="tel:53348053">Call us : <span>+216 53 348 053 </span></a>
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="about-us.html">Sign Up</a>
+                        </div>
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+   <!-- tp-header-area-end -->
+   </header>
+
+{% endblock %}
+{% block main %}
+<main>
+{% block slider %}
+
+        
+
+ <!-- tp-service-area-start -->
+    <div class="tp-sercvice-insurance pt-130 pb-90 grey-bg z-index">
+        <div class="container">
+            <div class="row align-items-center service-bottom-space">
+                <div class="col-xl-6 col-lg-6 col-12">
+                    <div class="sercviceinsurance__title service-border-right">
+                        <h4 class="tp-section-subtitle">Our Categories </h4>
+                        <h3 class="tp-section-title">Choose a category</h3>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-12">
+                    <div class="tp-service-right-text">
+                        <p>When selecting a category for your project, it's crucial to consider the specific focus and target audience of your endeavor. Each category encapsulates a unique realm of expertise and audience engagement, tailored to meet diverse needs. Whether it's technology, lifestyle, education, or any other category, each offers its distinct advantages in terms of visibility, relevance, and audience engagement. By carefully selecting the most fitting category, you ensure that your project reaches its intended audience effectively, maximizing its impact and potential success. Therefore, take the time to assess your project's core objectives, content, and target demographic to make an informed decision that aligns with your goals and aspirations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for catoffre in catoffres %}
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="sercviceinsurance mb-30 text-center"> {# Ajout de la classe text-center pour centrer le contenu #}
+                        <div class="sercviceinsurance__item">
+                            <div class="sercviceinsurance__thumb">
+                                <img src="{{ asset('uploads/offres/' ~ catoffre.catimg) }}" alt="Offre Image" class="img-fluid" style="max-width: 200px; max-height: 200px;"> {# Ajout de la classe img-fluid pour que l'image soit responsive #}
+                            </div>
+                            <div class="sercviceinsurance__content z-index-4">
+                                <h4 class="tp-sv-insurance-title"><a href="service-details.html">{{ catoffre.categoriename }}</a></h4>
+                                <p>{{ catoffre.descriptioncat }}</p>
+                            </div>
+                            <a href="{{ path('display_offrefbycat', {'id': catoffre.id}) }}">
+                                <div class="sercviceinsurance__svbtn d-flex justify-content-between align-items-center">
+                                    <span>See more</span>
+                                    <i class="fal fa-angle-right"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- tp-service-area-end -->
+{% endblock %}
+
+
+{% endblock %}

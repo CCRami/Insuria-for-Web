@@ -19,4 +19,5 @@ return [
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
     CMEN\GoogleChartsBundle\CMENGoogleChartsBundle::class => ['all' => true],
+    MercurySeries\FlashyBundle\MercurySeriesFlashyBundle::class => ['all' => true],
 ];
