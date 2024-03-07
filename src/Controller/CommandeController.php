@@ -263,6 +263,7 @@ foreach ($data as $index => $value) {
         $command = $em->getRepository(Commande::class)->find($idc);
         $offre = $em->getRepository(Offre::class)->find($ido);
         $command->setOff($offre);
+        $command->setMontant((100 - $offre->getDiscount()) * ($command->getMontant() / 100));
         $em->persist($command);
         $em->flush();
         return $this->redirectToRoute('basket');

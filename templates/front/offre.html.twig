@@ -99,7 +99,7 @@
     <div class="container  espacement-superieur">
   <div id="polices-container espacement-superieur" class="row gx-20">
     {% for offre in pagination %}
-               <div class="col-xl-4 col-lg-6 mb-4">
+               
             <div class="tpservice mb-20 tp-sv-color-1">
 <div>
                     <a href="#"><i class="fas fa-file-contract"></i></a>
@@ -108,7 +108,7 @@
                 <article class="postbox__item format-image mb-50 transition-3" class="card">
                     <div class="postbox__thumb w-img">
                          <h4 class="tp-sv-title"><a href="{{ path('display_offref', {'id': offre.id}) }}"></h4>
-                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
+                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 400px; max-height: 200px;">
                         </a>
                     </div>
                     <div class="postbox__content">
