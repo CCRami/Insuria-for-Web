@@ -168,7 +168,7 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         $pagination = $paginator->paginate(
             $offres,
             $request->query->getInt('page', 1), // Get the current page from the request
-            5 // Number of items per page
+            3 // Number of items per page
         );
     
         return $this->render('front/offre.html.twig', [

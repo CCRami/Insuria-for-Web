@@ -151,7 +151,7 @@ public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityMana
         ]);
     }
 
-    #[Route('/search', name: 'ajax_search')]
+    #[Route('/searchs', name: 'ajax_searchs')]
     public function searchAction(EntityManagerInterface $em,Request $request)
     {
         $em = $this->getDoctrine()->getManager();

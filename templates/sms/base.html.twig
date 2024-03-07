@@ -16,17 +16,17 @@
           <div class="col-md-6">
             <div class="card mt-5">
               <div class="card-header">
-                <h3 class="text-center">Envoyer un SMS</h3>
+                <h3 class="text-center">Send SMS</h3>
               </div>
               <div class="card-body">
                 <form method="post" action="{{ path('send_sms') }}">
                   <div class="form-group">
-                    <label for="number">Numéro de téléphone :</label>
+                    <label for="number">Receiver number :</label>
                     <input type="text" name="number" id="number" class="form-control form-control-rounded" required>
                   </div>
 
                   <div class="form-group">
-                    <label for="name">Nom de l'expéditeur :</label>
+                    <label for="name">Sender name:</label>
                     <input type="text" name="name" id="name" class="form-control form-control-rounded" required>
                   </div>
                   
@@ -35,12 +35,12 @@
                     <textarea name="text" id="text" class="form-control form-control-rounded" required></textarea>
                   </div>
                   
-                  <button type="submit" class="btn btn-primary btn-block">Envoyer le SMS</button>
+                  <button type="submit" class="btn btn-primary btn-block">Send SMS</button>
                 </form>
               </div>
             </div>
             {% if smsSent %}
-              <div class="alert alert-success mt-3 text-center">Le SMS a été envoyé avec succès.</div>
+              <div class="alert alert-success mt-3 text-center">SMS was sent successfully</div>
             {% endif %}
           </div>
         </div>

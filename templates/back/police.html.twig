@@ -102,7 +102,10 @@
    
 
    </script>
-   <style>
+
+
+
+<style>
     .custom-margin-top {
         margin-top: 10rem; 
     }
@@ -112,8 +115,6 @@
     }
     
 </style>
-
-
 <div style="">
     <div class="card">
         <div class="card-body">
@@ -168,7 +169,7 @@
                                 $.each(arr, function(id, value) {
                                     if (key === 'sinisters') {
                                         if (id !== 'error') {
-                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td> '+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td><div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
                                         } else {
                                             entitySelector.append('<li class="errorLi">'+value+'</li>');
                                         }
@@ -236,7 +237,7 @@
                                         <tr>
                                         <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Police Name', 'u.policeName') }}</th>
-           <div class="description"> <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionPolice') }}</th></div>
+           <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionPolice') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Associated Claim', 'u.SinName') }}</th>
                                             
                                             <th>Edit/Delete</th>
@@ -247,9 +248,7 @@
                                             <tr class="table-row">
                                                 <td>{{ rec.id }}</td>
                                                 <td>{{ rec.getPoliceName }}</td>
-                                                <td>
-                                                <div class="description">{{ rec.getDescriptionPolice }}</div>
-                                                </td>
+                                                <td><div class="description">{{ rec.getDescriptionPolice }}</div></td>
                                                 <td>{{ rec.sinistre ? rec.sinistre.getSinName : 'None' }}</td>
                                                 <td>
                                                     <a href="{{ path('police_edit',{'id':rec.id}) }}">

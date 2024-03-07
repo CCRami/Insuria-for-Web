@@ -147,7 +147,7 @@
                     searchRequest.abort();
                 searchRequest = $.ajax({
                     type: "GET",
-                    url: "{{ path('ajax_search') }}",
+                    url: "{{ path('ajax_searchs') }}",
                     data: {
                         'q' : value
                     },
@@ -160,7 +160,7 @@
                                 $.each(arr, function(id, value) {
                                     if (key === 'sinisters') {
                                         if (id !== 'error') {
-                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td> '+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td> <div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
                                         } else {
                                             entitySelector.append('<li class="errorLi">'+value+'</li>');
                                         }

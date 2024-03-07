@@ -27,24 +27,24 @@
             <div class="col-4 col-lg-7 form-container">
                 <div class="card mt-3">
                     <div class="card-header text-center">
-                        <h2>Add A New Claim</h2>
+                        <h2>Add A New Disaster</h2>
                     </div>
                     <div class="card-body">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
 
                         <div class="form-group">
-                            {{ form_label(form.sin_name, 'Claim Name') }}
+                            {{ form_label(form.sin_name, 'Disaster Name') }}
                             {{ form_widget(form.sin_name, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.sin_name) }}
                         </div>
 
                         <div class="form-group">
-                            {{ form_label(form.description_sin, 'Claim Description') }}
+                            {{ form_label(form.description_sin, 'Disaster Description') }}
                             {{ form_widget(form.description_sin, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.description_sin) }}
                         </div>
                         <div class="form-group">
-    {{ form_label(form.imagePath, 'Claim Image') }}
+    {{ form_label(form.imagePath, 'Disaster Image') }}
     {{ form_widget(form.imagePath, {'attr': {'class': 'form-control-file'}}) }}
     {{ form_errors(form.imagePath) }}
 </div>
