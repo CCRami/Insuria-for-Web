@@ -33,7 +33,7 @@ class Assurance
     private ?array $doa = null;
 
     #[ORM\ManyToOne(inversedBy: 'assurance')]
-   
+    //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?CategorieAssurance $catA = null;
 
     #[ORM\Column(length: 255)]
@@ -41,6 +41,7 @@ class Assurance
     private ?string $insImage = null;
 
     #[ORM\ManyToOne(inversedBy: 'assurance')]
+    #[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?Police $pol = null;
 
     public function getId(): ?int

@@ -84,6 +84,7 @@ class Reclamation
 
      #[ORM\ManyToOne(inversedBy: 'reclamations')]
      #[ORM\JoinColumn(nullable: false)]
+     //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
      private ?Commande $command = null;
 
      

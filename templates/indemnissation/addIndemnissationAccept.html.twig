@@ -25,21 +25,15 @@
                             </div>
 
                             
-                            <div class="form-group row">
-                                <label for="montant" class="col-sm-4 col-form-label">Amount(in dinars)</label>
-                                <div class="col-sm-7">
-                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control form-control-rounded'}}) }}
-                                    {{ form_errors(form.montant) }}
-                                </div>
-                            </div>
+                    
 
                             <div class="row">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-md-6 offset-md-6">  <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Register</button>
-                                            
+                                         <button type="submit" class="btn btn-light btn-round px-5"><i class="icon-lock"></i> Submit</button>
+                                
                                             <a href="{{ path('app_indemnissation_admin',{'id': reclamation.id})}}" class="btn btn-light btn-round px-5">Cancel</a>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>

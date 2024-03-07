@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Repository\CommandeRepository;
 use Symfony\Component\HttpFoundation\Request;
-
+use Doctrine\ORM\EntityManagerInterface;
 
 class PaymentController extends AbstractController
 {
@@ -22,15 +22,21 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/checkout', name: 'checkout')]
-    public function checkout(PaymentService $paymentService, UrlGeneratorInterface $urlGenerator, CommandeRepository $commandeRepository, Request $request): Response
+    public function checkout(EntityManagerInterface $em,PaymentService $paymentService, UrlGeneratorInterface $urlGenerator, CommandeRepository $commandeRepository, Request $request): Response
     {
         // Retrieve basket items from the database
-        $commands = $commandeRepository->findAll();
-    
+        $user = $this->getUser();
+        $commands = $commandeRepository->findBy(['user' => $user]);
         // Calculate total price
         $totalPrice = 0;
         foreach ($commands as $command) {
-            $totalPrice += $command->getMontant();
+            if (!$command->getIsChecked()){
+                $totalPrice += $command->getMontant();
+                $command->setIsChecked('1');
+                $em->persist($command);
+                $em->flush();
+            }
+
         }
     
         // Create the checkout session using the PaymentService
@@ -44,7 +50,7 @@ class PaymentController extends AbstractController
     #[Route('/success-url', name: 'success_url')]
     public function successUrl(): Response
     {
-        return $this->render('front/success.html.twig', []);
+        return $this->redirectToRoute('basket');
     }
 
     #[Route('/cancel-url', name: 'cancel_url')]

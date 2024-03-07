@@ -19,7 +19,6 @@ class IndemnissationAcceptType extends AbstractType
                 'data' => new \DateTime(), 
             ])
          
-            ->add('montant')
         ;
     }
 

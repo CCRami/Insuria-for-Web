@@ -2,10 +2,10 @@
 
 {% block content %}
     <div class="clearfix"></div>
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="margin-left:0px;">
         <div class="container-fluid">
             <div class="row justify-content-center mb-4">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 ">
                     <!-- Orders Table -->
                     <div class="card">
                         <div class="card-header">Orders Table</div>
@@ -74,9 +74,10 @@
         var options = {
     title: 'Insurances Bought',
     is3D: true,
-    backgroundColor: 'transparent', // Make the chart background fully transparent
+    backgroundColor: 'transparent',
+    width: 800,  // Set the width of the chart
+    height: 600, // Set the height of the chart
     // Add any other customizations as needed
-    
 };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));

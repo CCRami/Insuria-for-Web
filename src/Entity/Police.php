@@ -42,7 +42,8 @@ class Police
     private ?string $Description_police = null;
 
     #[ORM\ManyToOne(inversedBy: 'police')]
-    #[Assert\NotNull(message: "A claim must be selected.")]
+    #[Assert\NotNull(message: "A claim must be selected.")] 
+    //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?Sinistre $sinistre = null;
 
 

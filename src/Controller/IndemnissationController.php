@@ -15,6 +15,8 @@ use App\Repository\ReclamationRepository;
 use App\Repository\IndemnissationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\MyGmailMailerService;
+use App\Repository\CommandeRepository;
+use App\Entity\Commande;
 class IndemnissationController extends AbstractController
 {
     private MyGmailMailerService $mailerService;
@@ -78,13 +80,14 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     $entityManager = $this->managerRegistry->getManager();
     $reclamationRepository = $this->managerRegistry->getRepository(Reclamation::class);
     $reclamation = $reclamationRepository->find($reclamationId);
-
+    $command = $reclamation->getCommand();
     $indemnissation = $reclamation->getIndemnissation();
+    
 
     if (!$indemnissation) {
         $indemnissation = new Indemnissation();
     }
-
+        $indemnissation->setMontant($command->getInsValue());
     $form = $this->createForm(IndemnissationAcceptType::class, $indemnissation);
     $form->handleRequest($request);
 
@@ -98,7 +101,7 @@ public function newIndemnissationAccepte(Request $request, int $reclamationId): 
     
         $entityManager->flush();
         $this->mailerService->sendEmail(
-            "farah.adad2001@gmail.com",
+            $reclamation->getCommand()->getUser()->getEmail(),
             'compensation added',
             $this->renderView('email/rec_email.html.twig', [
                 'ind' => $indemnissation,'reclamation'=>$reclamation

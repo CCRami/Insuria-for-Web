@@ -65,6 +65,14 @@
     </li>
   </ul>
 </nav>
+    
+<style>
+    .description {
+        white-space: pre-wrap; /* Garde les retours à la ligne et espace blanc */
+        word-wrap: break-word; /* Permet de casser les mots pour éviter le débordement */
+    }
+    
+</style>
 </header>
 <!--End topbar header-->
  {% endblock %}
@@ -106,7 +114,7 @@
 </style>
 
 
-<div style="margin-top:100px; margin-left:300px; margin-right:100px;">
+<div style="">
     <div class="card">
         <div class="card-body">
             <div class="sidebar-search">
@@ -160,7 +168,7 @@
                                 $.each(arr, function(id, value) {
                                     if (key === 'sinisters') {
                                         if (id !== 'error') {
-                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td><div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td> '+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
                                         } else {
                                             entitySelector.append('<li class="errorLi">'+value+'</li>');
                                         }
@@ -214,7 +222,7 @@
 
 
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left:0px;">
     <div class="container-fluid">
         <div class="card mt-">
             <div class="card-content">
@@ -228,7 +236,7 @@
                                         <tr>
                                         <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Police Name', 'u.policeName') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionPolice') }}</th>
+           <div class="description"> <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionPolice') }}</th></div>
             <th>{{ knp_pagination_sortable(pagination, 'Associated Claim', 'u.SinName') }}</th>
                                             
                                             <th>Edit/Delete</th>

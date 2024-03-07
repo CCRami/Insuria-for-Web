@@ -106,7 +106,7 @@
 </style>
 
 
-<div style="margin-top:100px; margin-left:300px; margin-right:100px;">
+<div style="">
     <div class="card">
         <div class="card-body">
             <div class="sidebar-search">
@@ -118,7 +118,7 @@
             <span class="search-result-label">Search result:</span><span class="fa arrow"></span>
             <table class="table table-hover">
             <tr class="text-center">
-                        <th>Claim Name</th>
+                        <th>Disaster Name</th>
                         <th>Description</th>
                         <th>photo path</th>
                     </tr>
@@ -160,7 +160,7 @@
                                 $.each(arr, function(id, value) {
                                     if (key === 'sinisters') {
                                         if (id !== 'error') {
-                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td><div class="description"> '+value[1]+'</div></td><td><b>'+value[2]+'</b></td></tr>');
+                                            entitySelector.append('<tr class="text-center"><td>'+value[0]+'</td><td> '+value[1]+'</td><td><b>'+value[2]+'</b></td></tr>');
                                         } else {
                                             entitySelector.append('<li class="errorLi">'+value+'</li>');
                                         }
@@ -176,20 +176,20 @@
 </script>
 
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left:0px;">
     <div class="container-fluid">
         <div class="card mt-">
             <div class="card-content">
                 <div class="row">
                     <div class="col-14 col-lg-12">
                         <div class="card">
-                            <div class="card-header">Claim Table</div>
+                            <div class="card-header"> Disaster Table</div>
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush table-borderless" id="myTable">
     <thead>
         <tr>
             <th>{{ knp_pagination_sortable(pagination, 'Id', 'u.id') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'Claim Name', 'u.sinName') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Disaster Name', 'u.sinName') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Description', 'u.descriptionSin') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Photo Path', 'u.imagePath') }}</th>
             <th>Edit/Delete</th>
@@ -221,7 +221,7 @@
 
 
                         </div>
-                        <div class="navigation" style="margin-left:350px;">
+                        <div class="navigation" style="">
                 {{ knp_pagination_render(pagination) }}
             </div>
                     </div>
@@ -234,7 +234,7 @@
 <div class="row">
     <div class="col-12 text-right">
         <a href="{{ path('sinistre_new') }}" class="btn btn-primary btn-round">
-            <i class="fas fa-plus"></i> Add a Claim
+            <i class="fas fa-plus"></i> Add a Disaster
         </a>
     </div>
 </div>

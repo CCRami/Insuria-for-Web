@@ -32,7 +32,7 @@ class CommandeController extends AbstractController
     public function viewBasket(CommandeRepository $commandeRepository): Response
     {
         $user = $this->getUser();
-        $commands = $commandeRepository->findBy(['user' => $user]);
+        $commands = $commandeRepository->findBy(['user' => $user, 'isChecked' => false]);
 
         return $this->render('front/Basket.html.twig', [
             'commands' => $commands,
@@ -218,6 +218,15 @@ foreach ($data as $index => $value) {
         $em->flush();
         return $this->redirectToRoute('display_comb');
     }
+
+    #[Route('/deletecomF/{id}', name: 'delete_comf')]
+    public function deleteComF(CommandeRepository $rep, $id, EntityManagerInterface $em): Response
+    {
+        $com = $rep->find($id);
+        $em->remove($com);
+        $em->flush();
+        return $this->redirectToRoute('basket');
+    }
     
 
     
@@ -232,10 +241,9 @@ foreach ($data as $index => $value) {
         }
 
         // Fetch insurances associated with the user
-        $insurances = $commandeRepository->findBy(['user' => $user]);
-
+        $commands = $commandeRepository->findBy(['user' => $user, 'isChecked' => true]);
         return $this->render('front/userCommand.html.twig', [
-            'insurances' => $insurances,
+            'insurances' => $commands,
         ]);
     } 
 

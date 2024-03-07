@@ -84,7 +84,7 @@
 
 <div class="clearfix"></div>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left:0px;">
     <div class="container-fluid">
     <div class="d-flex justify-content-center align-items-center">
                         <a class="btn btn-warning btn-sm me-3" href="{{ path('display_offre', {'sortField': 'id', 'sortOrder': (sortField == 'id' and sortOrder == 'asc') ? 'desc' : 'asc'}) }}">Tri ID</a>
@@ -92,16 +92,10 @@
                     </div>
 
         <div class="row justify-content-center mb-4">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 ">
                 <a href="{{ path('add_offre') }}" class="btn btn-primary mb-3">Add Offer</a>
-                <div>
-                <!-- Flashy depends on jQuery -->
-                <script src="//code.jquery.com/jquery.js"></script>
-                <!-- Load Flashy default JavaScript -->
-                <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-                <!-- Include Flashy default partial -->
-                {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-              </div>
+                <a href="{{ path('app_sms') }}" class="btn btn-primary mb-3">Send SMS</a>
+              
                 <div class="card">
                 <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
                 <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>    
@@ -151,6 +145,14 @@
                             </tbody>
                         </table>
                     </div>
+                      <div>
+                <!-- Flashy depends on jQuery -->
+                <script src="//code.jquery.com/jquery.js"></script>
+                <!-- Load Flashy default JavaScript -->
+                <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+                <!-- Include Flashy default partial -->
+                {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+              </div>
                 </div>
             </div>
         </div>

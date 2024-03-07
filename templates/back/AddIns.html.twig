@@ -30,7 +30,12 @@
                                 
                                 <div class="form-group">
                                     {{ form_label(form.catA, 'Assurance Category', {'label_attr': {'class': 'control-label'}}) }}
-                                    {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Assurance Category', 'id': 'assuranceCategory'}}) }}
+                                    {{ form_widget(form.catA, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Insurance Category', 'id': 'assuranceCategory'}}) }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_label(form.pol, 'Assurance Policy', {'label_attr': {'class': 'control-label'}}) }}
+                                    {{ form_widget(form.pol, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Select Insurance Policy', 'id': 'assuranceCategory'}}) }}
                                 </div>
                                 
                                 <div class="form-group">

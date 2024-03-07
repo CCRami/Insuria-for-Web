@@ -32,19 +32,36 @@ class Commande
     private ?array $full_doa = null;
 
     #[ORM\ManyToOne(targetEntity: Assurance::class)]
+    //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?Assurance $doaCom = null;
 
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    //#[ORM\JoinColumn(nullable: false,onDelete:'CASCADE')]
     private ?Offre $off = null;
 
     #[ORM\Column]
     #[Assert\Positive(message:"The Value Must Be Positive!")]
     private ?float $InsValue = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isChecked = false;
+
+    public function getIsChecked(): bool
+    {
+        return $this->isChecked;
+    }
+
+    public function setIsChecked(bool $isChecked): static
+    {
+        $this->isChecked = $isChecked;
+
+        return $this;
+    }
 
 
     public function getId(): ?int

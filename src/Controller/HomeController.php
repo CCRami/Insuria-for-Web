@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     public function index_client(Request $request): Response
     {
         $request->getSession()->getFlashBag()->clear();
-        return $this->render('/front/index.html.twig', [
+        return $this->render('/front/home.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }

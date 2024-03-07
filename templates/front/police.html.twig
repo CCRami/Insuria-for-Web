@@ -22,16 +22,13 @@
                                         <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
+                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
                                     <ul class="submenu">
-                                    {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
-                                        <li><a href="{{path('app_afficheravis')}}">Reviews</a></li>
-                                    {% else %}
-                                        <li><a href="{{path('app_afficheravisc')}}">review</a></li>
-                                    {% endif %}
+                                        <li><a href="portfolio.html">Agencies Details</a></li>
+                                        <li><a href="portfolio-details.html">Reviews</a></li>
                                     </ul>
                                 </li>
-                                    <li><a href="{{path('displayCategorieOffref')}}">Offers</a> </li>
+                                <li ><a href="blog-details.html">Offers</a> 
                                 </li>
                             </ul>
                         </nav>
@@ -55,7 +52,7 @@
                         <div class="tp-main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="hasdropdown"><a href="{{path('app_home_manage', {'id': app.user.id})}}">{{ app.user.username }}</a>
+                                    <li class="hasdropdown"><a href="portfolio-details.html">{{ app.user.username }}</a>
                                     <ul class="submenu">
                                             <li><a href="{{path('app_home_manage', {'id': app.user.id})}}">Manage account</a></li>
                                             <li><a href="{{ path('app_logout') }}">Logout</a></li>
@@ -145,10 +142,10 @@
                     <h4 class="tp-sv-title">{{ police.policeName }}</h4>
                     <div class="description"><p> {{ police.descriptionPolice }}</p></div><!-- Assurez-vous que c'est le champ correct pour la description -->
 <a href="javascript:void(0);" class="btn btn-primary toggle-details-btn" data-bs-toggle="collapse" data-bs-target="#details-{{ police.id }}">View Details</a>
-                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class=" btn btn-primary" style="margin-top: 10px;">Generate PDF</a>
+                    <a href="{{ path('police_pdf', {'id': police.id}) }}" class=" btn btn-primary" ;">Generate PDF</a>
                     <div id="details-{{ police.id }}" class="collapse mt-3" style="color: white;">
     <strong>Associated Claim:</strong> {{ police.sinistre.sinName }}<br>
-    <strong>Description:</strong> {{ police.sinistre.descriptionSin }}
+    <div class="description"><strong>Description:</strong> {{ police.sinistre.descriptionSin }} </div>
      
 </div>
 

@@ -1,24 +1,92 @@
 {% extends 'front/index.html.twig' %}
 {% block main %}
-    <main>
-        <section class="breadcrumb__area background-bg pt-180 pb-180 include-bg p-relative fix" data-background="assets/img/breadcurmb/breadcurmb.jpg">
-            <div class="tp-breadcrmb-circle-one"></div>
-            <div class="tp-breadcrmb-circle-two"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="breadcrumb__wrapper z-index-6 d-flex justify-content-between align-items-center">
-                            <div class="breadcrumb__content">
-                                <h3 class="breadcrumb__title">Your Insurance</h3>
+{% block header %}
+<div id="header-sticky" class="tp-header-area header-transparent header-space header-border" style="background-color: #051B46;">
+        <div class="container-fluid">
+            <div class="row g-0 align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                    <div class="tp-logo">
+                        <a href="{{ path('app_home') }}"><img src="{{ asset('../front_assets/img/logo/logo.png')}}" alt="hello"></a>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-5 col-xl-6 col-lg-5 d-none d-lg-block" style="padding-block-start: 1%; padding-inline-start: 2%;">
+                    <div class="tp-main-menu">
+                        <nav id="mobile-menu">
+                            <ul>
+                              
+                                <li ><a href="{{ path('display_assuranceF') }}">Insurances</a>
+                                <li class="hasdropdown"><a href="#">Policies</a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
+                                        <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
+                                    <ul class="submenu">
+                                    {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                                        <li><a href="{{path('app_afficheravis')}}">Reviews</a></li>
+                                    {% else %}
+                                        <li><a href="{{path('app_afficheravisc')}}">review</a></li>
+                                    {% endif %}
+                                    </ul>
+                                </li>
+                                    <li><a href="{{path('displayCategorieOffref')}}">Offers</a> </li>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="col-xxl-4 col-xl-3 col-lg-2 col-md-6 col-6" style="padding-block-start: 1%;">
+                    <div class="tp-header-right d-flex align-items-center justify-content-end">
+                        <div class="tp-header-info d-none d-xxl-block">
+                            
+                            <div class="tpoffcanvas__social" style="text-align: right;">
+                                <div class="social-icon">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
                             </div>
-                            <div class="breadcrumb__button">
-                                <a class="tp-btn-white" href="contact.html">Contact us today<i class="far fa-arrow-right"></i></a>
-                            </div>
+                        </div>
+                        {% if app.user %}
+                        <div class="tp-main-menu">
+                            <nav id="mobile-menu">
+                                <ul>
+                                    <li class="hasdropdown"><a href="{{path('app_home_manage', {'id': app.user.id})}}">{{ app.user.username }}</a>
+                                    <ul class="submenu">
+                                            <li><a href="{{path('app_home_manage', {'id': app.user.id})}}">Manage account</a></li>
+                                            <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        {% else %}
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="{{ path('app_register') }}">SignUp</a>
+                        </div>
+                        <div class="tp-header-button d-none d-md-block">
+                            <a class="tp-btn" href="{{ path('app_login') }}">LogIn</a>
+                        </div>
+                         {% endif %}
+                        <div class="tp-toggle-bar d-lg-none">
+                            <a class="tp-menu-bar" href="javascript:void(0)"><i class="fas fa-bars"></i></a>
                         </div>
                     </div>
                 </div>
+                
             </div>
-        </section>
+        </div>
+    </div>
+
+   <!-- tp-header-area-end -->
+   </header>
+{% endblock %}
+    <main>
+       
 
 <h1>Your Insurances</h1>
     <div class="tp-team-area grey-bg pt-120 pb-90">
@@ -35,13 +103,13 @@
                             <h4 class="tp-team-title">Insurance: {{ insurance.doacom.nameins }}</h4>
                             <span>Full Premium: {{ insurance.doacom.montant }}</span>
                         </div>
-                        <div class="tp-team-item__icon">
-                            <a class="team-border-right team-bg-color-1" href="{{ path('reclamationUser_new', {'id': insurance.id}) }}">Add A Claim</i></a>
-                            <a class="team-border-right team-bg-color-1" href="{{ path('display_comD', {'idc': insurance.id}) }}">View Details</a>
+                        
+                            <a class="filter-btn btn btn-primary " href="{{ path('reclamationUser_new', {'id': insurance.id}) }}">Add A Claim</i></a>
+                            <a class="filter-btn btn btn-primary " href="{{ path('display_comD', {'idc': insurance.id}) }}">View Details</a>
 ``
 
                             <!-- You can add more actions here -->
-                        </div>
+                        
                     </div>
                 </div>
             {% endfor %}

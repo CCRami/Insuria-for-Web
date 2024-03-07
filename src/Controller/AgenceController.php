@@ -55,7 +55,7 @@ class AgenceController extends AbstractController
         return $this->render('agence/agencefront.html.twig',['listX' => $list, ]);
     }
 
-    #[Route('/delete/{id}', name: 'agence_delete')]
+    #[Route('/dellete/{id}', name: 'agence_delete')]
     public function deleteagence(AgenceRepository $rep,$id,EntityManagerInterface $em):Response
     {
         $agence=new Agence();
@@ -83,7 +83,7 @@ class AgenceController extends AbstractController
         return $this->render('agence/ajouterage.html.twig',['form'=>$form->createView()]);
 
     }
-    #[Route('/edit/{id}', name: 'agence_edit')]
+    #[Route('/ediit/{id}', name: 'agence_edit')]
     public function editagence(Request $request,EntityManagerInterface $em,AgenceRepository $rep,int $id):Response
     {
         $agence=new Agence();

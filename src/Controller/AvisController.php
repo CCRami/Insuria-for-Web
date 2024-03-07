@@ -161,7 +161,8 @@ class AvisController extends AbstractController
              {
                  $avis=new Avis();
                  $avis=$rep->find($id);
-                 $avis->setEtat(true);$entityManager->flush();
+                 $avis->setEtat(true);
+                 $entityManager->flush();
 
                      return $this->redirectToRoute('app_afficheravis');
                  

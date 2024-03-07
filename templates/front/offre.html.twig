@@ -85,22 +85,29 @@
    </header>
 {% endblock %}
 {% block main %}
+<style>
+.espacement-superieur {
+    padding-top: 200px; /* Ajustez selon vos besoins pour espacer du haut */
+}
+</style>
 <main>
     
    
     <hr>
     <hr>
     
-    
-    <div class="postbox__area pt-120 pb-120">
-        <div class="container" id"offer-container">
-           <div class="row">
+    <div class="container  espacement-superieur">
+  <div id="polices-container espacement-superieur" class="row gx-20">
     {% for offre in pagination %}
-        <div class="col-xxl-4 col-xl-4 col-lg-4">
-            <div class="postbox__wrapper pr-20">
+               <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="tpservice mb-20 tp-sv-color-1">
+<div>
+                    <a href="#"><i class="fas fa-file-contract"></i></a>
+                </div>
+                <div class="tpservice__title">
                 <article class="postbox__item format-image mb-50 transition-3" class="card">
                     <div class="postbox__thumb w-img">
-                        <a href="{{ path('display_offref', {'id': offre.id}) }}">
+                         <h4 class="tp-sv-title"><a href="{{ path('display_offref', {'id': offre.id}) }}"></h4>
                             <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
                         </a>
                     </div>
@@ -135,6 +142,8 @@
     <div class="pagination">
         {{ knp_pagination_render(pagination) }}
     </div>
+    
+
 </div>
 
     

@@ -203,7 +203,7 @@ public function afficheRecUser( ReclamationRepository $repository, $id):Response
 }
 
 //supprimer :
-#[Route('delete/{id}', name: 'rec_deleteUser')]
+#[Route('delette/{id}', name: 'rec_deleteUser')]
 public function deleteRecUser(Request $req,ReclamationRepository $rep,$id,EntityManagerInterface $em):Response
 {
     $rec=new Reclamation();
@@ -218,7 +218,7 @@ public function deleteRecUser(Request $req,ReclamationRepository $rep,$id,Entity
     
 }  
 //editer :
-#[Route('edit/{id}', name: 'rec_editUser')]
+#[Route('editt/{id}', name: 'recc_editUser')]
 public function editRecUser(Request $request, EntityManagerInterface $em, ReclamationRepository $rep, int $id): Response
 {
     $rec = $rep->find($id);
