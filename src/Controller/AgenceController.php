@@ -6,6 +6,7 @@ use App\Form\agenceType;
 
 use App\Entity\Agence;
 use App\Repository\AgenceRepository;
+use App\Repository\AvisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,10 +50,12 @@ class AgenceController extends AbstractController
      ]);
     }
     #[Route('/afficheragencesc', name: 'app_afficheragencesc')]
-    public function listagencec(AgenceRepository $repository)
+    public function listagencec(AgenceRepository $repository,AvisRepository $aap)
     {
         $list= $repository->findAll();
-        return $this->render('agence/agencefront.html.twig',['listX' => $list, ]);
+        $aa=$aap->findAll();
+    
+        return $this->render('agence/agencefront.html.twig',['listX' => $list,'lista'=>$aa ]);
     }
 
     #[Route('/delete/{id}', name: 'agence_delete')]

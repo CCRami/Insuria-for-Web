@@ -52,6 +52,11 @@ class Agence
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'agenceav')]
     private Collection $agav;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $idadressemap = null;
+
+   
+
     public function __construct()
     {
         $this->agav = new ArrayCollection();
@@ -177,6 +182,19 @@ public function removeAgav(Avis $agav): static
 
     return $this;
 }
+
+public function getIdadressemap(): ?int
+{
+    return $this->idadressemap;
+}
+
+public function setIdadressemap(?int $idadressemap): static
+{
+    $this->idadressemap = $idadressemap;
+
+    return $this;
+}
+
 
 
 

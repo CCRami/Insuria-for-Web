@@ -181,13 +181,18 @@ button:hover {
                            <h5 style="color: white;" >Creation Date: {{ agence.create_at|date('d/m/Y') }}</h5>
                            
                         </div>
+
                         <div class="tp-about-button-box d-flex">
                            <button class="tp-btn">
                               <a href="{{ path('SearchfrontByagence', {'id': agence.id}) }}">Reviews</a>
                            </button>
-                           <button style="margin-left: 5px;" class="tp-btn">
-                              <a href="{{ path('addavis', {'id': agence.id}) }}">Rate us</a>
-                           </button>
+                           {% for avis in lista %}
+                          {% if avis.agenceav != agence.id && avis.avis != 111 %}
+    <button style="margin-left: 5px;" class="tp-btn">
+        <a href="{{ path('addavis', {'id': agence.id}) }}">Rate us</a>
+    </button>
+{% endif %}
+                             {% endfor %}
                         </div>
                           {# -------------------------- Share ------------------------------------  #}
          <div style="margin-top: 15px;" class="sharethis-inline-share-buttons"></div>

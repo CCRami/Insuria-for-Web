@@ -56,6 +56,18 @@ function findavisbyclient($Avis){
     ->getResult();
 }
 
+function findavisbyclient1($Avis){
+    
+    $em=$this->getEntityManager();
+    
+    return 
+    $em->createQuery('SELECT b from App\Entity\Avis b JOIN b.Avis z WHERE  
+    z.id=:id ')
+    ->setParameter('id',$Avis)
+    ->getResult();
+}
+
+
 function findavisbyagence($id){
     
     $em=$this->getEntityManager();

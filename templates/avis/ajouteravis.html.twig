@@ -166,8 +166,8 @@
                                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
                                 
                                 <div class="form-group">
-                                    {{ form_label(form.note, 'note', {'label_attr': {'class': 'control-label'}}) }}
-                                    {{ form_widget(form.note, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter your note'}}) }}
+                                    {{ form_label(form.note, 'note') }}
+                                    {{ form_widget(form.note, ) }}
                                       <span class="text-danger">{{ form_errors(form.note) }}</span>
                                 </div>
                                 
