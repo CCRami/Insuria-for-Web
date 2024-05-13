@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Service\PdfService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use App\Repository\AvisRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,10 +49,13 @@ class AgenceController extends AbstractController
      ]);
     }
     #[Route('/afficheragencesc', name: 'app_afficheragencesc')]
-    public function listagencec(AgenceRepository $repository)
+    public function listagencec(AgenceRepository $repository,AvisRepository $aap)
     {
         $list= $repository->findAll();
-        return $this->render('agence/agencefront.html.twig',['listX' => $list, ]);
+        $aa=$aap->findAll();
+        
+
+        return $this->render('agence/agencefront.html.twig',['listX' => $list,'lista'=>$aa ]);
     }
 
     #[Route('/dellete/{id}', name: 'agence_delete')]

@@ -47,7 +47,7 @@
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
-                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="{{ path('basket')}}" ><i class="fa fa-shopping-cart" style="font-size: 35px; color: #fcaf3d;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -177,8 +177,8 @@
                                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'id': 'commande_form','novalidate':'novalidate'}}) }}
                                 
                                 <div class="form-group">
-                                    {{ form_label(form.note, 'note', {'label_attr': {'class': 'control-label'}}) }}
-                                    {{ form_widget(form.note, {'attr': {'class': 'form-control form-control-rounded', 'placeholder': 'Enter your note'}}) }}
+                                    {{ form_label(form.note, 'note') }}
+                                    {{ form_widget(form.note, ) }}
                                       <span class="text-danger">{{ form_errors(form.note) }}</span>
                                 </div>
                                 

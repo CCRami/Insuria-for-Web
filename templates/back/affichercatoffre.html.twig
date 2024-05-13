@@ -106,7 +106,7 @@
                            <tr>
                                <td>
                                    {% if catoffre.catimg %}
-                                       <img src="{{ asset('uploads/offres/' ~ catoffre.catimg) }}" alt="CatOffre Image" style="max-width: 100px; max-height: 100px;">
+                                       <img src="{{ asset('uploads/images/' ~ catoffre.catimg | split('/') | last) }}" alt="CatOffre Image" style="max-width: 100px; max-height: 100px;">
                                    {% else %}
                                        No Image
                                    {% endif %}

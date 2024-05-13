@@ -22,13 +22,13 @@
                                         <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
                                     </ul>
                                 </li>
-                                <li class="hasdropdown"><a href="portfolio-details.html">Agencies</a>
+                                <li class="hasdropdown"><a href="{{path('app_afficheragencesc')}}">Agencies</a>
                                     <ul class="submenu">
                                         <li><a href="portfolio.html">Agencies Details</a></li>
-                                        <li><a href="portfolio-details.html">Reviews</a></li>
+                                        <li><a href="{{path('app_afficheravis')}}">Reviews</a></li>
                                     </ul>
                                 </li>
-                                <li ><a href="blog-details.html">Offers</a> 
+                                <li ><a href="{{path('displayCategorieOffref')}}">Offers</a> </li>
                                 </li>
                             </ul>
                         </nav>
@@ -44,7 +44,7 @@
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
-                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="{{ path('basket')}}" ><i class="fa fa-shopping-cart" style="font-size: 35px; color: #fcaf3d;"></i></a>
                                 </div>
                             </div>
                         </div>

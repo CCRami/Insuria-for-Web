@@ -97,7 +97,7 @@
                     <div class="tp-team-item text-center mb-30">
                     <div class="tp-team-item__thumb">
    
-   <img src="{{ asset('uploads/images/' ~ insurance.doacom.insImage) }}" alt="" style="width: 250px; height: 250px;">
+   <img src="{{ asset('uploads/images/' ~ insurance.doacom.insImage | split('\\') | last) }}" alt="" style="width: 250px; height: 250px;">
 </div>
                         <div class="tp-team-item__content">
                             <h4 class="tp-team-title">Insurance: {{ insurance.doacom.nameins }}</h4>

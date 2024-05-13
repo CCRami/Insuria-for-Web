@@ -22,9 +22,9 @@ class PoliceController extends AbstractController
     {
         $query = $rep->createQueryBuilder('u')->getQuery();
         $pagination = $paginator->paginate(
-            $query, // Use query, not result
+            $query, 
             $request->query->getInt('page', 1),
-            2 // Number of results per page
+            2 
         );
         return $this->render('back/police.html.twig', [
         'pagination' => $pagination,
@@ -127,7 +127,7 @@ public function pdf(Pdf $snappy, $id,Request $req, PoliceRepository $rep): Respo
                 'id' => $police->getId(),
                 'policeName' => $police->getPoliceName(),
                 'descriptionPolice' => $police->getDescriptionPolice(),
-                // Vous pouvez ajouter d'autres champs selon les besoins
+               
             ];
         }
     
@@ -146,7 +146,7 @@ public function allPolices(PoliceRepository $policeRepository): JsonResponse
             'id' => $police->getId(),
             'policeName' => $police->getPoliceName(),
             'descriptionPolice' => $police->getDescriptionPolice(),
-            // Ajoutez d'autres champs si nécessaire
+            
         ];
     }
 

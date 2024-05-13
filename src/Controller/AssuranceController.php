@@ -68,17 +68,21 @@ public function addIns(Request $request, EntityManagerInterface $em): Response
        
         $imageFile = $form['insimage']->getData();
 
-        
         if ($imageFile) {
-            
-            $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
-           
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $imageFile->guessExtension();
+
+            $newFilename = $originalFilename.'.'.$extension;
+
+            $targetDirectory = $this->getParameter('image_directory');
+
             $imageFile->move(
-                $this->getParameter('image_directory'), 
+                $targetDirectory, 
                 $newFilename
             );
-            
-            $assurance->setInsImage($newFilename);
+
+            $relativePath = 'C:\\Users\\Mon Pc\\Project Insuria\\Insuria\\public\\uploads\\images\\' . $newFilename;
+            $assurance->setInsImage($relativePath);
         }
 
         $doaData = $form->get('doa')->getData();
@@ -112,18 +116,20 @@ public function addIns(Request $request, EntityManagerInterface $em): Response
     if ($form->isSubmitted() && $form->isValid()) {
         $imageFile = $form['insimage']->getData();
         if ($imageFile) {
-            $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
-            try {
-                $imageFile->move(
-                    $this->getParameter('image_directory'), 
-                    $newFilename
-                );
-                $assurance->setInsImage($newFilename);
-            } catch (Exception $e) {
-                // Handle file upload error
-                $this->addFlash('error', 'Failed to upload image.');
-                return $this->redirectToRoute('display_assurance');
-            }
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $imageFile->guessExtension();
+
+            $newFilename = $originalFilename.'.'.$extension;
+
+            $targetDirectory = $this->getParameter('image_directory');
+
+            $imageFile->move(
+                $targetDirectory, 
+                $newFilename
+            );
+
+            $relativePath = 'C:\\Users\\Mon Pc\\Project Insuria\\Insuria\\public\\uploads\\images\\' . $newFilename;
+            $assurance->setInsImage($relativePath);
         } else {
             $assurance->setInsImage($originalImage);
         }
@@ -166,29 +172,28 @@ public function addIns(Request $request, EntityManagerInterface $em): Response
    #[Route("/filter-assurances/{categoryId}", name:"filter_assurances")]
 public function filterAssurances(Request $request, AssuranceRepository $assuranceRepository, $categoryId): JsonResponse
 {   
-    // Retrieve assurances based on the selected category
+    
 
     if ($categoryId === '*') {
-        // If categoryId is null, retrieve all assurances
+    
         $assurances = $assuranceRepository->findAll();
     } else {
-        // If categoryId is not null, retrieve assurances based on the selected category
+       
         $assurances = $assuranceRepository->findBy(['catA' => $categoryId]);
     }
 
-    // Transform assurances into an array of data to return
     $assuranceData = [];
     foreach ($assurances as $assurance) {
         $assuranceData[] = [
             'id' => $assurance->getId(),
             'nameins' => $assurance->getNameIns(),
             'montant' => $assurance->getMontant(),
-            'catA' => $assurance->getCatA()->getId(), // Include category ID in the response
+            'catA' => $assurance->getCatA()->getId(), 
             'insImage' => $assurance->getinsImage(),
         ];
     }
 
-    // Return the filtered assurances as a JSON response
+   
     return new JsonResponse($assuranceData);
 }
 
@@ -199,10 +204,10 @@ public function filterPrices(Request $request, AssuranceRepository $assuranceRep
     $jsonData = json_decode($request->getContent(), true);
     $sortingOption = $jsonData['sortingOption'];
 
-    // Retrieve assurances from the database
+  
     $assurances = $assuranceRepository->findAll();
    
-    // Sort assurances based on the selected sorting option
+   
     if ($sortingOption === 'high_to_low') {
         usort($assurances, function ($a, $b) {
             return $b->getMontant() - $a->getMontant();
@@ -213,7 +218,7 @@ public function filterPrices(Request $request, AssuranceRepository $assuranceRep
         });
     }
 
-    // Transform sorted assurances into an array of data to return
+   
     $assuranceData = [];
     foreach ($assurances as $assurance) {
         $assuranceData[] = [
@@ -224,7 +229,7 @@ public function filterPrices(Request $request, AssuranceRepository $assuranceRep
         ];
     }
     
-    // Return the sorted assurances as a JSON response
+   
     return new JsonResponse($assuranceData);
 }
 
@@ -237,7 +242,7 @@ public function chat(Request $request): Response
 {
     $form = $this->createForm(QuestionnaireFormType::class);
     $form->handleRequest($request);
-    $answer = ''; // Define $answer outside try-catch block
+    $answer = ''; 
 
     if ($form->isSubmitted() && $form->isValid()) {
         $age = $form->get('age')->getData();
@@ -252,7 +257,7 @@ public function chat(Request $request): Response
         $coverage = $form->get('preferred_coverage')->getData();
         $location = $form->get('geographic_factors')->getData();
         
-        // Construct the prompt
+      
         $prompt = "What is your age? $age What is your annual income? $income 
         What is your marital status? $status 
         What is your employment status? $employment
@@ -294,7 +299,7 @@ public function chat(Request $request): Response
                 $answer = 'An error occurred: Unexpected response format';
             }
         } catch (\Exception $e) {
-            // Handle any exceptions here
+           
             $answer = 'An error occurred: ' . $e->getMessage();
         }
     }

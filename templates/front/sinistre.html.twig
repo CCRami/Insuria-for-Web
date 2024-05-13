@@ -18,7 +18,7 @@
                                 <li ><a href="{{ path('display_assuranceF') }}">Insurances</a>
                                 <li class="hasdropdown"><a href="#">Policies</a>
                                     <ul class="submenu">
-                                        <li><a href="{{ path('front_sinistres') }}">Type of Claim</a></li>
+                                        <li><a href="{{ path('front_sinistres') }}">Disaster</a></li>
                                         <li><a href="{{ path('front_polices') }}">Policy Details</a></li>
                                     </ul>
                                 </li>
@@ -47,7 +47,7 @@
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
-                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="{{ path('basket')}}" ><i class="fa fa-shopping-cart" style="font-size: 35px; color: #fcaf3d;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -128,9 +128,15 @@
             {% for sinistre in sinistre %}
                  <div class="col-xl-6 col-lg-6 sinistre-item">
                 <div class="tp-about-thumb">
-                    {# Utiliser le chemin d'image dynamique de l'entité Sinistre #}
-                    <img src="{{ asset('uploads/sinistres/' ~ sinistre.imagePath) }}" alt="Image du sinistre" class="image-sinistre">
-                </div>
+                {# Extraire la partie relative du chemin après 'public' #}
+                {% set relativeImagePath = sinistre.imagePath | split('public')[1] %}
+                
+                {# Remplacer les backslashes par des slashes pour les URL valides #}
+                {% set relativeImagePath = relativeImagePath | replace({'\\': '/'}) %}
+                
+                {# Utiliser le chemin d'image dynamique de l'entité Sinistre #}
+                <img src="{{ asset(relativeImagePath) }}" alt="Image du sinistre" class="image-sinistre">
+            </div>
             </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="tp-about-section-box mb-40">

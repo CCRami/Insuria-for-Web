@@ -1,26 +1,19 @@
 {% extends 'back_base.html.twig' %}
 
 {% block content %}
-<div class="clearfix"></div>
-	
-  <div class="content-wrapper">
-    <div class="container-fluid">
 
   <!--Start Dashboard Content-->
 
 	
 	  
-	<div class="row">
-     <div class="col-16 col-lg-12 col-xl-12">
-	   
 
      
 	<div class="row">
-	 <div class="col-12 col-lg-12">
+	 <div class="col-12 col-lg-12" >
 	   <div class="card">
-	     <div class="card-header">Notes <a href="{{path('agence_add')}}" style="margin-left: 80%;">average ratings : {{ averageRating}}</a>   
+	     <div class="card-header">Notes <a href="{{path('agence_add')}}" style="margin-left:80%;">average ratings : {{ averageRating}} ★</a> 
 		  
-	       <div class="table-responsive">
+	       <div class="table-responsive" style="margin-top: 3%;">
                  <table class="table align-items-center table-flush table-borderless">
                   <thead>
                    <tr>
@@ -36,10 +29,25 @@
                    {% for avis in listX %}
                    <tbody><tr>
                       <td>{{avis.agenceav.nomage}}</td>
-                    <td>{{avis.note}}</td>
+                    {% if avis.note == 1 %}
+                    <td> <p style="color:gold">★</p></td>
+                                 </td> 
+                  {% elseif avis.note == 2 %} 
+                  <td> <p style="color:gold">★★</p>
+                                 </td> 
+                   {% elseif avis.note == 3 %} 
+                   <td> <p style="color:gold">★★★</p>
+                                 </td> 
+                    {% elseif avis.note == 4 %} 
+                    <td><p style="color:gold">★★★★</p>
+                                 </td> 
+                     {% elseif avis.note == 5 %} 
+                     <td> <p style="color:gold">★★★★★</p>
+                                 </td> 
+                    {% endif %}  
                     <td>{{avis.commentaire}}</td>
                   
-                    <td>{{avis.avis.first_name}} {{avis.avis.last_name}}</td>
+                    <td>{{avis.avis.firstname}} {{avis.avis.lastname}}</td>
 <td>{{ avis.date_avis|date('d/m/Y') }}</td>
 
                    
@@ -63,10 +71,6 @@
 	<!--start overlay-->
 		  <div class="overlay toggle-menu"></div>
 		<!--end overlay-->
-		
-    </div>
-    <!-- End container-fluid-->
-    
-    </div><!--End content-wrapper-->
+
 
  {% endblock %}

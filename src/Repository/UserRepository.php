@@ -59,6 +59,7 @@ class UserRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+    
 
 //    /**
 //     * @return User[] Returns an array of User objects

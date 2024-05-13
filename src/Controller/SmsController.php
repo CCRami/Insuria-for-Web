@@ -10,30 +10,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SmsController extends AbstractController
 {
-   
-    //La vue du formulaire d'envoie du sms
+    // Vue du formulaire d'envoi du SMS
     #[Route('/sms', name: 'app_sms')]
     public function index(): Response
     {
-        return $this->render('sms/base.html.twig',['smsSent'=>false]);
+        return $this->render('sms/base.html.twig', ['smsSent' => false]);
     }
 
-    //Gestion de l'envoie du sms
+    // Gestion de l'envoi du SMS
     #[Route('/sendSms', name: 'send_sms', methods: ['POST'])]
     public function sendSms(Request $request, SmsGenerator $smsGenerator): Response
     {
-       
-        $number=$request->request->get('number');
+        // Numéro de destination fixe pour le test
+        $number = '+21652564095';
 
-        $name=$request->request->get('name');
+        // Texte du SMS
+        $text = 'we got a new offer check our website to find more about it';
 
-        $text=$request->request->get('text');
+        // Appel du service pour envoyer le SMS
+        $smsGenerator->sendSms($number, '', $text); // Pas besoin du nom pour ce SMS
 
-        $number_test=$_ENV['twilio_to_number'];// Numéro vérifier par twilio. Un seul numéro autorisé pour la version de test.
-
-        //Appel du service
-        $smsGenerator->sendSms($number_test ,$name,$text);
-
-        return $this->render('sms/base.html.twig', ['smsSent'=>true]);
+        return $this->render('sms/base.html.twig', ['smsSent' => true]);
     }
 }

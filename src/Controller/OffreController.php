@@ -17,6 +17,7 @@ use App\Controller\FlashyNotifier as ControllerFlashyNotifier;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use App\Repository\CommandeRepository;
 use App\Entity\User;
+use App\Service\SmsGenerator;
 
 
 
@@ -46,7 +47,7 @@ class OffreController extends AbstractController
     }
 
     #[Route('/addof', name: 'add_offre')]
-    public function addOffre(Request $request,EntityManagerInterface $em,FlashyNotifier $flashy): Response
+    public function addOffre(Request $request,EntityManagerInterface $em,FlashyNotifier $flashy, SmsGenerator $smsGenerator): Response
     {
         $offre = new Offre();
         $form = $this->createForm(OffreformType::class, $offre);
@@ -55,29 +56,29 @@ class OffreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $imageFile = $form->get('offreimg')->getData();
-            
-           
             if ($imageFile) {
-               
-                $fileName = uniqid().'.'.$imageFile->guessExtension();
-                
-                
-                try {
-                    $imageFile->move(
-                        $this->getParameter('offre_images_directory'), 
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    
-                }
-                
-                
-                $offre->setOffreimg($fileName);
-            }
-            
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $imageFile->guessExtension();
+    
+                $newFilename = $originalFilename.'.'.$extension;
+    
+                $targetDirectory = $this->getParameter('image_directory');
+    
+                $imageFile->move(
+                    $targetDirectory, 
+                    $newFilename
+                );
+    
+                $relativePath = 'file:C:/Users/Mon Pc/Project Insuria/Insuria/public/uploads/images/' . $newFilename;
+                $offre->setOffreimg($relativePath);
+            } 
            
             $em->persist($offre);
             $em->flush();
+            // After persisting the offer, send SMS notification
+            $number = '+21652564095'; // Destination number
+            $text = 'we got a new offer check our website to find more about it' ; 
+            $smsGenerator->sendSms($number, '', $text);
             $flashy->success('Offer added', 'http://your-awesome-link.com');
             
             
@@ -103,21 +104,20 @@ public function editOffre(Request $request, EntityManagerInterface $em, OffreRep
         
        
         if ($imageFile) {
-            
-            $fileName = uniqid().'.'.$imageFile->guessExtension();
-            
-           
-            try {
-                $imageFile->move(
-                    $this->getParameter('offre_images_directory'), // Directory defined in services.yaml
-                    $fileName
-                );
-            } catch (FileException $e) {
-              
-            }
-            
-          
-            $offre->setOffreimg($fileName);
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $imageFile->guessExtension();
+
+            $newFilename = $originalFilename.'.'.$extension;
+
+            $targetDirectory = $this->getParameter('image_directory');
+
+            $imageFile->move(
+                $targetDirectory, 
+                $newFilename
+            );
+
+            $relativePath = 'file:C:/Users/Mon Pc/Project Insuria/Insuria/public/uploads/images/' . $newFilename;
+            $offre->setOffreimg($relativePath);
         }
         
        

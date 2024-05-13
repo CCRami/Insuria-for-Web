@@ -49,7 +49,7 @@
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
-                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                    <a href="{{ path('basket')}}" ><i class="fa fa-shopping-cart" style="font-size: 35px; color: #fcaf3d;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -196,9 +196,17 @@ button:hover {
                            <button class="tp-btn">
                               <a href="{{ path('SearchfrontByagence', {'id': agence.id}) }}">Reviews</a>
                            </button>
-                           <button style="margin-left: 5px;" class="tp-btn">
-                              <a href="{{ path('addavis', {'id': agence.id}) }}">Rate us</a>
-                           </button>
+                        {% set test = true %}
+                           {% for avis in lista %}
+                          {% if (avis.agenceav.id == agence.id and avis.avis.id == app.user.id) %}
+                          {% set test = false %}
+                            {% endif %}
+                             {% endfor %}
+                            {% if test %}
+                            <button style="margin-left: 5px;" class="tp-btn">
+                                <a href="{{ path('addavis', {'id': agence.id}) }}">Rate Us</a>
+                            </button>
+                            {% endif %}
                         </div>
                           {# -------------------------- Share ------------------------------------  #}
          <div style="margin-top: 15px;" class="sharethis-inline-share-buttons"></div>

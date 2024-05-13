@@ -8,7 +8,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6">
             <div class="amaboutinfo">
             <div class="ac-ab-img fix" > 
-                  <img src="{{ user.avatar}}" alt="">
+                  <img src="{{ user.avatar starts with 'http' ? user.avatar : asset('uploads/images/' ~ user.avatar | split('/') | last) }}" class="img-circle" alt="user avatar">
                </div>
                   <div class="amaboutinfo__client-info" >
                      <h4 style="color: #FFFFFF;">{{ user.username}}</h4>

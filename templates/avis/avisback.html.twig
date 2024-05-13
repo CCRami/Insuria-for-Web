@@ -113,7 +113,22 @@
                    {% for avis in listX %}
                    <tbody><tr>
                       <td>{{avis.agenceav.nomage}}</td>
-                    <td>{{avis.note}}</td>
+                    {% if avis.note == 1 %}
+                    <td> <p style="color:gold">★</p></td>
+                                 </td> 
+                  {% elseif avis.note == 2 %} 
+                  <td> <p style="color:gold">★★</p>
+                                 </td> 
+                   {% elseif avis.note == 3 %} 
+                   <td> <p style="color:gold">★★★</p>
+                                 </td> 
+                    {% elseif avis.note == 4 %} 
+                    <td><p style="color:gold">★★★★</p>
+                                 </td> 
+                     {% elseif avis.note == 5 %} 
+                     <td> <p style="color:gold">★★★★★</p>
+                                 </td> 
+                    {% endif %}  
                     <td >{{avis.commentaire}}</td>
                   
                     <td>{{avis.avis.firstname}} {{avis.avis.lastname}}</td>

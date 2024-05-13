@@ -57,8 +57,8 @@
          <tr>
         <th style="color: white;">image</th>
           <td>
-       {% if reclamation.getFileName() is not null %}  <img src="{{ asset('uploads/' ~ reclamation.fileName) }}" alt="{{ reclamation.fileName }}"
-class="small-image" onclick="expandImage(this)">
+       {% if reclamation.getFileName() is not null %}  
+<img src="{{ asset('uploads/' ~ reclamation.fileName | split('/') | last) }}" alt="{{ reclamation.fileName }}" class="small-image" onclick="expandImage(this)">
     {% else %} ------{% endif %}</p>
 
     </td>

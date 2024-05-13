@@ -46,7 +46,7 @@
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
                                     <a href="https://www.facebook.com/profile.php?id=61556203525394"><i class="fab fa-facebook-square"></i></a>
-                                    <a href="{{ path('basket')}}" ><i class="fab fa-dribbble" ></i></a>
+                                    <a href="{{ path('basket')}}" ><i class="fa fa-shopping-cart" style="font-size: 35px; color: #fcaf3d;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                     <div class="sercviceinsurance mb-30 text-center"> {# Ajout de la classe text-center pour centrer le contenu #}
                         <div class="sercviceinsurance__item">
                             <div class="sercviceinsurance__thumb">
-                                <img src="{{ asset('uploads/offres/' ~ catoffre.catimg) }}" alt="Offre Image" class="img-fluid" style="max-width: 200px; max-height: 200px;"> {# Ajout de la classe img-fluid pour que l'image soit responsive #}
+                                <img src="{{ asset('uploads/images/' ~ catoffre.catimg | split('/') | last) }}" class="img-fluid" alt="Offre Image" style="width: 200px; height: 200px;">
                             </div>
                             <div class="sercviceinsurance__content z-index-4">
                                 <h4 class="tp-sv-insurance-title"><a href="service-details.html">{{ catoffre.categoriename }}</a></h4>

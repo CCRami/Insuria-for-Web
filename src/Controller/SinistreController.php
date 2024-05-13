@@ -22,7 +22,7 @@ class SinistreController extends AbstractController
     #[Route('/sinistre', name: 'app_sinistre')]
     public function index(SinistreRepository $rep, PaginatorInterface $paginator, Request $request): Response
     {
-        $queryBuilder = $rep->createQueryBuilder('u')->getQuery(); // Adjust 'u' as needed or customize the query
+        $queryBuilder = $rep->createQueryBuilder('u')->getQuery(); 
     
         $sinister = $rep->findAll();
         $pagination = $paginator->paginate(
@@ -45,6 +45,7 @@ class SinistreController extends AbstractController
             'sinistre' => $sinistre,
         ]);
     }
+    
     #[Route('/sinistre/edit/{id}', name: 'sinistre_edit')]
 public function editsini(Request $request, EntityManagerInterface $em, SinistreRepository $rep, int $id, SluggerInterface $slugger): Response
 {
@@ -64,9 +65,10 @@ public function editsini(Request $request, EntityManagerInterface $em, SinistreR
             $sinistreDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/sinistres';
             $file->move($sinistreDirectory, $newFilename);
 
-            $rec->setImagePath($newFilename);
+            $fullImagePath = $sinistreDirectory . '/' . $newFilename;
+            $rec->setImagePath($fullImagePath);
         } else {
-            
+            // Garder l'image originale si aucune nouvelle image n'est téléchargée
             $rec->setImagePath($originalImage);
         }
 
@@ -81,41 +83,40 @@ public function editsini(Request $request, EntityManagerInterface $em, SinistreR
     ]);
 }
 
-    #[Route('/sinistre/new', name: 'sinistre_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
-    {
-        $sinistre = new Sinistre();
-        $form = $this->createForm(SinistreType::class, $sinistre );
-        $form->handleRequest($request);
-    
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('imagePath')->getData(); 
-            if ($file) {
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = $slugger->slug($originalFilename);
-                
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-    
-                
-                $sinistreDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/sinistres';
-                $file->move($sinistreDirectory, $newFilename);
-    
-                
-                $sinistre->setImagePath($newFilename);
-            }
-    
-            $entityManager->persist($sinistre);
-            $entityManager->flush();
-    
-            
-            return $this->redirectToRoute('app_sinistre');
+#[Route('/sinistre/new', name: 'sinistre_new')]
+public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+{
+    $sinistre = new Sinistre();
+    $form = $this->createForm(SinistreType::class, $sinistre);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $file = $form->get('imagePath')->getData();
+        if ($file) {
+            $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+
+            // Définir le répertoire pour les images de sinistre
+            $sinistreDirectory = $this->getParameter('kernel.project_dir').'/public/uploads/sinistres';
+            // Déplacer le fichier vers le répertoire spécifié
+            $file->move($sinistreDirectory, $newFilename);
+
+            // Construire le chemin absolu complet
+            $fullImagePath = $sinistreDirectory . '/' . $newFilename;
+            $sinistre->setImagePath($fullImagePath);
         }
-    
-        return $this->render('back/sinistreadd.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
+        $entityManager->persist($sinistre);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sinistre');
     }
+
+    return $this->render('back/sinistreadd.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
     
 #[Route('/sinistre/delete/{id}', name: 'sinistre_delete')]
 public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityManagerInterface $em): Response
@@ -139,13 +140,13 @@ public function deleteRec(Request $req, SinistreRepository $rep, $id, EntityMana
 #[Route('/sinistre/search', name: 'sinistre_search')]
     public function search(Request $request, SinistreRepository $sinistreRepository): Response
     {
-        // Récupérer le terme de recherche depuis la requête
+        
         $term = $request->query->get('term');
 
-        // Utiliser le repository pour chercher les sinistres qui correspondent au terme de recherche
+
         $sinistres = $sinistreRepository->findByTerm($term);
 
-        // Préparer les données pour la réponse JSON
+        
         return $this->json([
             'data' => $sinistres
         ]);

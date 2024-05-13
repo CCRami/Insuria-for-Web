@@ -134,7 +134,7 @@
                                     <article class="postbox__item format-image mb-50 transition-3">
                                         <div class="postbox__thumb w-img">
                                             <a href="{{ path('rec_affichUser', {'id': rec.id}) }}">
-                                                <img src="{{ asset('uploads/' ~ rec.fileName) }}" alt="Offre Image" style="max-width: 200px; max-height: 200px;">
+                                                <img src="{{ asset('uploads/' ~ rec.fileName | split('/') | last) }}" alt="" style="max-width: 200px; max-height: 200px;">
                                             </a>
                                         </div>
                                         <div class="postbox__content">

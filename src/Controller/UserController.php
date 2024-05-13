@@ -82,11 +82,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/admin/user/edit/{id}', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder,PaginatorInterface $paginator): Response
     {
         $userId = $request->attributes->get('id');
         $user = $entityManager->getRepository(User::class)->find($userId);
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $users = $userRepository->findAll();
         $form = $this->createForm(UserType::class, $user);
+        $pagination = $paginator->paginate(
+            $users,
+            $request->query->getInt('page', 1),
+            5
+        );
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,6 +112,7 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
             'users' => $users,
             'form' => $form->createView(),
+            'pagination' => $pagination,
         ]);
     }
     

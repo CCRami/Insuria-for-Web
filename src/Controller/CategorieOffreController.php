@@ -50,25 +50,23 @@ class CategorieOffreController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('catimg')->getData();
-            
-           
             if ($imageFile) {
-                
-                $fileName = uniqid().'.'.$imageFile->guessExtension();
-                
-              
-                try {
-                    $imageFile->move(
-                        $this->getParameter('offre_images_directory'), 
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                   
-                }
-                
-                
-                $catoffre->setCatimg($fileName);
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $imageFile->guessExtension();
+    
+                $newFilename = $originalFilename.'.'.$extension;
+    
+                $targetDirectory = $this->getParameter('image_directory');
+    
+                $imageFile->move(
+                    $targetDirectory, 
+                    $newFilename
+                );
+    
+                $relativePath = 'file:C:/Users/Mon Pc/Project Insuria/Insuria/public/uploads/images/' . $newFilename;
+                $catoffre->setCatimg($relativePath);
             }
+           
             $em->persist($catoffre);
             $em->flush();
             
@@ -89,16 +87,20 @@ class CategorieOffreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('catimg')->getData();
             if ($imageFile) {
-                $fileName = uniqid().'.'.$imageFile->guessExtension();
-                try {
-                    $imageFile->move(
-                        $this->getParameter('offre_images_directory'), 
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                   
-                }
-                $catoffre->setCatimg($fileName);
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $imageFile->guessExtension();
+    
+                $newFilename = $originalFilename.'.'.$extension;
+    
+                $targetDirectory = $this->getParameter('image_directory');
+    
+                $imageFile->move(
+                    $targetDirectory, 
+                    $newFilename
+                );
+    
+                $relativePath = 'file:C:/Users/Mon Pc/Project Insuria/Insuria/public/uploads/images/' . $newFilename;
+                $catoffre->setCatimg($relativePath);
             }
             
             $em->flush();

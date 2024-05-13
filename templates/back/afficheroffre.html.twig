@@ -121,7 +121,7 @@
                                 <tr>
                                     <td>
                                         {% if offre.offreimg %}
-                                            <img src="{{ asset('uploads/offres/' ~ offre.offreimg) }}" alt="Offre Image" style="max-width: 100px; max-height: 100px;">
+                                            <img src="{{ asset('uploads/images/' ~ offre.offreimg | split('/') | last) }}" alt="Offre Image" style="max-width: 100px; max-height: 100px;">
                                         {% else %}
                                             No Image
                                         {% endif %}

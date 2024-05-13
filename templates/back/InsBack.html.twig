@@ -38,7 +38,7 @@
                                             <td>{{ assurance.catA.namecatins }}</td>
                                             <td>
                                                 {% if assurance.insimage %}
-                                                    <img src="{{ asset('uploads/images/' ~ assurance.insimage) }}" alt="Insurance Image" style="max-width: 65px; max-height: 65px;">
+                                                    <img src="{{ asset('uploads/images/' ~ assurance.insimage | split('\\') | last) }}" alt="Insurance Image" style="max-width: 65px; max-height: 65px;">
                                                 {% else %}
                                                     No Image
                                                 {% endif %}

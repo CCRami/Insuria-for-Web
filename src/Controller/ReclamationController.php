@@ -149,8 +149,8 @@ if ($form->isSubmitted() && $form->isValid()) {
             $this->getParameter('upload_directory'),
             $fileName
         );
-
-        $rec->setFileName($fileName);
+        $relativePath = 'C:/Users/Mon Pc/Project Insuria/Insuria/public/uploads/' . $fileName;
+        $rec->setFileName($relativePath);
         $rec->setCommand($com);
     }
     
