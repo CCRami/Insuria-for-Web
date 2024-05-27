@@ -15,6 +15,6 @@ Office + Back Office` en respectant le modèle `MVC`.
 1. Intégrer des bundles externes `Rating, Statistiques, Partage sur les réseaux sociaux etc....`.
 ## 🛡️ Les contraintes techniques à prendre en considération
 Chaque module doit contenir au minimum deux entités liées avec jointure 
-- Une Seule Base de données partagée entre les 3 clients
+- Une Seule Base de données partagée entre les 2 clients
 - Pas d’utilisation du bundle `FOSUSER `
 - Pas d’utilisation du Bundle `adminBundle` pour la gestion de la partie backoffice pour le Sprint Web
